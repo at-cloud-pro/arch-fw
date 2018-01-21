@@ -1,0 +1,32 @@
+/*
+Oskar Barcz 2018
+CSS3 Framework "framework"
+Filename: style-desktop.css
+
+Main color: 
+Accent color: 
+Darker than main: 
+Div background color: 
+
+
+Main font:
+
+INDEX OF ELEMENTS IN THIS CSS FILE
+
+1. TAGS CODE
+2. REGULAR EXPRESSIONS  (classes)
+3. ONE-TIME ELEMENTS (ids)
+4. INPUT ELEMENTS CODE
+5. COMBINED AND CONNECTED ELEMENTS CODE
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    box-sizing: border-box;
+}
