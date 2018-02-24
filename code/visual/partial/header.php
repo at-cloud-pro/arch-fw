@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-    include_once 'credits.php';
-    $pageDetails = controller_settings::getPageDetails();
+require_once 'credits.html';
+$pageDetails = controller_settings::getPageDetails();
  ?>
 <html lang="<?php echo $pageDetails['pageLanguage']; ?>">
 <head>
@@ -14,6 +14,6 @@
       <meta name="description" content="<?php echo $pageDetails['pageDescription']; ?>">
       <meta name="keywords" content="<?php echo $pageDetails['pageKeywords']; ?>">
       <meta name="author" content="<?php echo $pageDetails['pageAuthor']; ?>">
-    <?php include_once 'css.php'; ?>
+<?php require_once 'css.php'; ?>
 </head>
 <body>
