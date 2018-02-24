@@ -71,10 +71,10 @@ class Model_Database
     {
         if (empty($this->_database)) {
             $this->_database = new PDO(
-                $this->_credintials["dsn"],
-                $this->_credintials["usr"],
-                $this->_credintials["pswd"],
-                $this->_credintials["AddInfo"]
+                $this->_credintials['dbconfig']["dsn"],
+                $this->_credintials['dbconfig']["usr"],
+                $this->_credintials['dbconfig']["pswd"],
+                $this->_credintials['dbconfig']["AddInfo"]
             );
 
             $this->_database->setAttribute(

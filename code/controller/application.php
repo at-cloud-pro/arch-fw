@@ -33,7 +33,7 @@ class Controller_Application
      */
     function __construct($pageTitle=null)
     {
-        $this->_meta = include_once "./appconfig.php";
+        $this->_meta = include_once "./config.php";
     }
 
     /**
