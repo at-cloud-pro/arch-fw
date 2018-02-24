@@ -40,7 +40,7 @@ class Model_Database
     /**
      * Keeps database credintials info from config file
      *
-     * @var string
+     * @var array
      */
     private $_credintials;
 
