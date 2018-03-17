@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Project title
  * 
@@ -24,7 +25,7 @@
  */
 function autoloader($className)
 {
-    $file = dirname(__FILE__) . '/' . str_replace('_' , '/', $className);
+    $file = dirname(__FILE__) . '/' . str_replace('_', '/', $className);
     if (file_exists($path = $file . '.php')) {
         include $path;
         return;
@@ -44,15 +45,65 @@ function router($PREFIX)
     $uri = $_SERVER["REQUEST_URI"];
 
     include "code/visual/partial/header.php";
-    switch ($uri) {
-    case $PREFIX."/":
-        include "code/visual/index.php";
-        break;
 
-    default:
-        include "code/visual/errorcodes/404.html";
-        header("HTTP/1.0 404 Not Found");
-        break;
+    // NAJPIERW SPRAWDŹ CZY ADRES NIE PROWADZI DO ARTYKUŁU, JEŻELI TAK, TO GO WCZYTAJ
+    if (strpos($uri, 'articles/') !== false) {
+        include "code/visual/article.php";
+        die();
     }
-      include_once "code/visual/partial/footer.html";
+    // JEŻELI NIE, URUCHOM STANDARDOWY ROUTER
+    else {
+        switch ($uri) {
+
+            case "$PREFIX/":
+                include "code/visual/index.php";
+                break;
+
+            case "$PREFIX/registration-complete":
+                include "code/visual/confirmation.php";
+                break;
+
+            case "$PREFIX/login":
+                include "code/visual/poweradmin/login.php";
+                break;
+
+            case "$PREFIX/admin":
+                include "code/visual/poweradmin/admin.php";
+                break;
+
+            case "$PREFIX/admin/teams/cs":
+                $_SESSION['currentTeamList'] = 'cs';
+                include "code/visual/poweradmin/teamlist.php";
+                break;
+
+            case "$PREFIX/admin/teams/lol":
+                $_SESSION['currentTeamList'] = 'lol';
+                include "code/visual/poweradmin/teamlist.php";
+                break;
+
+            case "$PREFIX/admin/register":
+                include "code/visual/poweradmin/registrysettings.php";
+                break;
+
+            case "$PREFIX/admin/adduser":
+                include "code/visual/poweradmin/adduser.php";
+                break;
+            case "$PREFIX/admin/pswdchg":
+                include "code/visual/poweradmin/passwordchange.php";
+                break;
+
+            case "$PREFIX/logoff":
+                session_destroy();
+                header("Location: $PREFIX/");
+                break;
+
+            default:
+                include "code/visual/errorcodes/404.html";
+                header("HTTP/1.0 404 Not Found");
+                break;
+        }
+
+    }
+
+    include_once "code/visual/partial/footer.html";
 }

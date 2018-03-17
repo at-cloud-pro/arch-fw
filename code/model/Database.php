@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Project title
  * 
@@ -27,7 +28,7 @@
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      https://dbls.eu
  */
-class Model_Database
+class model_database
 {
 
     /**
@@ -52,7 +53,7 @@ class Model_Database
      */
     function __construct()
     {
-        $this->_credintials = include_once "./dbconfig.php";
+        $this->_credintials = include_once "./config.php";
     }
 
     /**
@@ -70,43 +71,40 @@ class Model_Database
     public function execute($sql, $action)
     {
         if (empty($this->_database)) {
-            $this->_database = new PDO(
-                $this->_credintials['dbconfig']["dsn"],
-                $this->_credintials['dbconfig']["usr"],
-                $this->_credintials['dbconfig']["pswd"],
-                $this->_credintials['dbconfig']["AddInfo"]
-            );
+            $this->_database = new PDO('mysql:host=mysql22.mydevil.net;dbname=m1275_kktournament', 'm1275_kkt', 'P@$$w0rd', array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            ));
 
             $this->_database->setAttribute(
                 PDO::ATTR_ERRMODE,
                 PDO::ERRMODE_EXCEPTION
             );
         }
-        
+
         $query = $this->_database->prepare($sql);
         $query->execute();
 
-        switch ($action){
+        switch ($action) {
 
 
         // Returning all data to associative array
-        case "returnFetched":
-            $fetched = $query->fetchAll(PDO::FETCH_ASSOC);
-            if($fetched==null) return false;
-            else return $fetched;
-            break;
+            case "returnFetched":
+                $fetched = $query->fetchAll(PDO::FETCH_ASSOC);
+                if ($fetched == null) return false;
+                else return $fetched;
+                break;
 
         // Returning only first entry to associative array
-        case "returnOne":
-            $fetched = $query->fetchAll(PDO::FETCH_ASSOC);
-            if($fetched==null) return false;
-            else return $fetched[0];
-            break;
+            case "returnOne":
+                $fetched = $query->fetchAll(PDO::FETCH_ASSOC);
+                if ($fetched == null) return false;
+                else return $fetched[0];
+                break;
 
         // Returning true if instructions were made successfully
-        case "expectingNoData":
-            return true;
-            break;
+            case "expectingNoData":
+                return true;
+                break;
         }
     }
 }

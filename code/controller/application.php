@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Project title
  * 
@@ -15,7 +16,7 @@
  * @link      URL link
  */
 
-class Controller_Application
+class controller_application
 {
     /**
      * Keeps page meta info from config file
@@ -31,7 +32,7 @@ class Controller_Application
      * 
      * @return void
      */
-    function __construct($pageTitle=null)
+    function __construct($pageTitle = null)
     {
         $this->_meta = include_once "./config.php";
     }
