@@ -52,7 +52,7 @@ class Model_Database
      */
     function __construct()
     {
-        $this->_credintials = include_once "./dbconfig.php";
+        $this->_credintials = include_once "./config.php";
     }
 
     /**
