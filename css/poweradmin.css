@@ -1,0 +1,283 @@
+/*
+Oskar Barcz 2017
+CSS3 Framework "KK-Tournament"
+Filename: poweradmin.css
+
+Adobe Color link: https://color.adobe.com/DB-Style-color-theme-10412252/
+
+Background color: #2C3E50
+Accent color: #E74C3C
+Div background color: #ECF0F1
+Div second background: #DDD
+Another (blue): #3498DB
+Another (darker blue): #2980B9
+
+Main font:    'Oswald', sans-serif;
+              'Roboto Slab', serif;
+
+
+
+
+INDEX OF ELEMENTS IN THIS CSS FILE
+
+1. TAGS CODE
+2. REGULAR EXPRESSIONS  (classes)
+3. ONE-TIME ELEMENTS (ids)
+4. INPUT ELEMENTS CODE
+5. COMBINED AND CONNECTED ELEMENTS CODE
+
+*/
+body
+{
+    box-sizing: border-box;
+}
+
+.poweradmin-passwordchange-element
+{
+    margin: 20px auto;
+    height: auto;
+    text-align: left;
+    border-top: 10px #E74C3C solid;
+    text-align: center;
+}
+
+.poweradmin-passwordchange-element input,
+{
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    padding: 5px;
+    margin: 10px auto;
+    width: 70%;
+    text-align: center;
+    border: 2px #E74C3C solid;
+    background: #CCC;
+    border-radius: 5px;
+    color: #000;
+    transition: all 0.2s ease-in-out;
+}
+
+.poweradmin-passwordchange-element input[type="submit"]
+{
+    background: #E74C3C;
+    color: #DDD;
+    width: 73%;
+    transition: all 0.2s ease-in-out;
+}
+
+.poweradmin-passwordchange-element input[type="submit"]:hover
+{
+    background: inherit;
+    color: #E74C3C;
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
+
+}
+
+.poweradmin-passwordchange-element input[type="password"]:focus
+{
+    background: #FFF;
+    transition: all 0.2s ease-in-out;
+}
+
+.poweradmin-passwordchange-element label
+{
+    width: auto;
+}
+
+
+
+
+
+.poweradmin-adduser-element
+{
+    margin: 20px auto;
+    height: auto;
+    text-align: left;
+    border-top: 10px #E74C3C solid;
+    text-align: center;
+}
+
+.poweradmin-adduser-element input,
+.poweradmin-adduser-element select
+{
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    padding: 5px;
+    margin: 10px auto;
+    width: 70%;
+    text-align: center;
+    border: 2px #E74C3C solid;
+    background: #CCC;
+    border-radius: 5px;
+    color: #000;
+    transition: all 0.2s ease-in-out;
+}
+
+.poweradmin-adduser-element input[type="submit"]
+{
+    background: #E74C3C;
+    color: #DDD;
+    width: 73%;
+    transition: all 0.2s ease-in-out;
+}
+
+.poweradmin-adduser-element input[type="submit"]:hover
+{
+    background: inherit;
+    color: #E74C3C;
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
+
+}
+
+.poweradmin-adduser-element input[type="text"]:focus,
+.poweradmin-adduser-element input[type="password"]:focus
+{
+    background: #FFF;
+    transition: all 0.2s ease-in-out;
+}
+
+.poweradmin-adduser-element label
+{
+    width: auto;
+}
+
+
+.section-teamlist-element-red form input{
+    display: inline-block;
+}
+
+
+/* LOGIN */
+
+.login-navigation
+{
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10em;
+}
+
+.login-window
+{
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.login-footer
+{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.login-warning
+{
+    text-align: center;
+    color:#ECF0F1;
+    background: #E74C3C;
+}
+
+
+
+.poweradmin-articleeditor-element
+{
+    margin: 20px auto;
+    height: auto;
+    border-top: 10px #E74C3C solid;
+    text-align: center;
+    box-sizing: border-box;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.poweradmin-articleeditor-element-form
+{
+    width: 100%;
+}
+
+.poweradmin-articleeditor-element input,
+.poweradmin-articleeditor-element textarea
+{
+    display: block;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    margin: 3px auto;
+    border: 2px #E74C3C solid;
+    border-radius: 2px;
+    background: #ECF0F1;
+    font-size: 16px;
+    padding: 5px;
+    width: 90%;
+}
+
+.poweradmin-articleeditor-element input:focus,
+.poweradmin-articleeditor-element textarea:focus
+{
+    background: #DDD;
+}
+.poweradmin-articleeditor-element textarea
+{
+    box-sizing: border-box;
+    height: 500px;
+    text-align: justify;
+    padding: 10px;
+}
+
+.poweradmin-articleeditor-element input[type="submit"]
+{
+    display: block;
+    background-color: #E74C3C;
+    width: 45%;
+    text-align: center;
+    padding: 7px 0;
+    text-decoration: none;
+    color: #ECF0F1;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85em;
+    border-radius: 2px;
+    border: #E74C3C 2px solid;
+    transition: all 0.1s ease-in-out;
+    box-sizing: border-box;
+}
+
+.poweradmin-articleeditor-element input[type="submit"]:hover
+{
+    background: inherit;
+    color: #E74C3C;
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
+
+}
+
+.poweradmin-articleeditor-element label
+{
+    display: block;
+    width: 100%;
+}
+
+.poweradmin-articleeditor-element p
+{
+    display: block;
+    width: 90%;
+    text-align: center;
+}
+
+
+input.width-50,
+select.width-50,
+a.width-50
+{
+    width: 45%;
+}

@@ -1,19 +1,170 @@
 /*
-Oskar Barcz 2018
-CSS3 Framework "framework"
+Oskar Barcz 2017
+CSS3 Framework "KK-Tournament"
 Filename: style-medium.css
 
-INDEX OF ELEMENTS IN THIS CSS FILE
+Main color: 2C3E50
+Accent color: E33C42
+Darker than main: a72323
+Div background color: EEE
 
-1. TAGS CODE
-2. REGULAR EXPRESSIONS  (classes)
-3. ONE-TIME ELEMENTS (ids)
-4. INPUT ELEMENTS CODE
-5. COMBINED AND CONNECTED ELEMENTS CODE
+
+https://color.adobe.com/pl/Kopi-av-KnotJustNautical-color-theme-10258715/edit/?copy=true
+
+Main font:    'Oswald', sans-serif;
+              'Roboto Slab', serif;
+
 
 */
 
-@media (max-width: 920px)
-{
+@media (max-width: 920px) {
 
+body{
+    overflow-x: hidden;
+}
+
+.section-navigation {
+    width: 90%;
+    display: block;
+    z-index: 1000;
+}
+
+.section-navigation-heading
+{
+    text-align: center;
+    width: 100%;
+}
+
+.section-parallax {
+    height: 800px;
+}
+
+.section-parallax-header {
+    top: 22%;
+    width: 430px;
+
+}
+
+.section-about-element
+{
+    width: 90%;
+}
+
+.section-about-element:nth-child(1)
+{
+    order: 1;
+}
+
+.link-as-button {
+    width: 50%;
+    transition: all 0.1s ease-in-out;
+}
+
+.section-left-container {
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.section-right-container {
+    width: 100%;
+    flex-wrap: wrap-reverse;
+}
+
+.section-left-article {
+    width: 90%;
+}
+.section-right-article {
+    width: 90%;
+}
+
+.section-register-container {
+    padding: 20px 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.section-contact-container {
+    padding: 10px 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.section-sponsors-container {
+    padding: 10px 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.link-as-button:hover {
+    background-color: #DDD;
+    transform: scale(1.1);
+    transition: all 0.1s ease-in-out;
+}
+
+.section-contact-container {
+    padding: 30px 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.section-footer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-footer-author,
+.section-footer-social
+{
+    padding: 0;
+    margin: 5px 20px;
+}
+
+span.mobile-only
+{
+    display: inline;
+    padding: 15px 0px;
+    font-size: 2.5em;
+}
+
+.section-navigation ul
+{
+    display: none;
+}
+
+.section-parallax-header img {
+    width: 90%;
+    height: auto;
+}
+
+.section-navigation ul
+{
+    display: none;
+}
+
+.section-about-element-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    overflow: hidden;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+}
+
+
+#map {
+     width: 90%;
+}
 }
