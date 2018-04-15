@@ -1,26 +1,27 @@
 <?php
-
 /**
- * Project title
- * 
- * Longer project description
- * 
+ * Enter here your project documentation
+ *
+ *
  * PHP version 7.2
- * 
- * @category  Cateogry
- * @package   AppName
+ *
+ * @category  <enter category>
+ * @package   <enter package>
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
- * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   URL http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @copyright MIT License
  * @version   GIT:<git_id>
- * @link      URL link
+ * @link      <enter link>
  */
+
+namespace DBLS\Model;
+
+use \PDO as PDO;
 
 /**
  * Full-working database class located in model-part of an app.
- * 
+ *
  * Class that loads data from DB to controllers.
- * 
+ *
  * @category  Model
  * @package   DatabaseByArchitektur
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
@@ -28,7 +29,7 @@
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      https://dbls.eu
  */
-class model_database
+class Database
 {
 
     /**
@@ -45,66 +46,76 @@ class model_database
      */
     private $_credintials;
 
-
     /**
      * Class constructor that automatically loads config from external file
-     * 
+     *
      * @return void
      */
-    function __construct()
+    public function __construct()
     {
-        $this->_credintials = include_once "./config.php";
+        $this->_credintials = include "./config.php";
     }
 
     /**
      * Main operative function, executes SQL queries on database
-     * 
+     *
      * Example of use: $object->execute("SELECT * FROM tablename","returnFetched");
      *
      * @param string $sql    Contains SQL Query
      * @param string $action Allows users to choose what to do
-     *                       with data returned from query
-     * 
-     * @return {array|bool} Assiociative array with fetched elements from database,
+     *                       with data returned from query from
+     *                       options:
+     *
+     * @return array|bool Assiociative array with fetched elements from database,
      *                    returning false when nothing found
      */
-    public function execute($sql, $action)
+    public function execute(string $sql, string $action)
     {
         if (empty($this->_database)) {
-            $this->_database = new PDO('mysql:host=mysql22.mydevil.net;dbname=m1275_kktournament', 'm1275_kkt', 'P@$$w0rd', array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-            ));
+            $this->_database = new PDO(
+                $this->_credintials['dbconfig']["dsn"],
+                $this->_credintials['dbconfig']["usr"],
+                $this->_credintials['dbconfig']["pswd"],
+                $this->_credintials['dbconfig']["addInfo"]
+            );
 
             $this->_database->setAttribute(
                 PDO::ATTR_ERRMODE,
                 PDO::ERRMODE_EXCEPTION
             );
         }
-
         $query = $this->_database->prepare($sql);
         $query->execute();
 
         switch ($action) {
 
-
-        // Returning all data to associative array
+            // Returning all data to associative array
             case "returnFetched":
                 $fetched = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($fetched == null) return false;
-                else return $fetched;
+                if ($fetched == null) {
+                    return false;
+                } else {
+                    return $fetched;
+                }
+
                 break;
 
-        // Returning only first entry to associative array
+            // Returning only first entry to associative array
             case "returnOne":
                 $fetched = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($fetched == null) return false;
-                else return $fetched[0];
+                if ($fetched == null) {
+                    return false;
+                } else {
+                    return $fetched[0];
+                }
+
                 break;
 
-        // Returning true if instructions were made successfully
+            // Returning true if instructions were made successfully
             case "expectingNoData":
                 return true;
                 break;
+
         }
     }
 }

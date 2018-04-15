@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <?php
+
 require_once 'credits.html';
 
-$AppController = new controller_application();
+$AppController = new FRAMEWORK\Controller\Application();
 $pageDetails = $AppController->getPageDetails();
 
-if (isset($_SESSION['pageTitle']) && ($_SESSION['pageTitle'] != null)) {
+if (isset($_SESSION['pageTitle']) and ($_SESSION['pageTitle'] != null)) {
     $pageDetails['appconfig']['pageTitle'] = $_SESSION['pageTitle'];
 }
-
 ?>
 <html lang="<?php echo $pageDetails['appconfig']['pageLanguage']; ?>">
 <head>
@@ -21,6 +21,6 @@ if (isset($_SESSION['pageTitle']) && ($_SESSION['pageTitle'] != null)) {
       <meta name="description" content="<?php echo $pageDetails['appconfig']['pageDescription']; ?>">
       <meta name="keywords" content="<?php echo $pageDetails['appconfig']['pageKeywords']; ?>">
       <meta name="author" content="<?php echo $pageDetails['appconfig']['pageAuthor']; ?>">
-<?php require_once 'css.php'; ?>
+<?php require_once 'css.php';?>
 </head>
 <body>

@@ -1,43 +1,64 @@
 <?php
-//KONTROLLER UŻYWANY DO DODAWANIA I LOGOWANIA UŻYTKOWNIKÓW (PowerAdmin)
+/**
+ * Enter here your project documentation
+ *
+ *
+ * PHP version 7.2
+ *
+ * @category  <enter category>
+ * @package   <enter package>
+ * @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ * @copyright MIT License
+ * @version   GIT:<git_id>
+ * @link      <enter link>
+ */
 
-class controller_users
+namespace FRAMEWORK\Controller;
+
+/**
+ * Simple easy to extend class with basic user authentication
+ */
+class Users
 {
     private $DATABASE;
 
-    function __construct()
+    public function __construct()
     {
-        $this->DATABASE = new model_database();
+        $this->DATABASE = new \FRAMEWORK\Model\Database;
     }
 
-    public function CheckUserExists($login, $password)
+    public function checkUserExists($login, $password, $encrypted)
     {
-        $password_hashed = hash('sha256', $password);
-        
-        $sql = "SELECT * FROM `users` WHERE `login`='$login' AND `password`='$password_hashed';";
-        $fromDatabase = $this->DATABASE->execute($sql, "returnFetched");
-        if (count($fromDatabase)==1)
-        {
-            $fetched = $fromDatabase[0];
+        if ($encrypted) {
+            $passwordHashed = $password;
+        } else {
+            $passwordHashed = hash('sha256', $password);
+        }
+
+        $sql = "SELECT * FROM `users` WHERE `login`='$login' AND `password`='$passwordHashed';";
+        $fromDatabase = $this->DATABASE->execute($sql, "returnOne");
+        if (!empty($fromDatabase)) {
+            $fetched = $fromDatabase;
             $_SESSION['login'] = $fetched['login'];
             $_SESSION['name'] = $fetched['name'];
             $_SESSION['surname'] = $fetched['surname'];
-            $_SESSION['role'] = $fetched['role'];
-            $_SESSION['logged'] = true;
+            $_SESSION['acc_lvl'] = $fetched['acc_lvl'];
+            $_SESSION['passwordEncrypted'] = $fetched['password'];
             return true;
+        } else {
+            return false;
         }
-        else return false;
+
     }
 
-    public function ChangePassword($userLogin, $newPassword)
+    public function changePassword($userLogin, $newPassword)
     {
-        $passwordHashed = hash('sha256', $newPassword);
 
         $sql = "UPDATE `users` SET `password`='$passwordHashed' WHERE `login`='$userLogin'; ";
         $fromDatabase = $this->DATABASE->execute($sql, "expectingNoData");
     }
 
-    function __destruct()
+    public function __destruct()
     {
         $this->DATABASE = null;
     }
