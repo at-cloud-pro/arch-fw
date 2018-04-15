@@ -13,8 +13,9 @@
  * @link      <enter link>
  */
 
-namespace DBLS\Model;
+namespace FRAMEWORK\Model;
 
+use \FRAMEWORK as Model;
 use \PDO as PDO;
 
 /**
@@ -29,7 +30,7 @@ use \PDO as PDO;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      https://dbls.eu
  */
-class Database
+class Database extends Model
 {
 
     /**
@@ -55,7 +56,6 @@ class Database
     {
         $this->_credintials = include "./config.php";
     }
-
     /**
      * Main operative function, executes SQL queries on database
      *
@@ -69,7 +69,7 @@ class Database
      * @return array|bool Assiociative array with fetched elements from database,
      *                    returning false when nothing found
      */
-    public function execute(string $sql, string $action)
+    public function Execute(string $sql, string $action)
     {
         if (empty($this->_database)) {
             $this->_database = new PDO(
@@ -87,35 +87,10 @@ class Database
         $query = $this->_database->prepare($sql);
         $query->execute();
 
-        switch ($action) {
-
-            // Returning all data to associative array
-            case "returnFetched":
-                $fetched = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($fetched == null) {
-                    return false;
-                } else {
-                    return $fetched;
-                }
-
-                break;
-
-            // Returning only first entry to associative array
-            case "returnOne":
-                $fetched = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($fetched == null) {
-                    return false;
-                } else {
-                    return $fetched[0];
-                }
-
-                break;
-
-            // Returning true if instructions were made successfully
-            case "expectingNoData":
-                return true;
-                break;
-
+        if ($action == "expectingNoData") {
+            return true;
+        } else {
+            parent::ReturnValues($action);
         }
     }
 }

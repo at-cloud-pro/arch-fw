@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <?php
-
 require_once 'credits.html';
 
-$AppController = new FRAMEWORK\Controller\Application();
-$pageDetails = $AppController->getPageDetails();
+$pageDetails = $_APP->getPageDetails();
 
 if (isset($_SESSION['pageTitle']) and ($_SESSION['pageTitle'] != null)) {
     $pageDetails['appconfig']['pageTitle'] = $_SESSION['pageTitle'];
