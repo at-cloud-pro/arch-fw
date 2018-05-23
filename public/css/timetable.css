@@ -1,0 +1,65 @@
+.ride-objectlist table
+{
+    margin-top: 10px;
+    text-align: left;
+}
+
+.ride-objectlist td:first-child
+{
+    padding: 2px 5px;
+    text-align: center;
+}
+
+.timetable-city-big
+{
+    font-weight: bolder;
+    font-size: 22px;
+    color: #2C3E50;
+}
+
+.timetable-city
+{
+    font-weight: bolder;
+    font-size: 16px;
+    color: #000;
+}
+
+.timetable-river
+{
+    color: #8a00c1;
+    font-size: 14px;
+}
+
+.timetable-weg-a
+{
+    color: #00F;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.timetable-weg-b
+{
+    color: #ffa500;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.timetable-sbahn
+{
+    color: #007032;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+.timetable-bahn
+{
+    color: #000;
+    font-size: 12px;
+}
+
+.timetable-altbf
+{
+    color: #555;
+    font-size: 14px;
+}

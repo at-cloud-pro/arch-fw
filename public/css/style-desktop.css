@@ -1,0 +1,26 @@
+/*
+Oskar Barcz 2018
+CSS3 Framework "Framework"
+Filename: style-desktop.css
+
+Adobe Color link: https://color.adobe.com/DB-Style-color-theme-10412252/
+
+Background color: #2C3E50
+Accent color: #E74C3C
+Div background color: #ECF0F1
+Another (blue): #3498DB
+Another (darker blue): #2980B9
+
+Font for titles: 'Crete Round', serif;
+Font for texts: 'Open Sans', sans-serif;
+
+*/
+
+
+/* MAIN ELEMENTS */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
