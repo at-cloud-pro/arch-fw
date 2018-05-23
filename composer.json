@@ -1,10 +1,14 @@
 {
+    "name": "ArchFW",
+    "description": "Simple framework that will be expanded in futureS",
+
     "autoload": {
         "psr-4": {
             "": "src/"
         }
     },
     "require": {
+        "php": "^7.0",
         "twig/twig": "^2.0"
     }
 }
