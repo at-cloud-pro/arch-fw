@@ -18,7 +18,6 @@ class Database extends Model
 
     public function __construct()
     {
-        $this->_credintials = include "./config.php";
         $this->_connect();
     }
 
@@ -26,10 +25,10 @@ class Database extends Model
     {
         if (empty($this->_database)) {
             $this->_database = new PDO(
-                $this->_credintials['dbconfig']["dsn"],
-                $this->_credintials['dbconfig']["usr"],
-                $this->_credintials['dbconfig']["pswd"],
-                $this->_credintials['dbconfig']["addInfo"]
+                CONFIG['DBConfig']["dsn"],
+                CONFIG['DBConfig']["usr"],
+                CONFIG['DBConfig']["pswd"],
+                CONFIG['DBConfig']["addInfo"]
             );
         }
     }

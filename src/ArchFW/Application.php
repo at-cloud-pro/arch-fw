@@ -40,8 +40,6 @@ final class Application extends View
     {        
 
         define('CONFIG', $appConfig); // LOADING CONFIG FILE AS CONSTANT
-        print_r(CONFIG['router']);
-    
 
         $this->SecureSession();
         $this->Router();
@@ -60,7 +58,6 @@ final class Application extends View
         }
         
         $file = CONFIG['router'][$route[1]];
-        echo $file;
         
         $wrapper = "$file.php";
         $template = "$file.twig"; 
@@ -93,6 +90,11 @@ final class Application extends View
         setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
     }
 
+    /**
+     * Arranges secure session in application
+     *
+     * @return void Function is not returning any values.
+     */
     private function SecureSession()
     {
         if (session_status() == PHP_SESSION_NONE) {
