@@ -38,7 +38,10 @@ final class Application extends View
 
     public function __construct(array $appConfig)
     {        
+
         define('CONFIG', $appConfig); // LOADING CONFIG FILE AS CONSTANT
+        print_r(CONFIG['router']);
+    
 
         $this->SecureSession();
         $this->Router();
@@ -46,13 +49,21 @@ final class Application extends View
 
     private function Router()
     {
-        $uri = $_SERVER["REQUEST_URI"];
-        echo $_SERVER["REQUEST_URI"];
-        print_r(CONFIG['router']);
-        $file = CONFIG['router'][$_SERVER["REQUEST_URI"]];
+
+        $route = explode(CONFIG['prefix'], $_SERVER["REQUEST_URI"]);
+
+        if(!array_key_exists ( $route[1] , CONFIG['router'] )){
+            // RUNS WHEN ROUTER KEY NOT FOUND
+            echo "ROUTER NOT FOUND, ADD OR CHECK config.php ENTRY!";
+            die;
+
+        }
+        
+        $file = CONFIG['router'][$route[1]];
+        echo $file;
+        
         $wrapper = "$file.php";
         $template = "$file.twig"; 
-        // else throw new \Exception("Router not found!");
    
         parent::Render($wrapper, $template);
 
