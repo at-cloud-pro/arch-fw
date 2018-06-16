@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-{% include '/common/credits.twig' %}
+{{metaComment|raw}}
 <html lang="{{pageLanguage}}">
-<head>
-    <meta charset="{{pageEncoding}}">
-    <title>{{pageTitle}}</title>
-    <link rel="icon"
-      type="image/png"
-      href="https://www.via.placeholder.com/32x32">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="{{pageDescription}}">
-      <meta name="keywords" content="{{pageKeywords}}">
-      <meta name="author" content="{{pageAuthor}}">
-      {% include '/common/css.twig' %}
-</head>
-<body>
+  <head>
+      <meta charset="{{pageEncoding|raw}}">
+      <title>{{pageTitle}}</title>
+      <link rel="icon"
+        type="image/png"
+        href="/img/favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{{pageDescription}}">
+        <meta name="keywords" content="{{pageKeywords}}">
+        <meta name="author" content="{{pageAuthor}}">
+        {% for each in stylesheets %}
+        <!-- {{each.name}} -->
+        <link type="{{each.type}}" rel="{{each.rel}}" href="{{each.link}}" />
+        {% endfor %}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  </head>
+  <body>

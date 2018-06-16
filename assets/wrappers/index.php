@@ -1,3 +1,2 @@
 <?php
-
-return ['test'=> 'test'];
+return ['test'=> 'działa'];

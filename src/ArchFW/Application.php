@@ -1,26 +1,18 @@
 <?php
 /**
- * DBLS - Deutsche Bahn Lokfuhrer Seite - application made for TS2017
- *
- * This page were made for school project and for Train Simulator
- * 2017 purposes. This page has no affilation and never had any
- * with Deutsche Bahn AG.
- * Well, application is made for printing train drive schedule,
- * track distant signalling and other details to make Train
- * Simulator 2017 even more real.
- * I am in possibility to share access to this app, for that please
- * contact me by form available at the bottom of the
- * www.archi-tektur.pl page.
+ * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
+ * 
+ * Visit https://github.com/okbrcz/ArchFW/ for more info.
  *
  * PHP version 7.2
  *
- * @category  Transport
- * @package   DBLS
+ * @category  Framework
+ * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @license   MIT
  * @version   3.0
- * @link      https://dbls.eu
+ * @link      https://github.com/okbrcz/ArchFW/
  */
 
 namespace ArchFW;
@@ -38,7 +30,6 @@ final class Application extends View
 
     public function __construct(array $appConfig)
     {        
-
         define('CONFIG', $appConfig); // LOADING CONFIG FILE AS CONSTANT
 
         $this->SecureSession();
@@ -47,17 +38,37 @@ final class Application extends View
 
     private function Router()
     {
+        //search for first request phrase in advancedrouter config file 
+        if($pos = array_search("/".explode("/",$_SERVER["REQUEST_URI"])[1],  CONFIG['advancedRouter']) !== false ) {
 
-        $route = explode(CONFIG['prefix'], $_SERVER["REQUEST_URI"]);
+            $_SESSION['Variables']['ActualCard'] = explode(CONFIG['advancedRouter'][0]."/", $_SERVER["REQUEST_URI"])[1];
 
-        if(!array_key_exists ( $route[1] , CONFIG['router'] )){
-            // RUNS WHEN ROUTER KEY NOT FOUND
-            echo "ROUTER NOT FOUND, ADD OR CHECK config.php ENTRY!";
-            die;
+            $route = "/".explode("/",$_SERVER["REQUEST_URI"])[1];
+            
+            $file = CONFIG['router'][$route];
 
+        } else if(CONFIG['prefix'] !== "") {
+            $route = explode(CONFIG['prefix'], $_SERVER["REQUEST_URI"]);
+
+            if(!array_key_exists ($route[1], CONFIG['router'])){
+                // RUNS WHEN ROUTER KEY NOT FOUND
+                echo "ADVANCED ROUTER MISCONFIGURED, ADD OR CHECK config.php ENTRY!";
+                die;
+            }
+
+            $file = CONFIG['router'][$route[1]];
+            
+        } else {
+
+            if(!array_key_exists ($_SERVER["REQUEST_URI"], CONFIG['router'])){
+                // RUNS WHEN ROUTER KEY NOT FOUND
+                echo "ROUTER NOT FOUND, ADD OR CHECK config.php ENTRY!";
+                die;
+            }
+            $file = CONFIG['router'][$_SERVER["REQUEST_URI"]];
         }
         
-        $file = CONFIG['router'][$route[1]];
+        
         
         $wrapper = "$file.php";
         $template = "$file.twig"; 
