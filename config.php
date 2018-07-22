@@ -88,11 +88,4 @@ return [
         '/' => 'index',
         '/h' => 'h'
     ],
-
-    // Advanced router is used for articles and many more regular elements.
-    // Even if you are using advaced router, mind that you need to specify where to look for templates and wrappers. You are putting this info as default - in 'router' subarray.
-    'advancedRouter' => 
-    [
-        
-    ]
 ];
