@@ -39,7 +39,7 @@ final class Application extends View
         $wrapper = "$file.php";
         $template = "$file.twig"; 
    
-        parent::Render($wrapper, $template);
+        parent::_render($wrapper, $template);
     }
 
     private function _router($uri)
@@ -56,7 +56,7 @@ final class Application extends View
                 // RUNS WHEN ROUTER KEY NOT FOUND
                 throw new ArchFWException("ADVANCED ROUTER MISCONFIGURED, ADD OR CHECK config.php ENTRY!", 11);
             }
-            return CONFIG['router'][$route[1]];            
+            return CONFIG['router'][$route[1]];
         }
         if(!array_key_exists ($uri, CONFIG['router'])){
             // RUNS WHEN ROUTER KEY NOT FOUND

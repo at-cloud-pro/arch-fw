@@ -70,7 +70,7 @@ return [
     'router' =>
     [
         '/' => 'index',
-        '/h'=> 'h'
+        '/h' => 'h'
     ],
 
     // Advanced router is used for articles and many more regular elements.
