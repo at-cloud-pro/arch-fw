@@ -25,7 +25,7 @@ try {
     }
 
     try {
-        new \ArchFW\Application($cfg, false); // RUNNING APP
+        new Application($cfg, false); // RUNNING APP
     } catch (\ArchFWException $mainClassError) {
         header("Content-Type: text/plain");
         echo ' MAIN CLASS ERROR ' . $e->getCode() . ': ' . $e->getMessage();

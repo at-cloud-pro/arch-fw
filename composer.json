@@ -21,6 +21,7 @@
     
     "require": {
         "php": "^7.0",
-        "twig/twig": "^2.0"
+        "twig/twig": "^2.0",
+        "phpmailer/phpmailer": "^6.0"
     }
 }
