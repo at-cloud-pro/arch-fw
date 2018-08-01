@@ -20,9 +20,7 @@ namespace ArchFW;
 use ArchFW\Base\View;
 use \Exception as ArchFWException;
 
-/**
- * Main method class in RFSF framework, implement methods such as errors, getting config and many more.
- */
+
 final class Application extends View
 {
 
@@ -34,54 +32,84 @@ final class Application extends View
             $this->_https();
         }
         $this->_secureSession();
-        $file = $this->_router($_SERVER["REQUEST_URI"]);
+        $file = $this->_router();
 
         $wrapper = "$file.php";
-        $template = "$file.twig"; 
-   
-        parent::_render($wrapper, $template);
+        $wrapperFilePath = CONFIG['wrapperPath'];
+
     }
 
-    private function _router($uri)
+    private function _router()
     {
-        //search for first request phrase in advancedrouter config file 
-        if(array_search("/".explode("/",$uri)[1],  CONFIG['advancedRouter']) !== false ) {
-
-            $route = "/".explode("/",$_SERVER["REQUEST_URI"])[1];
-            return CONFIG['router'][$route];
-
-        } else if(CONFIG['prefix'] !== "") {
-            $route = explode(CONFIG['prefix'], $uri);
-            if(!array_key_exists ($route[1], CONFIG['router'])){
-                // RUNS WHEN ROUTER KEY NOT FOUND
-                throw new ArchFWException("ADVANCED ROUTER MISCONFIGURED, ADD OR CHECK config.php ENTRY!", 11);
+        // CHECK IF APP HAS 
+        if($uri = explode('/?', $_SERVER['REQUEST_URI'])){
+            if(array_key_exists(1, $uri)) {
+                $_GET = $this->findArgs($uri[1]);
             }
-            return CONFIG['router'][$route[1]];
         }
-        if(!array_key_exists ($uri, CONFIG['router'])){
-            // RUNS WHEN ROUTER KEY NOT FOUND
-            throw new ArchFWException("Router did not found route '$uri' in config file!", 11);
+
+        if(strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
+            // RUNS WHEN ACCESSING API
+            echo 'api';
+        } else {
+            echo 'nonapui';
+
         }
-        return CONFIG['router'][$uri];
+       
+            
+            
+            // print_r($uri);
+            print_r($_GET);
+        
+        die;
+
+        
     }
 
-    #region ERRORCODES
-    /**
-     * Method prints cute visual screen with 404 error, shows default message or custom one if given as argument.
-     *
-     * @param string $errorcode Custom message to show in verbal
-     * @return void Launches    error screen and stops script
-     */
+    private function findArgs(string $string)
+    {
+        $args = \explode('&', $string);
+        $output = [];
+
+        if(count($args) > 0) {
+            foreach ($args as $key => $value) {
+                $str = explode('=', $value);
+                if(array_key_exists(1, $str)) {
+                    $output += [$str[0] => $str[1]];
+                } else {
+                    if($str[0] != "") {
+                        $output += [$str[0] => null];
+                    }
+                }
+            }
+        }
+        return $output;
+    }
+
+    private function assign(string $string, bool $isAPI) 
+    {
+        // print_r($string);
+        if($isAPI) {
+            if(!array_key_exists ($string, CONFIG['apiRouter'])){
+                // RUNS WHEN ROUTER KEY NOT FOUND
+                throw new \Exception("Router did not found route '$string' in API config file!", 11);
+            }
+            return CONFIG['appRouter'][$string];
+        } else {
+            if(!array_key_exists ($string, CONFIG['appRouter'])){
+                // RUNS WHEN ROUTER KEY NOT FOUND
+                throw new \Exception("Router did not found route '$string' in APP config file!", 11);
+            }
+            return CONFIG['appRouter'][$string];
+        }
+        
+    }
+
     public function error($errorCode = null)
     {
 
     }
 
-    /**
-     * Arranges secure session in application
-     *
-     * @return void Function is not returning any values.
-     */
     private function _secureSession()
     {
         // RUN SESSION WHEN IT'S NOT RUNNING

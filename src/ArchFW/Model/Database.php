@@ -62,11 +62,6 @@ class Database extends Model
      */
     public function execute(string $sql, string $action)
     {
-
-        if(\strpos($sql, "--")!==false) {
-            return false;
-        }
-
         $this->_connect();
         $query = $this->_database->prepare($sql);
         $query->execute();

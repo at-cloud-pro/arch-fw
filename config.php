@@ -1,6 +1,6 @@
 <?php
 /**
- * ArchFW Framework config file, read comments and carefully edit. 
+ * ArchFW Framework config file, read comments and carefully edit.
  * 
  * Visit https://github.com/okbrcz/ArchFW/ for more info.
  *
@@ -34,31 +34,15 @@ return [
 
     // Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid name, type, rel and path. Don't forget to check if browser sees your new stylesheet in Page Inspector or similiar tool.
 
-    // "Desktop" => [
-    //     'name' => 'Style - Desktop' /* NOT NULL*/,
-    //     'type' => 'text/css' /* NOT NULL*/,
-    //     'desc' => '',
-    //     'rel' => 'stylesheet' /* NOT NULL*/,
-    //     'link' => '../css/style-desktop.css' /* NOT NULL*/,
-    // ],
-
     'stylesheets' => [
+        "Desktop" => [
+            'name' => 'Style - Desktop' /* NOT NULL*/,
+            'type' => 'text/css' /* NOT NULL*/,
+            'desc' => '',
+            'rel' => 'stylesheet' /* NOT NULL*/,
+            'link' => '../css/style-desktop.css' /* NOT NULL*/,
+        ],
     ],
-
-    // Application is supposed to send an e-mails, so you will need specify some informations
-    'mailConfig' =>
-    [
-        'host' => 'mail22.mydevil.net',
-        'SMTPAuth' => true,
-        'username' => 'test@archi-tektur.pl',
-        'password' => 'P@$$w0rd',
-        'port' => 587,
-        'lang' => 'pl',
-        'langPath'=> 'vendor/phpmailer/phpmailer/language/phpmailer.lang-pl.php',
-        'fromMail' => 'test@archi-tektur.pl',
-        'fromName' => 'Aplikacja EZPasswordManager'
-    ],
-
 
     // Here enter database credintials
     'DBConfig' =>
@@ -83,9 +67,20 @@ return [
     // Add routing here, in the way like this:
     // "x" => "y"
     // where x is your link and y is your wrapper and template files
-    'router' =>
+    'appRouter' =>
     [
         '/' => 'index',
-        '/h' => 'h'
     ],
+
+
+    /* API ZONE */
+
+    'APIrunning' => true,
+
+    'APIrouter' =>
+    [
+        '/status/' => 'status',
+    ],  
+
+    'APIwrappers' => '../assets/api/'
 ];

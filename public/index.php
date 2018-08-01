@@ -24,6 +24,7 @@ try {
         throw new ArchFWException('You are running ArchFW on unsupported PHP version, minimum: 7.0.0, yours: '.PHP_VERSION, 4);
     }
 
+    // TRY TO RUN APP AND CATCH EXCEPTIONS
     try {
         new Application($cfg, false); // RUNNING APP
     } catch (\ArchFWException $mainClassError) {
