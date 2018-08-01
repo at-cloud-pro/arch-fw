@@ -47,21 +47,19 @@ final class Application extends View
         $uri = explode('/?', $_SERVER['REQUEST_URI']);
         if(array_key_exists(1, $uri)) {
             $_GET = $this->findArgs($uri[1]);
+            $uri[0] .= "/";
         }
 
         if(strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
-            // RUNS WHEN ACCESSING API
-            echo 'api';
-            require_once CONFIG['APIwrappers']."/".$this->findFiles($uri[0]."/", false).".php";
+            return $this->findFiles($uri[0], true);
         } else {
-            return $this->findFiles($uri[0]."/", false);
-
+            return $this->findFiles($uri[0], false);
         }        
     }
 
     private function findArgs(string $string)
     {
-        $args = \explode('&', $string);
+        $args = explode('&', $string);
         $output = [];
 
         if(count($args) > 0) {
@@ -81,13 +79,21 @@ final class Application extends View
 
     private function findFiles(string $string, bool $isAPI)
     {
-        // print_r($string);
         if($isAPI) {
-            if(!array_key_exists ($string, CONFIG['apiRouter'])){
+            $string = str_replace("/api", null, $string);
+            if(!array_key_exists ($string, CONFIG['APIrouter'])){
                 // RUNS WHEN ROUTER KEY NOT FOUND
                 throw new \Exception("Router did not found route '$string' in API config file!", 11);
             }
-            return CONFIG['appRouter'][$string];
+            header("Content-Type: application/json");
+
+            $file = CONFIG['APIwrappers']."/".CONFIG['APIrouter'][$string];
+            if(!file_exists("$file.php")){
+                // RUNS WHEN ROUTER KEY NOT FOUND
+                throw new \Exception("File does not exists!", 11);
+            }
+            require_once "$file.php";
+            die;
         } else {
             if(!array_key_exists ($string, CONFIG['appRouter'])){
                 // RUNS WHEN ROUTER KEY NOT FOUND

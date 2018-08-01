@@ -76,6 +76,8 @@ return [
 
     /* API ZONE */
 
+    // ALWAYS END YOUR ADRESS WITH SLASH!!!!!!!!!!!!
+
     'APIrunning' => true,
 
     'APIrouter' =>
@@ -83,5 +85,5 @@ return [
         '/status/' => 'status',
     ],  
 
-    'APIwrappers' => '../assets/api/'
+    'APIwrappers' => '../assets/api'
 ];
