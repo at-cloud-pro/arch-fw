@@ -23,7 +23,7 @@ return [
     // Page meta informations if NOT NULL appears - field can't be null
     'metaConfig' =>
     [
-        'pageTitle' => "ArchiGame 2018",
+        'pageTitle' => "",
         'pageEncoding' => "UTF-8" /* NOT NULL*/,
         'pageLanguage' => "pl" /* NOT NULL*/,
         'pageDescription' => "",
@@ -34,14 +34,14 @@ return [
 
     // Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid name, type, rel and path. Don't forget to check if browser sees your new stylesheet in Page Inspector or similiar tool.
 
+    // "Desktop" => [
+    //     'name' => 'Style - Desktop' /* NOT NULL*/,
+    //     'type' => 'text/css' /* NOT NULL*/,
+    //     'desc' => '',
+    //     'rel' => 'stylesheet' /* NOT NULL*/,
+    //     'link' => '../css/style-desktop.css' /* NOT NULL*/,
+    // ],
     'stylesheets' => [
-        "Desktop" => [
-            'name' => 'Style - Desktop' /* NOT NULL*/,
-            'type' => 'text/css' /* NOT NULL*/,
-            'desc' => '',
-            'rel' => 'stylesheet' /* NOT NULL*/,
-            'link' => '../css/style-desktop.css' /* NOT NULL*/,
-        ],
     ],
 
     // Here enter database credintials

@@ -84,6 +84,17 @@ final class Application extends View
     private function findFiles(string $string, bool $isAPI)
     {
         if($isAPI) {
+        // RUNS IF SERVER MAY BE USED AS API SERVO
+            if(CONFIG['APIrunning'] === false) {
+                header("Content-Type: application/json");
+                echo json_encode([
+                    'error' => true,
+                    'errorCode' => 601,
+                    'errorMessage' => 'API were turned off in app config file on server.'
+                ]);
+                exit;
+            }
+
             $string = str_replace("/api", null, $string);
             if(!array_key_exists ($string, CONFIG['APIrouter'])){
                 // RUNS WHEN ROUTER KEY NOT FOUND
