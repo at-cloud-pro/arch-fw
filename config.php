@@ -70,7 +70,7 @@ return [
     'appRouter' =>
     [
         '/' => 'index',
-        '/adr/' => 'index',
+        '/test/' => 'test',
     ],
 
 
@@ -82,7 +82,7 @@ return [
 
     'APIrouter' =>
     [
-        '/status/' => 'status',
+        '/test/' => 'test',
     ],  
 
     'APIwrappers' => '../assets/api'

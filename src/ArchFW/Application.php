@@ -38,6 +38,10 @@ final class Application extends View
         $template = "$file.twig";
 
         parent::Render($wrapper, $template);
+    }
+    
+    public function error($errorCode = null)
+    {
 
     }
 
@@ -92,8 +96,9 @@ final class Application extends View
                 // RUNS WHEN ROUTER KEY NOT FOUND
                 throw new \Exception("File does not exists!", 11);
             }
-            require_once "$file.php";
-            die;
+            $json = require_once "$file.php";
+            echo json_encode($json);
+            exit;
         } else {
             if(!array_key_exists ($string, CONFIG['appRouter'])){
                 // RUNS WHEN ROUTER KEY NOT FOUND
@@ -102,11 +107,6 @@ final class Application extends View
             return CONFIG['appRouter'][$string];
         }
         
-    }
-
-    public function error($errorCode = null)
-    {
-
     }
 
     private function _secureSession()
