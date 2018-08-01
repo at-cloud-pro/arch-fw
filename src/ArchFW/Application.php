@@ -35,35 +35,28 @@ final class Application extends View
         $file = $this->_router();
 
         $wrapper = "$file.php";
-        $wrapperFilePath = CONFIG['wrapperPath'];
+        $template = "$file.twig";
+
+        parent::Render($wrapper, $template);
 
     }
 
     private function _router()
     {
         // CHECK IF APP HAS 
-        if($uri = explode('/?', $_SERVER['REQUEST_URI'])){
-            if(array_key_exists(1, $uri)) {
-                $_GET = $this->findArgs($uri[1]);
-            }
+        $uri = explode('/?', $_SERVER['REQUEST_URI']);
+        if(array_key_exists(1, $uri)) {
+            $_GET = $this->findArgs($uri[1]);
         }
 
         if(strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
             // RUNS WHEN ACCESSING API
             echo 'api';
+            require_once CONFIG['APIwrappers']."/".$this->findFiles($uri[0]."/", false).".php";
         } else {
-            echo 'nonapui';
+            return $this->findFiles($uri[0]."/", false);
 
-        }
-       
-            
-            
-            // print_r($uri);
-            print_r($_GET);
-        
-        die;
-
-        
+        }        
     }
 
     private function findArgs(string $string)
@@ -86,7 +79,7 @@ final class Application extends View
         return $output;
     }
 
-    private function assign(string $string, bool $isAPI) 
+    private function findFiles(string $string, bool $isAPI)
     {
         // print_r($string);
         if($isAPI) {

@@ -70,6 +70,7 @@ return [
     'appRouter' =>
     [
         '/' => 'index',
+        '/adr/' => 'index',
     ],
 
 
