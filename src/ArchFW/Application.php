@@ -54,7 +54,7 @@ final class Application extends View
      * 
      * @return void
      */
-    public static function error(int $code,string $message,string $method)
+    static public function error(int $code,string $message,string $method)
     {
         http_response_code($code);
         switch ($method) {
