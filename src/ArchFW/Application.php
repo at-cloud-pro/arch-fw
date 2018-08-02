@@ -43,10 +43,10 @@ final class Application extends View
     
     public static function error(int $code,string $message,string $method)
     {
+        http_response_code($code);
         switch ($method) {
             case 'html':
                 $path = CONFIG['pathToErrorPages']."/$code.html";
-                http_response_code($code);
                 if(file_exists($path)){
                     require_once $path;
                     die;
