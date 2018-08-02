@@ -18,7 +18,8 @@
 return [
 
     // Enter here location of main index.php file differential path from server root, null if index is at main root
-    'prefix' => '',
+    // IN DEVELOPMENT
+    // 'prefix' => '',
 
     // Page meta informations if NOT NULL appears - field can't be null
     'metaConfig' =>

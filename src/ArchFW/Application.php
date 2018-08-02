@@ -68,8 +68,6 @@ final class Application extends View
                 header('Content-Type: text/plain');
                 exit("ERROR $code OCCURED, WITH MESSAGE '$message'. ERROR-SPECIFIC FILES WERE NOT FOUND.");
         }
-
-        
     }
 
     private function _router()
@@ -143,7 +141,6 @@ final class Application extends View
             }
             return CONFIG['appRouter'][$string];
         }
-        
     }
 
     private function _secureSession()
@@ -152,7 +149,7 @@ final class Application extends View
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-
+        
         // RESET SESSION ID TO SECURE THE APP
         if (!isset($_SESSION['init'])) {
             session_regenerate_id();

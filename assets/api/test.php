@@ -1,6 +1,7 @@
 <?php 
 
 use ArchFW\Application;
+use ArchAPI\Controller\Authenticator;
 
 $json = [
     'state' => 'working',
@@ -8,6 +9,8 @@ $json = [
 ];
 
 // EXAMPLE OF THROWING ERRORS:
-Application::error(404,"NOT FOUND", "json");
+// Application::error(404,"NOT FOUND", "json");
+
+new Authenticator();
 
 return $json;
