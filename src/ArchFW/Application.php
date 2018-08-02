@@ -20,7 +20,11 @@ namespace ArchFW;
 use ArchFW\Base\View;
 use \Exception as ArchFWException;
 
-
+/**
+ * Representation of ArchFW Application
+ * 
+ * Contains methods such error handling, routing securing session and ensuring security over HTTPS
+ */
 final class Application extends View
 {
 
@@ -41,6 +45,15 @@ final class Application extends View
         parent::Render($wrapper, $template);
     }
     
+    /**
+     * Showing visual or JSON style errors
+     *
+     * @param integer $code HTTP code of an error to be thrown
+     * @param string $message message to be shown
+     * @param string $method Choose between method to show error, values: html|plain|json
+     * 
+     * @return void
+     */
     public static function error(int $code,string $message,string $method)
     {
         http_response_code($code);
@@ -70,6 +83,13 @@ final class Application extends View
         }
     }
 
+    /**
+     * Whole big method for assigning wrappers and templates depending on URI
+     * 
+     * Depending on URI returns API wrappers or TWIG Templates and PHP Wrappers
+     *
+     * @return string filename that has to be loaded
+     */
     private function _router()
     {
         // CHECK IF APP HAS 
@@ -85,6 +105,14 @@ final class Application extends View
         return $this->findFiles($uri[0], false);       
     }
 
+    /**
+     * Returns array of GET values in URI
+     * 
+     * Simple gets all data after '?', then puts it in an array. Required if using REST style routing. Run function and assing returned values to $_GET variable.
+     *
+     * @param string $string
+     * @return void
+     */
     private function findArgs(string $string)
     {
         $args = explode('&', $string);
@@ -107,10 +135,13 @@ final class Application extends View
 
     /**
      * Finds file name for specified URI
+     * 
+     * Function is checking if in config file is specified which file app should load when user enters specified URI. By default looking for twig templates, if $isAPI variable is set to true, only loads API wrapper.
      *
      * @param string $string Requested URI file part
      * @param boolean $isAPI Set to true when accessing API server
-     * @return void
+     * @return string Returns filename when found
+     * @throws Exception when route were not found
      */
     private function findFiles(string $string, bool $isAPI)
     {
@@ -150,6 +181,12 @@ final class Application extends View
         }
     }
 
+
+    /**
+     * Ensures that app has loaded session safely
+     *
+     * @return void
+     */
     private function _secureSession()
     {
         // RUN SESSION WHEN IT'S NOT RUNNING
@@ -164,6 +201,13 @@ final class Application extends View
         }
     }
 
+    /**
+     * Enforcing on app usage of HTTP Secure protocol instead of normal HTTP
+     * 
+     * If page is detected to run over HTTP only, page will be redirected to HTTPS. Run only on compatible servers, may cause problems if server does not offer HTTPS connections.
+     *
+     * @return void
+     */
     private function _https() 
     {
         if($_SERVER["HTTPS"] !== "on")
