@@ -20,8 +20,36 @@ namespace ArchFW\Model;
 use \ArchFW\Base\Model;
 use \PDO;
 
-class Database extends Model
+final class Database extends Model
 {
+    /**
+     * Holds Database instance status
+     * 
+     * @var object
+     * @access private
+     */
+    private static $dbInstance = false;
+ 
+    /**
+     * Returns database instance
+     *
+     * @return Database
+     * @access public
+     * @static
+     */
+    public static function getInstance()
+    {
+        if( self::$dbInstance === false )
+        {
+            self::$dbInstance = new Database();
+        }
+        return self::$dbInstance;
+    }
+ 
+    private function __construct() 
+    {
+        $this->_connect();
+    }
 
     /**
      * Represents an PDO object
@@ -29,11 +57,6 @@ class Database extends Model
      * @var object
      */
     private $_database;
-
-    public function __construct()
-    {
-        $this->_connect();
-    }
 
     private function _connect()
     {
