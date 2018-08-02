@@ -1,6 +1,6 @@
 <?php
 
-namespace ArchAPI\Controller;
+namespace ArchFW\Controller;
 
 class Authenticator
 {

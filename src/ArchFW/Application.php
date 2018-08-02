@@ -105,6 +105,13 @@ final class Application extends View
         return $output;
     }
 
+    /**
+     * Finds file name for specified URI
+     *
+     * @param string $string Requested URI file part
+     * @param boolean $isAPI Set to true when accessing API server
+     * @return void
+     */
     private function findFiles(string $string, bool $isAPI)
     {
         if($isAPI) {
