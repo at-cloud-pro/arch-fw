@@ -11,8 +11,8 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   3.0
- * @link      https://github.com/okbrcz/ArchFW/
+ * @version   4.0
+ * @link      https://github.com/archi-tektur/ArchFW/
  */
 
 namespace ArchFW;
@@ -123,10 +123,8 @@ final class Application extends View
                 $str = explode('=', $value);
                 if(array_key_exists(1, $str)) {
                     $output += [$str[0] => $str[1]];
-                } else {
-                    if($str[0] != "") {
-                        $output += [$str[0] => null];
-                    }
+                } else if($str[0] != "") {
+                    $output += [$str[0] => null];
                 }
             }
         }

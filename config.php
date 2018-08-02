@@ -11,7 +11,7 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   3.0
+ * @version   4.0
  * @link      https://github.com/okbrcz/ArchFW/
  */
 
