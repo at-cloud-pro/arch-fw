@@ -73,6 +73,9 @@ return [
         '/test/' => 'test',
     ],
 
+    // Path to catalogue with errorcodes
+    'pathToErrorPages' => '../assets/errorpages',
+
 
     /* API ZONE */
 

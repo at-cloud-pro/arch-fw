@@ -24,9 +24,10 @@ use \Exception as ArchFWException;
 final class Application extends View
 {
 
-    public function __construct(array $appConfig, $forceHTTPS = true)
+    public function __construct(array $appConfig, bool $forceHTTPS = true, bool $dev = false)
     {        
         define('CONFIG', $appConfig); // LOADING CONFIG FILE AS CONSTANT
+        define('DEVMODE', $dev);
 
         if($forceHTTPS) {
             $this->_https();
@@ -40,9 +41,35 @@ final class Application extends View
         parent::Render($wrapper, $template);
     }
     
-    public function error($errorCode = null)
+    public static function error(int $code,string $message,string $method)
     {
+        switch ($method) {
+            case 'html':
+                $path = CONFIG['pathToErrorPages']."/$code.html";
+                http_response_code($code);
+                if(file_exists($path)){
+                    require_once $path;
+                    die;
+                } 
+                else {
+                    header('Content-Type: text/plain');
+                    exit("ERROR $code OCCURED, WITH MESSAGE '$message'. ERROR-SPECIFIC FILES WERE NOT FOUND.");
+                }
+                    
+            case 'json':
+                header('Content-Type: application/json');
+                exit(json_encode([
+                    'error' => true,
+                    'errorCode' => $code,
+                    'errorMessage' => $message,
+                ]));
+            
+            case 'plain': 
+                header('Content-Type: text/plain');
+                exit("ERROR $code OCCURED, WITH MESSAGE '$message'. ERROR-SPECIFIC FILES WERE NOT FOUND.");
+        }
 
+        
     }
 
     private function _router()
@@ -56,9 +83,8 @@ final class Application extends View
 
         if(strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
             return $this->findFiles($uri[0], true);
-        } else {
-            return $this->findFiles($uri[0], false);
-        }        
+        }
+        return $this->findFiles($uri[0], false);       
     }
 
     private function findArgs(string $string)
