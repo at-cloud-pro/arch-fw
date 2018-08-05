@@ -9,4 +9,6 @@ use ArchFW\Application;
 // new Authenticator();
 
 
+
+
 return ['test'=> 'working'];

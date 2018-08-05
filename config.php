@@ -51,9 +51,11 @@ return [
     # Here enter database credintials
     'DBConfig' =>
     [
-        'dsn' => 'mysql:host=;dbname=',
-        'usr' => 'root',
-        'pswd' => '',
+        'databaseType' => 'mysql',
+        'databaseName' => 'test',
+        'server' => 'localhost',
+        'user' => 'root',
+        'password' => '',
         // additional PDO options - UTF8 by default
         'addInfo' => 
         [
@@ -90,6 +92,7 @@ return [
     'APIrouter' =>
     [
         '/test/' => 'test',
+        '/db/' => 'db',
     ],  
 
     'APIwrappers' => '../assets/api'

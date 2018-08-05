@@ -4,21 +4,19 @@
     "description": "Boilerplate for ArchFW",
     "homepage": "https://github.com/okbrcz/ArchFW-boilerplate",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Oskar 'archi_tektur' Barcz",
-            "email": "kontakt@archi-tektur.pl",
-            "homepage": "https://www.archi-tektur.pl",
-            "role": "Developer"
-        }
-    ],
+    "authors": [{
+        "name": "Oskar 'archi_tektur' Barcz",
+        "email": "kontakt@archi-tektur.pl",
+        "homepage": "https://www.archi-tektur.pl",
+        "role": "Developer"
+    }],
 
     "autoload": {
         "psr-4": {
             "": "src/"
         }
     },
-    
+
     "require": {
         "php": "^7.0",
         "twig/twig": "^2.0"

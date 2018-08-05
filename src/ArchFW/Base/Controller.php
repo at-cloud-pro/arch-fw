@@ -17,6 +17,7 @@
 
 namespace ArchFW\Base;
 
+
 /**
  * Abstract controller class that is creating Database connection object on creation and destroys it on object dissapearing.
  */
@@ -32,13 +33,24 @@ abstract class Controller
 
     public function __construct()
     {
-        $this->_database = new \ArchFW\Model\Database;
+        $this->_database = new \ArchFW\Model\Database([
+            'database_type' => CONFIG['DBConfig']['databaseType'],
+            'database_name' => CONFIG['DBConfig']['databaseName'],
+            'server' => CONFIG['DBConfig']['server'],
+            'username' => CONFIG['DBConfig']['user'],
+            'password' => CONFIG['DBConfig']['password']
+        ]);
     }
 
     public function __wakeup()
     {
-        $this->_database = new \ArchFW\Model\Database;
-
+        $this->_database = new \ArchFW\Model\Database([
+            'database_type' => CONFIG['DBConfig']['databaseType'],
+            'database_name' => CONFIG['DBConfig']['databaseName'],
+            'server' => CONFIG['DBConfig']['server'],
+            'username' => CONFIG['DBConfig']['user'],
+            'password' => CONFIG['DBConfig']['password']
+        ]);
     }
 
 }
