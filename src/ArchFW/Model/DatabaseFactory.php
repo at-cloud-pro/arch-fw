@@ -1,12 +1,12 @@
 <?php
 
-namespace ArchFW\Factory;
+namespace ArchFW\Model;
 
 use \ArchFW\Model\Database;
 
 class DatabaseFactory
 {
-    public static function getDBInstance()
+    public static function getInstance()
     {
         return new \ArchFW\Model\Database([
             'database_type' => CONFIG['DBConfig']['databaseType'],
