@@ -18,9 +18,7 @@
 namespace ArchFW\Base;
 
 abstract class View
-{
-
-    
+{    
     private $loader;
     private $twig;
 
@@ -42,10 +40,5 @@ abstract class View
         } catch (Exception $t) {
             echo "dupa";
         }
-        
-
-        
-
     }
-
 }

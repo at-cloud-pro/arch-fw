@@ -48,7 +48,7 @@ return [
     'stylesheets' => [
     ],
 
-    # Here enter database credintials
+    # Here enter database details
     'DBConfig' =>
     [
         'databaseType' => 'mysql',
@@ -75,8 +75,8 @@ return [
     # where x is your link and y is your wrapper and template files
     'appRouter' =>
     [
-        '/' => 'index',
-        '/test/' => 'test',
+        '' => 'index',
+        '/test' => 'test',
     ],
 
     # Path to catalogue with errorcodes
@@ -91,8 +91,8 @@ return [
 
     'APIrouter' =>
     [
-        '/test/' => 'test',
-        '/db/' => 'db',
+        '/test' => 'test',
+        '/db' => 'db',
     ],  
 
     'APIwrappers' => '../assets/api'

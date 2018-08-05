@@ -1,13 +1,17 @@
 <?php
 
 namespace ArchFW\Controller;
-use ArchFW\Base\Controller;
 
-class DatabaseTest extends Controller
+use ArchFW\Factory\DatabaseFactory;
+
+
+class DBTEST
 {
     function dl()
     {
-        $data = $this->_database->select("base", [
+        $db = DatabaseFactory::getDBInstance();
+
+        $data = $db->select("base", [
             "id",
             "name",
             "surname",

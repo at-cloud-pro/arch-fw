@@ -3,7 +3,7 @@
  
 // Initialize
 
-$db = new \ArchFW\Controller\DatabaseTest();
+$db = new \ArchFW\Controller\DBTEST;
 
 $data = $db->dl();
  

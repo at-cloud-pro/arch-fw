@@ -93,13 +93,12 @@ final class Application extends View
     private function _router()
     {
         // CHECK IF APP HAS 
-        $uri = explode('/?', $_SERVER['REQUEST_URI']);
+        $uri = explode('?', $_SERVER['REQUEST_URI']);
         if(array_key_exists(1, $uri)) {
             $_GET = $this->findArgs($uri[1]);
-            $uri[0] .= "/";
         }
 
-        if(strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
+        if(strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             return $this->findFiles($uri[0], true);
         }
         return $this->findFiles($uri[0], false);       
@@ -150,21 +149,19 @@ final class Application extends View
                 echo json_encode([
                     'error' => true,
                     'errorCode' => 601,
-                    'errorMessage' => 'API were turned off in app config file on server.'
+                    'errorMessage' => 'API functionality were turned off in app config file on server.'
                 ]);
                 exit;
             }
 
             $string = str_replace("/api", null, $string);
             if(!array_key_exists ($string, CONFIG['APIrouter'])){
-                // RUNS WHEN ROUTER KEY NOT FOUND
                 throw new \Exception("Router did not found route '$string' in API config file!", 11);
             }
             header("Content-Type: application/json");
 
             $file = CONFIG['APIwrappers']."/".CONFIG['APIrouter'][$string];
             if(!file_exists("$file.php")){
-                // RUNS WHEN ROUTER KEY NOT FOUND
                 throw new \Exception("File does not exists!", 11);
             }
             $json = require_once "$file.php";
@@ -172,7 +169,6 @@ final class Application extends View
             exit;
         } else {
             if(!array_key_exists ($string, CONFIG['appRouter'])){
-                // RUNS WHEN ROUTER KEY NOT FOUND
                 throw new \Exception("Router did not found route '$string' in APP config file!", 11);
             }
             return CONFIG['appRouter'][$string];
