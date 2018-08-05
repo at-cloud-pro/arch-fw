@@ -1,10 +1,13 @@
 <?php
 
- 
-// Initialize
+use ArchFW\Controller\APITEST;
+use Examples\Controller\Authenticator;
 
-$db = new \ArchFW\Controller\DBTEST;
 
-$data = $db->dl();
+
+new Authenticator("region");
+
+
+die;
  
 return $data;
