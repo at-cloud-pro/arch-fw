@@ -7,19 +7,18 @@
  * Copyright 2018, Angel Lai
  * Released under the MIT license
  */
-
 namespace ArchFW\Model;
 
 use PDO;
 use Exception;
 use PDOException;
 
-class Raw {
+final class Raw {
 	public $map;
 	public $value;
 }
 
-class Database
+final class Database
 {
 	public $pdo;
 
