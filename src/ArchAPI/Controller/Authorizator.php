@@ -68,7 +68,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @return array with logins and passwords
      */
-    abstract public function getCredintials() : array;
+    abstract public function getCredintials(string $region) : array;
 
     /**
      * Throws re-validate header and visible (or not) error

@@ -12,5 +12,5 @@ interface IAuthorizator
      *
      * @return array with logins and passwords
      */
-    function getCredintials() : array;
+    function getCredintials(string $region) : array;
 }
