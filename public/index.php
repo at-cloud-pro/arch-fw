@@ -58,6 +58,8 @@ try {
         header("Content-Type: text/plain");
         exit('INITIAL ERROR ' . $e->getCode() . ': ' . $e->getMessage());
     } else {
+        ini_set("display_errors", 0);
+        ini_set("log_errors", 1);
         header('Content-Type: text/plain');
         exit("Initial Error happened, turn on dev mode to diagnose.");
     }

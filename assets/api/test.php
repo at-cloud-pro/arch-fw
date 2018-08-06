@@ -1,6 +1,10 @@
 <?php 
 
 use ArchFW\Application;
+use Examples\Controller\Authenticator;
+
+// Example of safe authenticate
+new Authenticator("region");
 
 $json = [
     'state' => 'working',

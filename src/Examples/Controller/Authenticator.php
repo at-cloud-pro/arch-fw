@@ -8,6 +8,6 @@ class Authenticator extends Auth
 {
    public function getCredintials(string $region) : array
    {
-       return ['us'=>'pw'];
+       return ['admin'=>'admin'];
    }
 }

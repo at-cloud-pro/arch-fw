@@ -71,6 +71,6 @@ final class APIAuth
             } else {
                 return false;
             }
-        }
+        } else return false;
     }
 }

@@ -36,15 +36,17 @@ return [
         'metaComment' => ""
     ],
 
-    # Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid name, type, rel and path. Don't forget to check if browser sees your new stylesheet in Page Inspector or similiar tool.
+    # Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid name, type, rel and path. Don't forget to check if browser sees your new stylesheet in Page Inspector or similiar tool. Example:
 
-    // "Desktop" => [
-    //     'name' => 'Style - Desktop' /* NOT NULL*/,
-    //     'type' => 'text/css' /* NOT NULL*/,
-    //     'desc' => '',
-    //     'rel' => 'stylesheet' /* NOT NULL*/,
-    //     'link' => '../css/style-desktop.css' /* NOT NULL*/,
-    // ],
+    /*
+    "Desktop" => [
+        'name' => 'Style - Desktop' NOT NULL,
+        'type' => 'text/css' NOT NULL,
+        'desc' => '',
+        'rel' => 'stylesheet'  NOT NULL,
+        'link' => '../css/style-desktop.css',
+    ],
+    */
     'stylesheets' => [
     ],
 
