@@ -6,7 +6,7 @@ use ArchAPI\Controller\Authorizator as Auth;
 
 class Authenticator extends Auth
 {
-   public function getCredintials()
+   public function getCredintials() : array
    {
        return ['us'=>'pw'];
    }
