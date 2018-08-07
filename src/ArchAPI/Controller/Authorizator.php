@@ -1,4 +1,19 @@
 <?php
+/**
+ * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
+ *
+ * Visit https://github.com/okbrcz/ArchFW/ for more info.
+ *
+ * PHP version 7.2
+ *
+ * @category  Framework
+ * @package   ArchFW
+ * @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ * @copyright 2018 Oskar 'archi_tektur' Barcz
+ * @license   MIT
+ * @version   4.0
+ * @link      https://github.com/archi-tektur/ArchFW/
+ */
 
 namespace ArchAPI\Controller;
 
@@ -22,7 +37,7 @@ abstract class Authorizator implements IAuthorizator
 
     public function __construct(string $region, string $method = 'json')
     {
-        if($method === "json" OR $method === "html" OR $method === "plain"){
+        if ($method === "json" or $method === "html" or $method === "plain") {
             // validate if string is correct
             $this->_method = $method;
         } else {
@@ -31,9 +46,11 @@ abstract class Authorizator implements IAuthorizator
         }
 
         $this->_isValid = null;
-        if(!empty($crd = $this->getCredintials($region))) {
+        if (!empty($crd = $this->getCredintials($region))) {
             $this->_validate($crd);
-        } else Application::error(500, "No method to authorize!", $this->_method);
+        } else {
+            Application::error(500, "No method to authorize!", $this->_method);
+        }
 
     }
 
@@ -54,7 +71,7 @@ abstract class Authorizator implements IAuthorizator
             // else use APIAuth to authorize access
             $log = new APIAuth($userList);
 
-            if($log->authorize()){
+            if ($log->authorize()) {
                 $this->_isValid = true;
             } else {
                 $this->_isValid = false;
@@ -68,7 +85,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @return array with logins and passwords
      */
-    abstract public function getCredintials(string $region) : array;
+    abstract public function getCredintials(string $region): array;
 
     /**
      * Throws re-validate header and visible (or not) error

@@ -1,7 +1,7 @@
 <?php
 /**
  * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
- * 
+ *
  * Visit https://github.com/okbrcz/ArchFW/ for more info.
  *
  * PHP version 7.2
@@ -17,10 +17,9 @@
 
 namespace ArchFW\Controller;
 
-use \Exception as ArchFWException;
 use PHPMailer\PHPMailer\PHPMailer;
 
-class Mailer 
+class Mailer
 {
     private $cfg;
 
@@ -37,7 +36,7 @@ class Mailer
         // $this->sendMail($title, $body);
     }
 
-    private function loadData() 
+    private function loadData()
     {
         $this->mail->isSMTP();
         $this->mail->Host = $this->cfg['host'];
@@ -59,17 +58,14 @@ class Mailer
         $this->mail->addBCC("test@archi-tektur.pl", "kopia");
     }
 
-    public function sendMail(string $title,string $body, bool $isHTML)
+    public function sendMail(string $title, string $body, bool $isHTML)
     {
-        $this->mail->isHTML(true);   
-            
+        $this->mail->isHTML(true);
+
         $this->mail->Subject = $title;
         $this->mail->Body = $body;
 
         return $this->mail->send();
     }
 
-
 }
-
-

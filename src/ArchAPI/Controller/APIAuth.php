@@ -1,7 +1,7 @@
 <?php
 /**
  * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
- * 
+ *
  * Visit https://github.com/okbrcz/ArchFW/ for more info.
  *
  * PHP version 7.2
@@ -17,13 +17,12 @@
 
 namespace ArchAPI\Controller;
 
-
 /**
- * Instance of this class compares credintials given from developer written class with user-entered from browser's Basic Auth. You will probably have no need to use or extend this class. 
+ * Instance of this class compares credintials given from developer written class with user-entered from browser's Basic Auth. You will probably have no need to use or extend this class.
  */
 final class APIAuth
 {
-    
+
     /**
      * Holds BasicAuth username
      *
@@ -62,15 +61,18 @@ final class APIAuth
      *
      * @return boolean true if success, false if fail
      */
-    final public function authorize() : bool
+    final public function authorize(): bool
     {
-        if(array_key_exists($_SERVER['PHP_AUTH_USER'], $this->_userlist)){
+        if (array_key_exists($_SERVER['PHP_AUTH_USER'], $this->_userlist)) {
             // if userlist contains given username
-            if($this->_userlist[$_SERVER['PHP_AUTH_USER']] === $_SERVER['PHP_AUTH_PW']){
+            if ($this->_userlist[$_SERVER['PHP_AUTH_USER']] === $_SERVER['PHP_AUTH_PW']) {
                 return true;
             } else {
                 return false;
             }
-        } else return false;
+        } else {
+            return false;
+        }
+
     }
 }
