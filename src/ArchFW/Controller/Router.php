@@ -1,8 +1,16 @@
 <?php
 namespace ArchFW\Controller;
 
-class Router
+final class Router
 {
+
+    /**
+     * Holds additional values holded in requested uri divided to array by slash.
+     *
+     * @var array
+     */
+    private $_values;
+
     /**
      * Function for assigning wrappers and templates depending on URI
      *
@@ -60,22 +68,26 @@ class Router
      * @return string Returns filename when found
      * @throws Exception when route were not found
      */
-    private function _findFiles(string $string, bool $isAPI)
+    private function _findFiles(string $string, bool $isAPI) : string
     {
         if ($isAPI) {
             // RUNS IF SERVER MAY BE USED AS API SERVO
             if (CONFIG['APIrunning'] === false) {
                 header("Content-Type: application/json");
-                echo json_encode([
-                    'error' => true,
-                    'errorCode' => 601,
-                    'errorMessage' => 'API functionality were turned off in app config file on server.',
-                ]);
-                exit;
+                new Error(601,'API functionality were turned off in app config file on server.', Error::JSON);
             }
 
+            // deleting /api keyword from string
             $string = str_replace("/api", null, $string);
-            if (!array_key_exists($string, CONFIG['APIrouter'])) {
+
+            $perhapsKeys = (explode("/", $string));
+
+            // delete first key, it's always empty because given string has /*/* format
+            array_shift($perhapsKeys);
+            
+            $this->_setRouterValues($perhapsKeys);
+            
+            if (!array_key_exists('/'.$perhapsKeys[0], CONFIG['APIrouter'])) {
                 throw new \Exception("Router did not found route '$string' in API config file!", 11);
             }
             header("Content-Type: application/json");
@@ -93,6 +105,11 @@ class Router
             }
             return CONFIG['appRouter'][$string];
         }
+    }
+
+    private function _setRouterValues(array $values) : void
+    {
+        $this->_values = $values;
     }
 }
 
