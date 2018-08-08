@@ -37,7 +37,6 @@ final class Application extends View
     public function __construct(array $appConfig, bool $forceHTTPS = true, bool $dev = false)
     {
         define('CONFIG', $appConfig); // LOADING CONFIG FILE AS CONSTANT
-        define('DEVMODE', $dev);
 
         if ($forceHTTPS) {
             $this->_https();
@@ -46,6 +45,9 @@ final class Application extends View
         
         $this->Router = new Router;
         $file = $this->Router->getFileName();
+        $rest = $this->Router->getValues();
+
+        define('ROUTER', $rest);
 
         $wrapper = "$file.php";
         $template = "$file.twig";

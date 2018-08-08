@@ -111,5 +111,10 @@ final class Router
     {
         $this->_values = $values;
     }
+
+    public function getValues()
+    {
+        return $this->_values;
+    }
 }
 

@@ -3,9 +3,7 @@
 use ArchFW\Controller\Error;
 
 // EXAMPLE OF THROWING ERRORS:
-new Error(404,"NOT FOUND", Error::HTML);
-
-
+// new Error(404,"NOT FOUND", Error::HTML);
 // new Authenticator();
 
 
