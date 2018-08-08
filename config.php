@@ -89,7 +89,7 @@ return [
 
     # ALWAYS END YOUR ADRESS WITH SLASH!!!!!!!!!!!!
 
-    'APIrunning' => FALSE,
+    'APIrunning' => true,
 
     'APIrouter' =>
     [

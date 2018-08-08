@@ -112,9 +112,9 @@ class Error implements IError
      *
      * @return void
      */
-    protected function _plainError(bool $flag) : void
+    protected function _plainError(bool $force /* FORCE */) : void
     {
-        if(!CONFIG['dev'] or !$flag){
+        if(!CONFIG['dev'] or !$force){
             $this->_htmlError();
         } else {
             header('Content-Type: text/plain');
