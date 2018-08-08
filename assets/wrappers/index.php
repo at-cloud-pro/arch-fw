@@ -1,9 +1,9 @@
 <?php
 
-use ArchFW\Application;
+use ArchFW\Controller\Error;
 
 // EXAMPLE OF THROWING ERRORS:
-// Application::error(404,"NOT FOUND", "html");
+new Error(404,"NOT FOUND", Error::HTML);
 
 
 // new Authenticator();

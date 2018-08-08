@@ -27,7 +27,6 @@ use ArchFW\Controller\Router;
  */
 final class Application extends View
 {
-
     /**
      * Holds pointer to application router
      *
@@ -51,44 +50,7 @@ final class Application extends View
         $wrapper = "$file.php";
         $template = "$file.twig";
 
-        parent::Render($wrapper, $template);
-    }
-
-    /**
-     * Showing visual or JSON style errors
-     *
-     * @param integer $code HTTP code of an error to be thrown
-     * @param string $message message to be shown
-     * @param string $method Choose between method to show error, values: html|plain|json
-     *
-     * @return void
-     */
-    public static function error(int $code, string $message, string $method)
-    {
-        http_response_code($code);
-        switch ($method) {
-            case 'html':
-                $path = CONFIG['pathToErrorPages'] . "/$code.html";
-                if (file_exists($path)) {
-                    require_once $path;
-                    die;
-                } else {
-                    header('Content-Type: text/plain');
-                    exit("ERROR $code OCCURED, WITH MESSAGE '$message'. ERROR-SPECIFIC FILES WERE NOT FOUND.");
-                }
-
-            case 'json':
-                header('Content-Type: application/json');
-                exit(json_encode([
-                    'error' => true,
-                    'errorCode' => $code,
-                    'errorMessage' => $message,
-                ]));
-
-            case 'plain':
-                header('Content-Type: text/plain');
-                exit("ERROR $code OCCURED, WITH MESSAGE '$message'. ERROR-SPECIFIC FILES WERE NOT FOUND.");
-        }
+        parent::_render($wrapper, $template);
     }
 
     /**

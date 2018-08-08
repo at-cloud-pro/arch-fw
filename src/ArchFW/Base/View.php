@@ -19,16 +19,16 @@ namespace ArchFW\Base;
 
 abstract class View
 {    
-    private $loader;
-    private $twig;
+    private $_loader;
+    private $_twig;
 
-    protected function Render($wrapperfile, $templatefile)
+    protected function _render($wrapperfile, $templatefile)
     {
         try {
-            $this->loader = new \Twig_Loader_Filesystem(CONFIG['twigConfig']['twigTemplatesPath']);
+            $this->_loader = new \Twig_Loader_Filesystem(CONFIG['twigConfig']['twigTemplatesPath']);
 
-            $this->twig = new \Twig_Environment($this->loader);
-            $template = $this->twig->load($templatefile);
+            $this->_twig = new \Twig_Environment($this->_loader);
+            $template = $this->_twig->load($templatefile);
 
             $vars = CONFIG['metaConfig'];
             $vars += [
