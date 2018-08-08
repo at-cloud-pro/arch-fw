@@ -59,18 +59,18 @@ class Error implements IError
         $this->_code = $code;
         $this->_message = $message;
 
-        $this->_action();
+        $this->action();
         
         http_response_code($code);
         switch ($method) {
             case self::HTML:
                 $this->_htmlError();
 
-            case 'json':
+            case self::JSON:
                 $this->_jsonError();
 
-            case 'plain':
-                $this->_plainError();
+            case self::PLAIN:
+                $this->_plainError(false);
         }
     }
 
@@ -84,9 +84,9 @@ class Error implements IError
         $path = CONFIG['pathToErrorPages'] . "/$this->_code.html";
         if (file_exists($path)) {
             require_once $path;
-            die;
+            exit;
         } else {
-            $this->_plainError();
+            $this->_plainError(true);
         }
     } 
 
@@ -107,13 +107,19 @@ class Error implements IError
     
     /**
      * Throw plaintext error
+     * 
+     * @var bool set true to force plain error
      *
      * @return void
      */
-    protected function _plainError() : void
+    protected function _plainError(bool $flag) : void
     {
-        header('Content-Type: text/plain');
-        exit("ERROR $this->_code OCCURED, WITH MESSAGE '$this->_message'. ERROR-SPECIFIC FILES WERE NOT FOUND.");
+        if(!CONFIG['dev'] or !$flag){
+            $this->_htmlError();
+        } else {
+            header('Content-Type: text/plain');
+            exit("ERROR $this->_code OCCURED, WITH MESSAGE '$this->_message'. ERROR-SPECIFIC FILES WERE NOT FOUND, OR DEV MODE IS TURNED ON.");
+        }
     }
 
     /**
@@ -121,7 +127,7 @@ class Error implements IError
      *
      * @return void
      */
-    public function _action() : void
+    public function action() : void
     {
 
     }

@@ -115,9 +115,9 @@ final class Router
             echo json_encode($json);
             exit;
         } else if (!array_key_exists('/'.$explodedURI[0], CONFIG['appRouter'])) {
-            throw new \Exception("Router did not found route '/{$explodedURI[0]}' in APP config file!", 11);
-        } else {
-            new Error(500, "Internal server routing error", Error::HTML);
+            if(CONFIG['dev']){
+                throw new \Exception("Router did not found route '/{$explodedURI[0]}' in APP config file!", 11);
+            }
         }
         return CONFIG['appRouter']['/'.$explodedURI[0]];
     }

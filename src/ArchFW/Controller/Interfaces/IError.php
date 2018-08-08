@@ -12,6 +12,6 @@ interface IError
      *
      * @return void
      */
-    public function _action() : void;
+    public function action() : void;
 }
 
