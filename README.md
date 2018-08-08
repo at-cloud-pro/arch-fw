@@ -1,6 +1,6 @@
 # ArchFW - modern boilerplate for innovative applications
 ArchFW is a short form of ArchFramework. We - archi_tektur team - developed this software as a solution for common PHP applications problems, such as securing session, cute error throwing and routing. Software is still growing, so we are expanding it's capabilities: API serving, using APIs and many many more!
-![GitHub Logo](https://archi-tektur.pl/img/gh/logo-kwadrat.png)
+![GitHub Logo](https://archi-tektur.pl/img/gh/wizytowka-r.png)
 Format: ![Alt Text](url)
 
 ## Requirements
