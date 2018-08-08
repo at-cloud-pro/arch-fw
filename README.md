@@ -1,5 +1,7 @@
 # ArchFW - modern boilerplate for innovative applications
 ArchFW is a short form of ArchFramework. We - archi_tektur team - developed this software as a solution for common PHP applications problems, such as securing session, cute error throwing and routing. Software is still growing, so we are expanding it's capabilities: API serving, using APIs and many many more!
+![GitHub Logo](https://archi-tektur.pl/img/gh/logo-kwadrat.png)
+Format: ![Alt Text](url)
 
 ## Requirements
 Application to be runned requires few composer components, PHP Interpreter above 7.0.0 version with preinstalled PDO library. Database is not required, but it definitely will help in development. Framework requires basic knowledge of PHP, variables, arrays, object-oriented programming. It's dedicated by developers for developers, it's not like WordPress - that every person can easily install. But we are sure that installation of our framework is siply easy.
