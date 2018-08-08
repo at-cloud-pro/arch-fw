@@ -103,7 +103,7 @@ final class Router
                 new Error(601,'API functionality were turned off in app config file on server.', Error::JSON);
             }
             if (!array_key_exists('/'.$explodedURI[1], CONFIG['APIrouter'])) {
-                throw new \Exception("Router did not found route '/{$explodedURI[0]}' in API config file!", 11);
+                throw new \Exception("Router did not found route '/{$explodedURI[1]}' in API config file!", 11);
             }
             header("Content-Type: application/json");
 

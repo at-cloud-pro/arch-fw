@@ -17,6 +17,9 @@
 
 namespace ArchFW\Base;
 
+use ArchFW\Controller\Error;
+
+
 abstract class View
 {    
     private $_loader;
@@ -38,7 +41,7 @@ abstract class View
             $vars += require_once CONFIG['twigConfig']['twigWrappersPath'] . $wrapperfile;
             echo $template->render($vars);
         } catch (Exception $t) {
-            echo "dupa";
+            new Error(602, "Twig Error: $t->getMessage()", Error::PLAIN);
         }
     }
 }

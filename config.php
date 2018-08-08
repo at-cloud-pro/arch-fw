@@ -94,7 +94,7 @@ return [
     'APIrouter' =>
     [
         '/test' => 'test',
-        '/db' => 'db',
+        '/routercheck' => 'routercheck',
     ],  
 
     'APIwrappers' => '../assets/api'
