@@ -45,9 +45,6 @@ final class Application extends View
         
         $this->Router = new Router;
         $file = $this->Router->getFileName();
-        $rest = $this->Router->getValues();
-
-        define('ROUTER', $rest);
 
         $wrapper = "$file.php";
         $template = "$file.twig";

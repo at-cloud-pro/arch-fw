@@ -22,7 +22,7 @@ return [
     // 'prefix' => '',
 
     # Production server switch. When setted to false, all PHP errors will be hidden, fully written to logs. When setted to true, all PHP erros will occur helping debug the application.
-    'dev' => false,
+    'dev' => TRUE,
     
     // Page meta informations if NOT NULL appears - field can't be null
     'metaConfig' =>

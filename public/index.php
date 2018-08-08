@@ -19,6 +19,7 @@ namespace ArchFW;
 use \Exception as ArchFWException;
 
 use ArchFW\Application as App;
+use ArchFW\Controller\Error;
 
 $config = '../config.php'; // CONFIG FILE PATH
 $vendor = '../vendor/autoload.php'; // CONFIG FILE PATH
@@ -46,17 +47,16 @@ try {
         $_APP = new App($cfg, false, true); // RUNNING APP
     } catch (ArchFWException $mainClassError) {
         if ($cfg['dev']) {
-            App::error(404, 'MAIN CLASS ERROR ' . $mainClassError->getCode() . ': ' . $mainClassError->getMessage(), 'plain');
+            new Error(404, 'MAIN CLASS ERROR ' . $mainClassError->getCode() . ': ' . $mainClassError->getMessage(), Error::PLAIN);
         } else {
-            App::error(404, "", 'html');
+            new Error(404, 'Not Found', Error::HTML);
         }
     }
 
 } catch (ArchFWException $e) {
     http_response_code(500);
     if (isset($cfg) and $cfg['dev']) {
-        header("Content-Type: text/plain");
-        exit('INITIAL ERROR ' . $e->getCode() . ': ' . $e->getMessage());
+        new Error(404, 'INITIAL ERROR ' . $mainClassError->getCode() . ': ' . $mainClassError->getMessage(), Error::PLAIN);
     } else {
         ini_set("display_errors", 0);
         ini_set("log_errors", 1);

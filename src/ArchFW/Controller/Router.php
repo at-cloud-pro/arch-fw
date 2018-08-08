@@ -70,51 +70,37 @@ final class Router
      */
     private function _findFiles(string $string, bool $isAPI) : string
     {
+        $explodedURI = (explode("/", $string));
+
+        // delete first key, it's always empty because given string has /*/* format
+        array_shift($explodedURI);
+        // set URI parts as constant array
+        define('ROUTER', $explodedURI);
+
         if ($isAPI) {
             // RUNS IF SERVER MAY BE USED AS API SERVO
             if (CONFIG['APIrunning'] === false) {
                 header("Content-Type: application/json");
                 new Error(601,'API functionality were turned off in app config file on server.', Error::JSON);
             }
-
-            // deleting /api keyword from string
-            $string = str_replace("/api", null, $string);
-
-            $perhapsKeys = (explode("/", $string));
-
-            // delete first key, it's always empty because given string has /*/* format
-            array_shift($perhapsKeys);
-            
-            $this->_setRouterValues($perhapsKeys);
-            
-            if (!array_key_exists('/'.$perhapsKeys[0], CONFIG['APIrouter'])) {
-                throw new \Exception("Router did not found route '$string' in API config file!", 11);
+            if (!array_key_exists('/'.$explodedURI[1], CONFIG['APIrouter'])) {
+                throw new \Exception("Router did not found route '/{$explodedURI[0]}' in API config file!", 11);
             }
             header("Content-Type: application/json");
 
-            $file = CONFIG['APIwrappers'] . "/" . CONFIG['APIrouter'][$string];
+            $file = CONFIG['APIwrappers'] . "/" . CONFIG['APIrouter']['/'.$explodedURI[1]];
             if (!file_exists("$file.php")) {
                 throw new \Exception("File does not exists!", 11);
             }
             $json = require_once "$file.php";
             echo json_encode($json);
             exit;
+        } else if (!array_key_exists('/'.$explodedURI[0], CONFIG['appRouter'])) {
+            throw new \Exception("Router did not found route '/{$explodedURI[0]}' in APP config file!", 11);
         } else {
-            if (!array_key_exists($string, CONFIG['appRouter'])) {
-                throw new \Exception("Router did not found route '$string' in APP config file!", 11);
-            }
-            return CONFIG['appRouter'][$string];
+            new Error(500, "Internal server routing error", Error::HTML);
         }
-    }
-
-    private function _setRouterValues(array $values) : void
-    {
-        $this->_values = $values;
-    }
-
-    public function getValues()
-    {
-        return $this->_values;
+        return CONFIG['appRouter']['/'.$explodedURI[0]];
     }
 }
 
