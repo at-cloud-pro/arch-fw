@@ -117,9 +117,8 @@ final class Router
         } else if (!array_key_exists('/'.$explodedURI[0], CONFIG['appRouter'])) {
             if(CONFIG['dev']){
                 throw new \Exception("Router did not found route '/{$explodedURI[0]}' in APP config file!", 11);
-            } else {
-                new Error(404, "Not Found", Error::HTML);
             }
+            new Error(404, "Not Found", Error::HTML);
         }
         return CONFIG['appRouter']['/'.$explodedURI[0]];
     }

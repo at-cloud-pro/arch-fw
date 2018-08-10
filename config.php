@@ -16,15 +16,10 @@
  */
 
 return [
-
-    # Enter here location of main index.php file differential path from server root, null if index is at main root
-    // IN DEVELOPMENT
-    // 'prefix' => '',
-
-    # Production server switch. When setted to false, all PHP errors will be hidden, fully written to logs. When setted to true, all PHP erros will occur helping debug the application.
+    # Production server switch. When set to false, all PHP errors will be hidden, written to logs. When set to true, all PHP erros will occur, helping debug the application.
     'dev' => false,
     
-    // Page meta informations if NOT NULL appears - field can't be null
+    # Every page has
     'metaConfig' =>
     [
         'pageTitle' => "",
@@ -50,7 +45,7 @@ return [
     'stylesheets' => [
     ],
 
-    # Here enter database details
+    # Here enter database details, if you want to use our extention.
     'DBConfig' =>
     [
         'databaseType' => 'mysql',
@@ -65,37 +60,34 @@ return [
         ],
     ], 
 
-    # Contains direct paths to wrapper files and twig templates
+    # Here enter relative paths to TWIG templates and application wrappers. Until you modify framework internal structure (not recommended!), no need to touch this.
     'twigConfig' =>
     [
         'twigWrappersPath' => '../assets/wrappers/',
         'twigTemplatesPath' => '../assets/templates'
     ],
 
-    # Add routing here, in the way like this:
-    # "x" => "y"
-    # where x is your link and y is your wrapper and template files
+    # Add adresses to our router. Key here is a URL adress user enters, and value is name of wrapper and twig files. When file is in subdirectory, you can use '/', e.g. 'login/recoverpassword'.
     'appRouter' =>
     [
         '/' => 'index',
         '/test' => 'test',
     ],
 
-    # Path to catalogue with errorcodes
+    # Path to catalogue with errorcodes, files inside should be named like an errors they are written for - e.g. '404.html'. PHP is not allowed in this files. Until you modify framework internal structure (not recommended!), no need to touch this.
     'pathToErrorPages' => '../assets/errorpages',
 
-
-    /* API ZONE */
-
-    # ALWAYS END YOUR ADRESS WITH SLASH!!!!!!!!!!!!
-
+    # Simple switch to disable API in whole application. If user will try access, app will throw 601 "Api turned off in app config" error.
     'APIrunning' => true,
 
+
+    # Router in API is matching URL (key here) and wrapper file name (value here)
     'APIrouter' =>
     [
         '/test' => 'test',
         '/routercheck' => 'routercheck',
     ],  
 
+    # Holds path to API wrappers. Until you modify framework internal structure (not recommended!), no need to touch this.
     'APIwrappers' => '../assets/api'
 ];
