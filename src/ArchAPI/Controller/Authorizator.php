@@ -35,6 +35,12 @@ abstract class Authorizator implements IAuthorizator
      */
     protected $_method;
 
+    /**
+     * Authorizator constructor.
+     *
+     * @param string $region
+     * @param string $method Method to errorthrowing just-in-case
+     */
     public function __construct(string $region, string $method = 'json')
     {
         if ($method === "json" or $method === "html" or $method === "plain") {

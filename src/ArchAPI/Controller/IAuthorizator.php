@@ -25,6 +25,8 @@ interface IAuthorizator
     /**
      * Returns array with user logins and passwords
      *
+     * @var string $region region which user has to access
+     *
      * @return array with logins and passwords
      */
     function getCredintials(string $region): array;

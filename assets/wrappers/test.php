@@ -1,3 +1,3 @@
 <?php
-print_r(ROUTER);
-return [];
+
+return ['router' => ROUTER];

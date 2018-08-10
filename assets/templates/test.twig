@@ -1,0 +1,9 @@
+{% include "common/header.twig" %}
+
+<main class="main-info">
+    <h1>This is router test page.</h1>
+    <p>Your URL has this elements: {% for routes in router %}  {{routes}},{% endfor %}.</p>
+    <p>All of them are accessible via <span class="code">ROUTER[$index]</span> constant in every wrapper file.</p>
+</main>
+
+{% include "common/footer.twig" %}
