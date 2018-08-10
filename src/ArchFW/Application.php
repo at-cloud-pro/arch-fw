@@ -75,7 +75,7 @@ final class Application extends View
     /**
      * Sets current to state error reporting style developer mode switch dependent.
      *
-     * @param boolean $dev flag is developer mode turned on
+     * @param boolean $isDev flag is developer mode turned on
      *
      * @return void
      */

@@ -42,7 +42,7 @@ try {
     include_once $vendor; // LOADING LIBS AND CLASSES
 
     try {
-    $_APP = new App($cfg, false /*Force HTTPS*/); // RUNNING APP
+        new App($cfg, false); // RUNNING APP
     } catch (\Exception $mainClassError) {
         if ($cfg['dev']) {
             new Error(404, 'MAIN CLASS ERROR ' . $mainClassError->getCode() . ': ' . $mainClassError->getMessage(), Error::PLAIN);

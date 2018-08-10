@@ -17,6 +17,8 @@
 
 namespace ArchAPI\Controller;
 
+use ArchFW\Controller\Error;
+
 abstract class Authorizator implements IAuthorizator
 {
     /**
@@ -58,7 +60,7 @@ abstract class Authorizator implements IAuthorizator
      * @param array $userList with logins and passwords
      * @return void
      */
-    protected function _validate(array $userList)
+    protected function _validate(array $userList): void
     {
         if (!isset($_SERVER['PHP_AUTH_USER'])) {
             // if BasicAuth username were not given, throw headers with WWW-Authenticate

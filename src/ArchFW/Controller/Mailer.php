@@ -36,7 +36,7 @@ class Mailer
         // $this->sendMail($title, $body);
     }
 
-    private function loadData()
+    private function loadData(): void
     {
         $this->mail->isSMTP();
         $this->mail->Host = $this->cfg['host'];

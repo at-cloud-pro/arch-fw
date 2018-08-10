@@ -65,12 +65,15 @@ class Error implements IError
         switch ($method) {
             case self::HTML:
                 $this->_htmlError();
-
+                break;
             case self::JSON:
                 $this->_jsonError();
-
+                break;
             case self::PLAIN:
                 $this->_plainError(false);
+                break;
+            default:
+                $this->_plainError(true);
         }
     }
 
@@ -83,7 +86,7 @@ class Error implements IError
     {
         $path = CONFIG['pathToErrorPages'] . "/$this->_code.html";
         if (file_exists($path)) {
-            require_once $path;
+            require_once($path);
             exit;
         } else {
             $this->_plainError(true);

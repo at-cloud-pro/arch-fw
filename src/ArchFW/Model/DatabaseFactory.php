@@ -16,8 +16,6 @@
  */
 namespace ArchFW\Model;
 
-use \ArchFW\Model\Database;
-
 final class DatabaseFactory
 {
     /**
@@ -27,7 +25,7 @@ final class DatabaseFactory
      */
     final public static function getInstance()
     {
-        return new \ArchFW\Model\Database([
+        return new Database([
             'database_type' => CONFIG['DBConfig']['databaseType'],
             'database_name' => CONFIG['DBConfig']['databaseName'],
             'server' => CONFIG['DBConfig']['server'],
