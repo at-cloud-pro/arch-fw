@@ -16,7 +16,6 @@
  */
 
 namespace ArchFW;
-use \Exception as ArchFWException;
 
 use ArchFW\Application as App;
 use ArchFW\Controller\Error;
@@ -25,27 +24,26 @@ $config = '../config.php'; // CONFIG FILE PATH
 $vendor = '../vendor/autoload.php'; // CONFIG FILE PATH
 
 try {
-    // ENSURE CONFIG IS LOADED AND IS ARRAY
+    // ENSURE CONFIG IS LOADED
     if(!file_exists($config)){
-        throw new ArchFWException("Config file wasn't found!", 2);
+        throw new \Exception("Config file wasn't found!", 2);
     }
     $cfg = include_once $config; // LOADING CONFIG
 
     // ENSURE RUNNING PHP AT LEAST 7.0.0
     if (version_compare(PHP_VERSION, '7.0.0') < 0) {
-        throw new ArchFWException('You are running ArchFW on unsupported PHP version, minimum: 7.0.0, yours: '.PHP_VERSION, 4);
+        throw new \Exception('You are running ArchFW on unsupported PHP version, minimum: 7.0.0, yours: '.PHP_VERSION, 4);
     }
 
     // ENSURE HAVING VENDOR FILES
     if(!file_exists($vendor)) {
-        throw new ArchFWException('VENDOR files were not found, run \'composer install\' over main framework folder.', 3);
+        throw new \Exception('VENDOR files were not found, run \'composer install\' over main framework folder.', 3);
     }
-    include_once $vendor; // LOADING APP
+    include_once $vendor; // LOADING LIBS AND CLASSES
 
-    // TRY TO RUN APP AND CATCH EXCEPTIONS
     try {
-        $_APP = new App($cfg, false, true); // RUNNING APP
-    } catch (ArchFWException $mainClassError) {
+    $_APP = new App($cfg, false /*Force HTTPS*/); // RUNNING APP
+    } catch (\Exception $mainClassError) {
         if ($cfg['dev']) {
             new Error(404, 'MAIN CLASS ERROR ' . $mainClassError->getCode() . ': ' . $mainClassError->getMessage(), Error::PLAIN);
         } else {
@@ -53,15 +51,14 @@ try {
         }
     }
 
-} catch (ArchFWException $e) {
+} catch (\Exception $e) {
     http_response_code(500);
     if (isset($cfg) and $cfg['dev']) {
         new Error(404, 'INITIAL ERROR ' . $mainClassError->getCode() . ': ' . $mainClassError->getMessage(), Error::PLAIN);
     } else {
         ini_set("display_errors", 0);
         ini_set("log_errors", 1);
-        header('Content-Type: text/plain');
-        exit("Initial Error happened, turn on dev mode to diagnose.");
+        new Error(500, "Initial Error happened, turn on dev mode to diagnose.", Error::PLAIN);
     }
     
 }

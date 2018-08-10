@@ -16,33 +16,44 @@
  */
 
 return [
+    # Welcome in config file dear programmer! In care for your safety and comfort we've commented everything what you may change or destroy. Please read comments carefully, deleting some of this lines and settings might be a strong reason why your app isn't working correctly.
+
+    # If you want to add your own setting, place it carefully below this settings, match the key so you won't override actual settings. You can reach this config as defined CONFIG constant in every scope.
+
     # Production server switch. When set to false, all PHP errors will be hidden, written to logs. When set to true, all PHP erros will occur, helping debug the application.
-    'dev' => false,
+    'dev' => true,
     
     # Every page has
     'metaConfig' =>
     [
-        'pageTitle' => "",
-        'pageEncoding' => "UTF-8" /* NOT NULL*/,
+        'pageTitle' => '',
+        'pageEncoding' => 'UTF-8' /* NOT NULL*/,
         'pageLanguage' => "pl" /* NOT NULL*/,
-        'pageDescription' => "",
-        'pageKeywords' => "",
+        'pageDescription' => '',
+        'pageKeywords' => '',
         'pageAuthor' => "Oskar 'archi_tektur' Barcz",
-        'metaComment' => ""
+        'metaComment' => ''
     ],
 
-    # Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid name, type, rel and path. Don't forget to check if browser sees your new stylesheet in Page Inspector or similiar tool. Example:
-
+    # Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid name, type, rel and path. Don't forget to check if browser sees your new stylesheet in Page Inspector or similiar tool. 
     /*
+    Example:
     "Desktop" => [
-        'name' => 'Style - Desktop' NOT NULL,
-        'type' => 'text/css' NOT NULL,
+        'name' => 'Style - Desktop',
+        'type' => 'text/css',
         'desc' => '',
-        'rel' => 'stylesheet'  NOT NULL,
+        'rel' => 'stylesheet',
         'link' => '../css/style-desktop.css',
     ],
     */
     'stylesheets' => [
+        "Example" => [
+            'name' => 'example stylesheet',
+            'type' => 'text/css',
+            'desc' => 'This stylesheet is for better view of startup page, ',
+            'rel' => 'stylesheet',
+            'link' => '../css/example-css.css',
+        ],
     ],
 
     # Here enter database details, if you want to use our extention.
@@ -86,6 +97,7 @@ return [
     [
         '/test' => 'test',
         '/routercheck' => 'routercheck',
+        '/auth' => 'auth'
     ],  
 
     # Holds path to API wrappers. Until you modify framework internal structure (not recommended!), no need to touch this.

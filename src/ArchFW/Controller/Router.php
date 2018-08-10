@@ -22,14 +22,6 @@ namespace ArchFW\Controller;
  */
 final class Router
 {
-
-    /**
-     * Holds additional values holded in requested uri divided to array by slash.
-     *
-     * @var array
-     */
-    private $_values;
-
     /**
      * Function for assigning wrappers and templates depending on URI
      *
@@ -37,7 +29,7 @@ final class Router
      *
      * @return string filename that has to be loaded
      */
-    public function getFileName()
+    public function getFileName() : string
     {
         // CHECK IF APP HAS
         $uri = explode('?', $_SERVER['REQUEST_URI']);
@@ -59,7 +51,7 @@ final class Router
      * @param string $string
      * @return void
      */
-    private function _findArgs(string $string)
+    private function _findArgs(string $string) : array
     {
         $args = explode('&', $string);
         $output = [];
@@ -103,7 +95,7 @@ final class Router
                 new Error(601,'API functionality were turned off in app config file on server.', Error::JSON);
             }
             if (!array_key_exists('/'.$explodedURI[1], CONFIG['APIrouter'])) {
-                throw new \Exception("Router did not found route '/{$explodedURI[1]}' in API config file!", 11);
+                new Error(404,"Router did not found route '/{$explodedURI[1]}' in API config file!", Error::JSON);
             }
             header("Content-Type: application/json");
 

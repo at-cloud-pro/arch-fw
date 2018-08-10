@@ -2,7 +2,7 @@
 /**
  * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
  *
- * Visit https://github.com/okbrcz/ArchFW/ for more info.
+ * Visit https://github.com/archi-tektur/ArchFW/ for more info.
  *
  * PHP version 7.2
  *
@@ -23,7 +23,7 @@ use ArchFW\Controller\Router;
 /**
  * Representation of ArchFW Application
  *
- * Contains methods such error handling, routing securing session and ensuring security over HTTPS
+ * Contains methods such securing session and ensuring security over HTTPS. It's also an app starter - constructor here does all stuff you need to run an app. App will not check validity of vendor or config, so you have to do it separately.
  */
 final class Application extends View
 {
@@ -34,7 +34,7 @@ final class Application extends View
      */
     private $Router;
 
-    public function __construct(array $appConfig, bool $forceHTTPS = true, bool $dev = false)
+    public function __construct(array $appConfig, bool $forceHTTPS = true)
     {
         define('CONFIG', $appConfig); // LOADING CONFIG FILE AS CONSTANT
 
@@ -42,6 +42,7 @@ final class Application extends View
             $this->_https();
         }
         $this->_secureSession();
+        $this->_errorReporting(CONFIG['dev']);
         
         $this->Router = new Router;
         $file = $this->Router->getFileName();
@@ -53,11 +54,11 @@ final class Application extends View
     }
 
     /**
-     * Ensures that app has loaded session safely
+     * Ensures that app has loaded session safely.
      *
      * @return void
      */
-    private function _secureSession()
+    private function _secureSession() : void
     {
         // RUN SESSION WHEN IT'S NOT RUNNING
         if (session_status() == PHP_SESSION_NONE) {
@@ -72,13 +73,34 @@ final class Application extends View
     }
 
     /**
-     * Enforcing on app usage of HTTP Secure protocol instead of normal HTTP
+     * Sets current to state error reporting style developer mode switch dependent.
      *
-     * If page is detected to run over HTTP only, page will be redirected to HTTPS. Run only on compatible servers, may cause problems if server does not offer HTTPS connections.
+     * @param boolean $dev flag is developer mode turned on
      *
      * @return void
      */
-    private function _https()
+    private function _errorReporting(bool $isDev) : void
+    {
+        if($isDev) {
+            // IF IN DEVELOPER MODE SHOW ALL ERRORS
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+        } else {
+            // ELSE IF IN PRODUCTION MODE HIDE ALL ERRORS
+            error_reporting(0);
+            ini_set('display_errors', 0);
+        }
+    }
+
+    /**
+     * Enforcing on app usage of HTTP Secure protocol instead of normal HTTP/
+     *
+     * If page is detected to run over HTTP only, page will be redirected to HTTPS. Run only on compatible servers, will cause problems if server does not offer HTTPS connections.
+     *
+     * @return void
+     */
+    private function _https() : void
     {
         if ($_SERVER["HTTPS"] !== "on") {
             header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
