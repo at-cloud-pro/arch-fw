@@ -1,7 +1,7 @@
 <?php
 /**
  * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
- * 
+ *
  * Visit https://github.com/okbrcz/ArchFW/ for more info.
  *
  * PHP version 7.2
@@ -25,7 +25,7 @@ use ArchFW\Controller\Interfaces\IError;
 class Error implements IError
 {
     /**
-     * Defining class 
+     * Defining class
      */
     public const JSON = 'json';
     public const HTML = 'html';
@@ -60,7 +60,7 @@ class Error implements IError
         $this->_message = $message;
 
         $this->action();
-        
+
         http_response_code($code);
         switch ($method) {
             case self::HTML:
@@ -82,7 +82,7 @@ class Error implements IError
      *
      * @return void
      */
-    protected function _htmlError() : void
+    protected function _htmlError(): void
     {
         $path = CONFIG['pathToErrorPages'] . "/$this->_code.html";
         if (file_exists($path)) {
@@ -91,14 +91,14 @@ class Error implements IError
         } else {
             $this->_plainError(true);
         }
-    } 
+    }
 
     /**
      * Throw JSON error response
      *
      * @return void
      */
-    protected function _jsonError() : void
+    protected function _jsonError(): void
     {
         header('Content-Type: application/json');
         exit(json_encode([
@@ -106,18 +106,18 @@ class Error implements IError
             'errorCode' => $this->_code,
             'errorMessage' => $this->_message,
         ]));
-    } 
-    
+    }
+
     /**
      * Throw plaintext error
-     * 
+     *
      * @var bool set true to force plain error
      *
      * @return void
      */
-    protected function _plainError(bool $force /* FORCE */) : void
+    protected function _plainError(bool $force /* FORCE */): void
     {
-        if(!CONFIG['dev'] or !$force){
+        if (!CONFIG['dev'] or !$force) {
             $this->_htmlError();
         } else {
             header('Content-Type: text/plain');
@@ -130,7 +130,7 @@ class Error implements IError
      *
      * @return void
      */
-    public function action() : void
+    public function action(): void
     {
 
     }

@@ -1,12 +1,8 @@
 <?php
 
-use ArchFW\Controller\Error;
-
 // EXAMPLE OF THROWING ERRORS:
 // new Error(404,"NOT FOUND", Error::HTML);
 // new Authenticator();
 
 
-
-
-return ['test'=> 'working'];
+return ['test' => 'working'];

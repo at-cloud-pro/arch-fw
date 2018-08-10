@@ -1,7 +1,7 @@
 <?php
 /**
  * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
- * 
+ *
  * Visit https://github.com/okbrcz/ArchFW/ for more info.
  *
  * PHP version 7.2
@@ -29,7 +29,7 @@ final class Router
      *
      * @return string filename that has to be loaded
      */
-    public function getFileName() : string
+    public function getFileName(): string
     {
         // CHECK IF APP HAS
         $uri = explode('?', $_SERVER['REQUEST_URI']);
@@ -51,7 +51,7 @@ final class Router
      * @param string $string
      * @return void
      */
-    private function _findArgs(string $string) : array
+    private function _findArgs(string $string): array
     {
         $args = explode('&', $string);
         $output = [];
@@ -79,7 +79,7 @@ final class Router
      * @return string Returns filename when found
      * @throws Exception when route were not found
      */
-    private function _findFiles(string $string, bool $isAPI) : string
+    private function _findFiles(string $string, bool $isAPI): string
     {
         $explodedURI = (explode("/", $string));
 
@@ -92,27 +92,27 @@ final class Router
             // RUNS IF SERVER MAY BE USED AS API SERVO
             if (CONFIG['APIrunning'] === false) {
                 header("Content-Type: application/json");
-                new Error(601,'API functionality were turned off in app config file on server.', Error::JSON);
+                new Error(601, 'API functionality were turned off in app config file on server.', Error::JSON);
             }
-            if (!array_key_exists('/'.$explodedURI[1], CONFIG['APIrouter'])) {
-                new Error(404,"Router did not found route '/{$explodedURI[1]}' in API config file!", Error::JSON);
+            if (!array_key_exists('/' . $explodedURI[1], CONFIG['APIrouter'])) {
+                new Error(404, "Router did not found route '/{$explodedURI[1]}' in API config file!", Error::JSON);
             }
             header("Content-Type: application/json");
 
-            $file = CONFIG['APIwrappers'] . "/" . CONFIG['APIrouter']['/'.$explodedURI[1]];
+            $file = CONFIG['APIwrappers'] . "/" . CONFIG['APIrouter']['/' . $explodedURI[1]];
             if (!file_exists("$file.php")) {
                 throw new \Exception("File does not exists!", 11);
             }
             $json = require_once "$file.php";
             echo json_encode($json);
             exit;
-        } else if (!array_key_exists('/'.$explodedURI[0], CONFIG['appRouter'])) {
-            if(CONFIG['dev']){
+        } else if (!array_key_exists('/' . $explodedURI[0], CONFIG['appRouter'])) {
+            if (CONFIG['dev']) {
                 throw new \Exception("Router did not found route '/{$explodedURI[0]}' in APP config file!", 11);
             }
             new Error(404, "Not Found", Error::HTML);
         }
-        return CONFIG['appRouter']['/'.$explodedURI[0]];
+        return CONFIG['appRouter']['/' . $explodedURI[0]];
     }
 }
 

@@ -16,6 +16,11 @@
  */
 namespace ArchFW\Model;
 
+/**
+ * Factory is creating new Database handler with pre-installed configuration
+ *
+ * @package ArchFW\Model
+ */
 final class DatabaseFactory
 {
     /**

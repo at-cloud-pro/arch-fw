@@ -1,7 +1,7 @@
 <?php
 /**
  * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
- * 
+ *
  * Visit https://github.com/okbrcz/ArchFW/ for more info.
  *
  * PHP version 7.2

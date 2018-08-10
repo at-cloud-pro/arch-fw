@@ -1,7 +1,7 @@
 <?php
 /**
  * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
- * 
+ *
  * Visit https://github.com/okbrcz/ArchFW/ for more info.
  *
  * PHP version 7.2
@@ -18,30 +18,34 @@
 namespace ArchFW\Base;
 
 use ArchFW\Controller\Error;
-
+use Exception;
+use Twig_Environment as Environment;
+use Twig_Loader_Filesystem as Loader;
 
 abstract class View
-{    
+{
     private $_loader;
     private $_twig;
 
     protected function _render($wrapperfile, $templatefile)
     {
-        try {
-            $this->_loader = new \Twig_Loader_Filesystem(CONFIG['twigConfig']['twigTemplatesPath']);
+        $erro = null;
 
-            $this->_twig = new \Twig_Environment($this->_loader);
+        try {
+            $this->_loader = new Loader(CONFIG['twigConfig']['twigTemplatesPath']);
+
+            $this->_twig = new Environment($this->_loader);
             $template = $this->_twig->load($templatefile);
 
             $vars = CONFIG['metaConfig'];
             $vars += [
-                'stylesheets'=>CONFIG['stylesheets']
+                'stylesheets' => CONFIG['stylesheets'],
             ];
 
             $vars += require_once CONFIG['twigConfig']['twigWrappersPath'] . $wrapperfile;
             echo $template->render($vars);
         } catch (Exception $t) {
-            new Error(602, "Twig Error: $t->getMessage()", Error::PLAIN);
+            new Error(602, "Twig Error: {$t->getMessage()}", Error::PLAIN);
         }
     }
 }

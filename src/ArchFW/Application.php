@@ -43,7 +43,7 @@ final class Application extends View
         }
         $this->_secureSession();
         $this->_errorReporting(CONFIG['dev']);
-        
+
         $this->Router = new Router;
         $file = $this->Router->getFileName();
 
@@ -58,7 +58,7 @@ final class Application extends View
      *
      * @return void
      */
-    private function _secureSession() : void
+    private function _secureSession(): void
     {
         // RUN SESSION WHEN IT'S NOT RUNNING
         if (session_status() == PHP_SESSION_NONE) {
@@ -79,9 +79,9 @@ final class Application extends View
      *
      * @return void
      */
-    private function _errorReporting(bool $isDev) : void
+    private function _errorReporting(bool $isDev): void
     {
-        if($isDev) {
+        if ($isDev) {
             // IF IN DEVELOPER MODE SHOW ALL ERRORS
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
@@ -100,7 +100,7 @@ final class Application extends View
      *
      * @return void
      */
-    private function _https() : void
+    private function _https(): void
     {
         if ($_SERVER["HTTPS"] !== "on") {
             header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
