@@ -31,16 +31,16 @@ try {
     }
     $cfg = include_once $config; // LOADING CONFIG
 
+    // ENSURE RUNNING PHP AT LEAST 7.0.0
+    if (version_compare(PHP_VERSION, '7.0.0') < 0) {
+        throw new ArchFWException('You are running ArchFW on unsupported PHP version, minimum: 7.0.0, yours: '.PHP_VERSION, 4);
+    }
+
     // ENSURE HAVING VENDOR FILES
     if(!file_exists($vendor)) {
         throw new ArchFWException('VENDOR files were not found, run \'composer install\' over main framework folder.', 3);
     }
     include_once $vendor; // LOADING APP
-
-    // ENSURE RUNNING PHP AT LEAST 7.0.0
-    if (version_compare(PHP_VERSION, '7.0.0') < 0) {
-        throw new ArchFWException('You are running ArchFW on unsupported PHP version, minimum: 7.0.0, yours: '.PHP_VERSION, 4);
-    }
 
     // TRY TO RUN APP AND CATCH EXCEPTIONS
     try {
