@@ -34,6 +34,12 @@ final class Application extends View
      */
     private $Router;
 
+    /**
+     * Application constructor. Main method that is running selected classes, initiate session and router.
+     *
+     * @param array $appConfig
+     * @param bool $forceHTTPS
+     */
     public function __construct(array $appConfig, bool $forceHTTPS = true)
     {
         define('CONFIG', $appConfig); // LOADING CONFIG FILE AS CONSTANT

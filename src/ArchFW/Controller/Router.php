@@ -38,6 +38,7 @@ final class Router
         }
 
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
+
             return $this->_findFiles($uri[0], true);
         }
         return $this->_findFiles($uri[0], false);
@@ -49,7 +50,7 @@ final class Router
      * Simple gets all data after '?', then puts it in an array. Required if using REST style routing. Run function and assing returned values to $_GET variable.
      *
      * @param string $string
-     * @return void
+     * @return array
      */
     private function _findArgs(string $string): array
     {
@@ -77,7 +78,6 @@ final class Router
      * @param string $string Requested URI file part
      * @param boolean $isAPI Set to true when accessing API server
      * @return string Returns filename when found
-     * @throws Exception when route were not found
      */
     private function _findFiles(string $string, bool $isAPI): string
     {
@@ -97,18 +97,17 @@ final class Router
             if (!array_key_exists('/' . $explodedURI[1], CONFIG['APIrouter'])) {
                 new Error(404, "Router did not found route '/{$explodedURI[1]}' in API config file!", Error::JSON);
             }
-            header("Content-Type: application/json");
 
             $file = CONFIG['APIwrappers'] . "/" . CONFIG['APIrouter']['/' . $explodedURI[1]];
             if (!file_exists("$file.php")) {
-                throw new \Exception("File does not exists!", 11);
+                new Error(404, "Wrapper file does not exist or no access!", Error::JSON);
             }
             $json = require_once "$file.php";
             echo json_encode($json);
             exit;
         } else if (!array_key_exists('/' . $explodedURI[0], CONFIG['appRouter'])) {
             if (CONFIG['dev']) {
-                throw new \Exception("Router did not found route '/{$explodedURI[0]}' in APP config file!", 11);
+                new Error(404, "Router did not found route '/{$explodedURI[0]}' in APP config file!", Error::PLAIN);
             }
             new Error(404, "Not Found", Error::HTML);
         }
