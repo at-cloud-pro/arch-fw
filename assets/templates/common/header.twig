@@ -10,10 +10,12 @@
     <meta name="description" content="{{pageDescription}}">
     <meta name="keywords" content="{{pageKeywords}}">
     <meta name="author" content="{{pageAuthor}}">
+    <!-- build:css css/styles.min.css -->
     {% for each in stylesheets %}
         <!-- {{each.name}} -->
         <link type="{{each.type}}" rel="{{each.rel}}" href="{{each.link}}"/>
     {% endfor %}
+    <!--endbuild-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
