@@ -21,10 +21,19 @@ return [
     # If you want to add your own setting, place it carefully below this settings, match the key so you won't override actual settings. You can reach this config as defined CONFIG constant in every scope.
 
     # Production server switch. When set to false, all PHP errors will be hidden, written to logs. When set to true, all PHP erros will occur, helping debug the application.
-    'dev'              => true,
+    'production'  => true,
+
+    # This settings will set the security details of your app. Keep it untouched, it's field for application programmer.
+    'security'    => [
+        # Force users to access page via HTTP Secure protocol
+        'https' => false,
+
+        # Enable or disable HTTP Strict Transport Policy
+        'hsts'  => false,
+    ],
 
     # Every page has
-    'metaConfig'       => [
+    'metaConfig'  => [
         'pageTitle'       => 'ArchFW installed!',
         'pageEncoding'    => 'UTF-8'
         /* NOT NULL*/,
@@ -47,18 +56,18 @@ return [
         'link' => '/css/style-desktop.css',
     ],
     */
-    'stylesheets'      => [
+    'stylesheets' => [
         "Example" => [
             'name' => 'example stylesheet',
             'type' => 'text/css',
             'desc' => 'This stylesheet is for better view of startup page, ',
             'rel'  => 'stylesheet',
-            'link' => '/css/min/all.css',
+            'link' => '/css/master.css',
         ],
     ],
 
     # Here enter database details, if you want to use our extention.
-    'DBConfig'         => [
+    'DBConfig'    => [
         'databaseType' => 'mysql',
         'databaseName' => 'test',
         'server'       => 'localhost',
