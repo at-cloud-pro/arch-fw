@@ -41,6 +41,12 @@ abstract class View
             $vars += [
                 'stylesheets' => CONFIG['stylesheets'],
             ];
+            if (is_array($GLOBALS['META'])) {
+                $vars += [
+                    'meta' => $GLOBALS['META'],
+                ];
+            }
+
 
             $vars += require_once CONFIG['twigConfig']['twigWrappersPath'] . $wrapperfile;
             echo $template->render($vars);
