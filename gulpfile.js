@@ -6,8 +6,8 @@ let cleanCSS = require('gulp-clean-css');
 let autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('css', function () {
-    return gulp.src('assets/scss/*.scss')
-        .pipe(sass()) // Converts Sass to CSS with gulp-sass
+    return gulp.src('public_html/scss/**/*.scss')
+        .pipe(sass())
         .pipe(concat("master.css"))
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
@@ -18,6 +18,6 @@ gulp.task('css', function () {
 });
 
 gulp.task('default', function () {
-    gulp.watch('assets/scss/*.scss', ['css']);
+    gulp.watch('public_html/scss/**/*.scss', ['css']);
     // Other watchers
 });

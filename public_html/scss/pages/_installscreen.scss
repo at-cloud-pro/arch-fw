@@ -1,0 +1,21 @@
+.main-info {
+    padding: 20px;
+    h1 {
+        font-size: 40px;
+        padding-top: 50px;
+    }
+    p {
+        padding: 30px;
+    }
+}
+
+.bottom-navigation {
+    margin-top: calc(80vh - 200px);
+    .divider {
+        color: #444444;
+        margin: 15px;
+    }
+    .bold {
+        font-weight: bold;
+    }
+}
