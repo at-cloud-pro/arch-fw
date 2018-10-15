@@ -25,7 +25,9 @@ use Exception;
 /**
  * Representation of ArchFW Application
  *
- * Contains methods such securing session and ensuring security over HTTPS. It's also an app starter - constructor here does all stuff you need to run an app. App will not check validity of vendor or config, so you have to do it separately.
+ * Contains methods such securing session and ensuring security over HTTPS.
+ * It's also an app starter - constructor here does all stuff you need to run an app.
+ * App will not check validity of vendor or config, so you have to do it separately.
  */
 final class Application extends View
 {
@@ -46,24 +48,24 @@ final class Application extends View
         // Load application configuration details as constant
         try {
             define('CONFIG', $this->loadConfig($configPath));
-        } catch (Exception $e) {
-            new Error($e->getCode(), $e->getMessage(), Error::PLAIN);
+        } catch (Exception $err) {
+            new Error($err->getCode(), $err->getMessage(), Error::PLAIN);
         }
 
 
         // Force HTTPS connection if setted in settings so
         if (CONFIG['app']['security']['https']) {
-            $this->_https();
+            $this->https();
         }
 
         // Run HTTP Secure Transport Policy
-        $this->_hsts(CONFIG['app']['security']['hsts']);
+        $this->hsts(CONFIG['app']['security']['hsts']);
 
         // Ensure that session is securely started
-        $this->_secureSession();
+        $this->secureSession();
 
         // Turn on error reporting depending on production switch
-        $this->_errorReporting(!CONFIG['app']['production']);
+        $this->errorReporting(!CONFIG['app']['production']);
 
         // Start routing
         $this->Router = new Router;
@@ -73,7 +75,7 @@ final class Application extends View
         $template = "$file.twig";
 
         // Use renderer
-        parent::_render($wrapper, $template);
+        parent::render($wrapper, $template);
     }
 
     /**
@@ -120,11 +122,12 @@ final class Application extends View
     /**
      * Enforcing on app usage of HTTP Secure protocol instead of normal HTTP/
      *
-     * If page is detected to run over HTTP only, page will be redirected to HTTPS. Run only on compatible servers, will cause problems if server does not offer HTTPS connections.
+     * If page is detected to run over HTTP only, page will be redirected to HTTPS.
+     * Run only on compatible servers, will cause problems if server does not offer HTTPS connections.
      *
      * @return void
      */
-    private function _https(): void
+    private function https(): void
     {
         if ($_SERVER['HTTPS'] !== "on") {
             header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
@@ -137,7 +140,7 @@ final class Application extends View
      *
      * @param bool $status
      */
-    private function _hsts(bool $status): void
+    private function hsts(bool $status): void
     {
         if ($status) {
             header('Strict-Transport-Security: max-age=16070400');
@@ -151,7 +154,7 @@ final class Application extends View
      *
      * @return void
      */
-    private function _secureSession(): void
+    private function secureSession(): void
     {
         // RUN SESSION WHEN IT'S NOT RUNNING
         if (session_status() == PHP_SESSION_NONE) {
@@ -172,7 +175,7 @@ final class Application extends View
      *
      * @return void
      */
-    private function _errorReporting(bool $isProd): void
+    private function errorReporting(bool $isProd): void
     {
         if ($isProd) {
             // IF IN DEVELOPER MODE SHOW ALL ERRORS

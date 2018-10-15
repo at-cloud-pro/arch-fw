@@ -36,14 +36,14 @@ class Error implements IError
      *
      * @var integer
      */
-    protected $_code;
+    protected $code;
 
     /**
      * Holds error message
      *
      * @var string
      */
-    protected $_message;
+    protected $message;
 
     /**
      * Showing visual or JSON style errors.
@@ -56,24 +56,24 @@ class Error implements IError
      */
     public function __construct(int $code, string $message, string $method)
     {
-        $this->_code = $code;
-        $this->_message = $message;
+        $this->code = $code;
+        $this->message = $message;
 
         $this->action();
 
         http_response_code($code);
         switch ($method) {
             case self::HTML:
-                $this->_htmlError();
+                $this->htmlError();
                 break;
             case self::JSON:
-                $this->_jsonError();
+                $this->jsonError();
                 break;
             case self::PLAIN:
-                $this->_plainError(false);
+                $this->plainError(false);
                 break;
             default:
-                $this->_plainError(true);
+                $this->plainError(true);
         }
     }
 
@@ -82,14 +82,14 @@ class Error implements IError
      *
      * @return void
      */
-    protected function _htmlError(): void
+    protected function htmlError(): void
     {
-        $path = CONFIG['app']['pathToErrorPages'] . "/$this->_code.html";
+        $path = CONFIG['app']['pathToErrorPages'] . "/$this->code.html";
         if (file_exists($path)) {
             require_once($path);
             exit;
         } else {
-            $this->_plainError(true);
+            $this->plainError(true);
         }
     }
 
@@ -98,13 +98,13 @@ class Error implements IError
      *
      * @return void
      */
-    protected function _jsonError(): void
+    protected function jsonError(): void
     {
         header('Content-Type: application/json');
         exit(json_encode([
             'error'        => true,
-            'errorCode'    => $this->_code,
-            'errorMessage' => $this->_message,
+            'errorCode'    => $this->code,
+            'errorMessage' => $this->message,
         ]));
     }
 
@@ -115,18 +115,20 @@ class Error implements IError
      *
      * @return void
      */
-    protected function _plainError(bool $force /* FORCE */): void
+    protected function plainError(bool $force /* FORCE */): void
     {
         if (CONFIG['app']['production'] or !$force) {
-            $this->_htmlError();
+            $this->htmlError();
         } else {
             header('Content-Type: text/plain');
-            exit("ERROR $this->_code OCCURED, WITH MESSAGE '$this->_message'. ERROR-SPECIFIC FILES WERE NOT FOUND, OR DEV MODE IS TURNED ON.");
+            exit("ERROR $this->code OCCURED, WITH MESSAGE '$this->message'.
+                ERROR-SPECIFIC FILES WERE NOT FOUND, OR DEV MODE IS TURNED ON.");
         }
     }
 
     /**
-     * Action which is given to user. By default it's doing nothing, but while overriding this function by inheritance user may add his own needs.
+     * Action which is given to user. By default it's doing nothing,
+     * but while overriding this function by inheritance user may add his own needs.
      *
      * @return void
      */

@@ -17,6 +17,8 @@
 
 namespace ArchFW\Model;
 
+use Medoo\Medoo;
+
 /**
  * Factory is creating new Database handler with pre-installed configuration
  *
@@ -27,11 +29,11 @@ final class DatabaseFactory
     /**
      * Getting brand new instance of Database object, with loaded config given in config.cfg file.
      *
-     * @return Database Returns database object with config given
+     * @return Medoo Returns database object with config given
      */
     final public static function getInstance()
     {
-        return new Database([
+        return new Medoo([
             'database_type' => CONFIG['database']['databaseType'],
             'database_name' => CONFIG['database']['databaseName'],
             'server'        => CONFIG['database']['server'],

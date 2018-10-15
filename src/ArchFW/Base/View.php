@@ -22,18 +22,29 @@ use Exception;
 use Twig_Environment as Environment;
 use Twig_Loader_Filesystem as Loader;
 
+/**
+ * Class View
+ *
+ * @package ArchFW\Base
+ */
 abstract class View
 {
+    /**
+     * @var
+     */
     private $loader;
+    /**
+     * @var
+     */
     private $twig;
 
     /**
+     * Render
      *
-     *
-     * @param $wrapperfile
-     * @param $templatefile
+     * @param string $wrapperfile
+     * @param string $templatefile
      */
-    protected function render($wrapperfile, $templatefile)
+    protected function render(string $wrapperfile, string $templatefile)
     {
         $erro = null;
 
@@ -43,19 +54,20 @@ abstract class View
             $this->twig = new Environment($this->loader);
             $template = $this->twig->load($templatefile);
 
-            $vars = CONFIG['app']['metaConfig'];
-            $vars += [
+            $variables = CONFIG['app']['metaConfig'];
+            $variables += [
                 'stylesheets' => CONFIG['app']['stylesheets'],
             ];
-//            if (is_array($GLOBALS['META'])) {
-//                $vars += [
-//                    'meta' => $GLOBALS['META'],
-//                ];
-//            }
+            /*
+            if (is_array($GLOBALS['META'])) {
+                $vars += [
+                'meta' => $GLOBALS['META'],
+                ];
+            }*/
 
 
-            $vars += require_once CONFIG['app']['twigConfig']['twigWrappersPath'] . $wrapperfile;
-            echo $template->render($vars);
+            $variables += require_once CONFIG['app']['twigConfig']['twigWrappersPath'] . $wrapperfile;
+            echo $template->render($variables);
         } catch (Exception $twigerr) {
             new Error(602, "Twig Error: {$twigerr->getMessage()}", Error::PLAIN);
         }

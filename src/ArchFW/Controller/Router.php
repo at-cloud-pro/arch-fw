@@ -34,25 +34,25 @@ final class Router
         // CHECK IF APP HAS
         $uri = explode('?', $_SERVER['REQUEST_URI']);
         if (array_key_exists(1, $uri)) {
-            $_GET = $this->_findArgs($uri[1]);
+            $_GET = $this->findArgs($uri[1]);
         }
 
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
-
-            return $this->_findFiles($uri[0], true);
+            return $this->findFiles($uri[0], true);
         }
-        return $this->_findFiles($uri[0], false);
+        return $this->findFiles($uri[0], false);
     }
 
     /**
      * Returns array of GET values in URI
      *
-     * Simple gets all data after '?', then puts it in an array. Required if using REST style routing. Run function and assing returned values to $_GET variable.
+     * Simple gets all data after '?', then puts it in an array. Required if
+     * using REST style routing. Run function and assing returned values to $_GET variable.
      *
      * @param string $string
      * @return array
      */
-    private function _findArgs(string $string): array
+    private function findArgs(string $string): array
     {
         $args = explode('&', $string);
         $output = [];
@@ -62,7 +62,7 @@ final class Router
                 $str = explode('=', $value);
                 if (array_key_exists(1, $str)) {
                     $output += [$str[0] => $str[1]];
-                } else if ($str[0] != "") {
+                } elseif ($str[0] != "") {
                     $output += [$str[0] => null];
                 }
             }
@@ -73,13 +73,15 @@ final class Router
     /**
      * Finds file name for specified URI
      *
-     * Function is checking if in config file is specified which file app should load when user enters specified URI. By default looking for twig templates, if $isAPI variable is set to true, only loads API wrapper.
+     * Function is checking if in config file is specified which file app should load
+     * when user enters specified URI. By default looking for twig templates,
+     * if $isAPI variable is set to true, only loads API wrapper.
      *
      * @param string $string Requested URI file part
      * @param boolean $isAPI Set to true when accessing API server
      * @return string Returns filename when found
      */
-    private function _findFiles(string $string, bool $isAPI): string
+    private function findFiles(string $string, bool $isAPI): string
     {
         $explodedURI = (explode("/", $string));
 
@@ -105,7 +107,7 @@ final class Router
             $json = require_once "$file.php";
             echo json_encode($json);
             exit;
-        } else if (!array_key_exists('/' . $explodedURI[0], CONFIG['routes']['APProuter'])) {
+        } elseif (!array_key_exists('/' . $explodedURI[0], CONFIG['routes']['APProuter'])) {
             if (CONFIG['app']['production']) {
                 new Error(404, "Router did not found route '/{$explodedURI[0]}' in APP config file!", Error::PLAIN);
             }
