@@ -1,17 +1,17 @@
 <?php
 /**
- * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
- *
- * Visit https://github.com/okbrcz/ArchFW/ for more info.
+ * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services.
+ * ArchFW comes with pre-installed router and JSON API functionality.
+ * Visit https://github.com/archi-tektur/ArchFW/ for more info.
  *
  * PHP version 7.2
  *
- * @category  Framework
+ * @category  Framework / Template
  * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0
+ * @version   2.5.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -90,28 +90,28 @@ final class Router
 
         if ($isAPI) {
             // RUNS IF SERVER MAY BE USED AS API SERVO
-            if (CONFIG['APIrunning'] === false) {
+            if (CONFIG['app']['APIrunning'] === false) {
                 header("Content-Type: application/json");
                 new Error(601, 'API functionality were turned off in app config file on server.', Error::JSON);
             }
-            if (!array_key_exists('/' . $explodedURI[1], CONFIG['APIrouter'])) {
+            if (!array_key_exists('/' . $explodedURI[1], CONFIG['routes']['APIrouter'])) {
                 new Error(404, "Router did not found route '/{$explodedURI[1]}' in API config file!", Error::JSON);
             }
 
-            $file = CONFIG['APIwrappers'] . "/" . CONFIG['APIrouter']['/' . $explodedURI[1]];
+            $file = CONFIG['app']['APIwrappers'] . "/" . CONFIG['routes']['APIrouter']['/' . $explodedURI[1]];
             if (!file_exists("$file.php")) {
                 new Error(404, "Wrapper file does not exist or no access!", Error::JSON);
             }
             $json = require_once "$file.php";
             echo json_encode($json);
             exit;
-        } else if (!array_key_exists('/' . $explodedURI[0], CONFIG['appRouter'])) {
-            if (CONFIG['dev']) {
+        } else if (!array_key_exists('/' . $explodedURI[0], CONFIG['routes']['APProuter'])) {
+            if (CONFIG['app']['production']) {
                 new Error(404, "Router did not found route '/{$explodedURI[0]}' in APP config file!", Error::PLAIN);
             }
             new Error(404, "Not Found", Error::HTML);
         }
-        return CONFIG['appRouter']['/' . $explodedURI[0]];
+        return CONFIG['routes']['APProuter']['/' . $explodedURI[0]];
     }
 }
 

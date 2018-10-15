@@ -1,17 +1,17 @@
 <?php
 /**
- * ArchFramework (ArchFW in short) is modern, new, fast and dedicated framework for most my modern projects
- *
- * Visit https://github.com/okbrcz/ArchFW/ for more info.
+ * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services.
+ * ArchFW comes with pre-installed router and JSON API functionality.
+ * Visit https://github.com/archi-tektur/ArchFW/ for more info.
  *
  * PHP version 7.2
  *
- * @category  Framework
+ * @category  Framework / Template
  * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0
+ * @version   2.5.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -84,7 +84,7 @@ class Error implements IError
      */
     protected function _htmlError(): void
     {
-        $path = CONFIG['pathToErrorPages'] . "/$this->_code.html";
+        $path = CONFIG['app']['pathToErrorPages'] . "/$this->_code.html";
         if (file_exists($path)) {
             require_once($path);
             exit;
@@ -101,7 +101,11 @@ class Error implements IError
     protected function _jsonError(): void
     {
         header('Content-Type: application/json');
-        exit(json_encode(['error' => true, 'errorCode' => $this->_code, 'errorMessage' => $this->_message,]));
+        exit(json_encode([
+            'error'        => true,
+            'errorCode'    => $this->_code,
+            'errorMessage' => $this->_message,
+        ]));
     }
 
     /**
@@ -113,7 +117,7 @@ class Error implements IError
      */
     protected function _plainError(bool $force /* FORCE */): void
     {
-        if (!CONFIG['dev'] or !$force) {
+        if (CONFIG['app']['production'] or !$force) {
             $this->_htmlError();
         } else {
             header('Content-Type: text/plain');
