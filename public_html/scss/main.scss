@@ -1,0 +1,34 @@
+/*
+DEUTSCHE BAHN
+DIGITALE SCHIENE DEUTSCHLAND
+archi_tektur team 2018
+
+MAIN SCSS FILE WITH ALL IMPORTS
+7-1 PATTERN
+
+*/
+/*
+ABSTRACTS
+Contains all SASS-specific files such as functions, variables, mixins and so on
+*/
+@import 'abstracts/variables',
+'abstracts/mixins';
+/*
+VENDORS
+Contains all public shared resources
+*/
+@import 'vendors/material';
+/*
+BASE
+Contains all basic usage elements
+*/
+@import 'base/reset',
+'base/typography',
+'base/environment';
+/* LAYOUT */
+/* PAGES */
+@import "pages/installshield";
+/* COMPONENTS */
+
+/* THEMES */
+

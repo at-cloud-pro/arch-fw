@@ -1,0 +1,26 @@
+.main-info {
+    padding: 40px;
+    h1 {
+        font-size: 40px;
+        margin: 40px;
+    }
+}
+
+.bottom-navigation {
+    margin-top: calc(80vh - 200px);
+    .divider {
+        color: #444444;
+        margin: 30px;
+    }
+}
+
+.code {
+    background: #E8E8E8;
+    border: 2px #E8E8E8 solid;
+    border-radius: 3px;
+    color: indianred;
+    font-style: italic;
+    padding: 2px 5px;
+    user-select: none;
+
+}
