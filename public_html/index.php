@@ -15,39 +15,57 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW;
+use ArchFW\Application as Service;
+use Exception as ArchFWException;
 
-use Exception;
+/*
+HERE IS A PART OF THE FILE YOU CAN AND SHOULD EDIT IF YOU CHANGED THE FRAMEWORK STRUCTURE
 
-$config = '../config'; // CONFIG FILE PATH
-$vendor = '../vendor/autoload.php'; // CONFIG FILE PATH
+Enter fistly relative path to the folder containing configs.
+ */
+$configPath = '../config';
+/*
+Now enter relative path to the Composer sources autoloader (usually vendor/autoload.php)
+ */
+$vendor = '../vendor/autoload.php';
+/*
+Better do not edit the code below.
+ */
 
 try {
-    // ENSURE CONFIG IS LOADED
-    if (!file_exists($config)) {
-        throw new Exception('Config file wasn\'t found!', 2);
+    // ENSURE CONFIG FILES PATH IS VALID
+    if (!file_exists($configPath)) {
+        throw new ArchFWException('Config file wasn\'t found!', 2);
     }
 
-    // ENSURE RUNNING PHP AT LEAST 7.0.0
+    /*
+    As far as you are using PHP older than 7.0.0 this framework won't start, because
+    it uses functionality that were not implemented before.
+     */
     if (version_compare(PHP_VERSION, '7.0.0') < 0) {
-        throw new Exception('You are running ArchFW on unsupported PHP version, minimum: 7.0.0, yours: ' . PHP_VERSION, 4);
+        throw new ArchFWException('Unsupported PHP version, minimum: 7.0.0, yours: ' . PHP_VERSION, 4);
     }
 
     // ENSURE HAVING VENDOR FILES
     if (!file_exists($vendor)) {
-        throw new Exception('VENDOR files were not found, run \'composer install\' over main framework folder.', 3);
+        throw new
+        ArchFWException('VENDOR files were not found, run \'composer install\' over main framework folder.', 3);
     }
-    include_once $vendor; // LOADING LIBS AND CLASSES
+    // LOADING LIBS AND CLASSES
+    include_once $vendor;
 
     try {
-        new Application($config); // RUNNING APP
+        // Run a service
+        new Service($configPath);
     } catch (Exception $mainClassError) {
+        // Catch the exceptions that came while running the app.
         header('Content-Type text/plain');
         http_response_code(404);
         exit('FATAL ERROR ' . $mainClassError->getCode() . ': ' . $mainClassError->getMessage());
     }
 
-} catch (Exception $err) {
+} catch (ArchFWException $err) {
+    // Catch the exceptions that came before running an app.
     http_response_code(500);
     exit('INIT ERROR ' . $err->getCode() . ': ' . $err->getMessage());
 }
