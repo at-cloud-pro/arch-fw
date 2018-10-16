@@ -20,6 +20,6 @@
 // new Authenticator();
 $Log = new \ArchFW\Controller\Logger();
 
-$Log->log(200, 'Loaded correctly the main screen');
+$Log->log('Loaded correctly the main screen', 200);
 
 return ['test' => 'working'];

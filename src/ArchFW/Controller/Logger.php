@@ -24,7 +24,13 @@ namespace ArchFW\Controller;
  */
 class Logger
 {
-    const PATH = "../logs/ArchFWLogFile.log";
+    const DEFAULT_PATH = '../logs/ArchFWLogFile.log';
+
+
+    /**
+     * @var string $path Holds path to log file
+     */
+    private $path;
 
     /**
      * @var string Holds actual date
@@ -37,20 +43,24 @@ class Logger
     private $last;
 
     /**
-     * @var Holds information if object is running in debug mode.
+     * @var boolean Holds information if object is running in debug mode.
      */
     private $debug;
 
     /**
      * Constructor creates new field with actual date and creates a log file if it does not exist yet.
+     *
+     * @param string $customPath Custom file path
      */
-    public function __construct()
+    public function __construct(string $customPath = null)
     {
         $this->debug = false;
         $this->date = date('Y-m-d H:i:s');
         $this->last = null;
 
-        if (!file_exists(self::PATH)) {
+        $this->path = isset($customPath) ? $customPath : self::DEFAULT_PATH;
+
+        if (!file_exists($this->path)) {
             $this->initNew();
         }
     }
@@ -58,12 +68,12 @@ class Logger
     /**
      * Log an error to custom log file
      *
-     * @param int $code provide error code
      * @param string $message provide a message that describes the problem
+     * @param int $code provide error code
      * @param string $callbackMessage provide an information what will happen after error occurs
      * @return bool true on success, false on fail
      */
-    public function log(int $code, string $message, string $callbackMessage = ''): bool
+    public function log(string $message, int $code = null, string $callbackMessage = ''): bool
     {
         if (!empty($callbackMessage)) {
             $message = "[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}. \n";
@@ -78,7 +88,7 @@ class Logger
         }
         // Using the FILE_APPEND flag to append the content to the end of the file
         // The LOCK_EX flag to prevent anyone else writing to the file at the same time
-        return file_put_contents(self::PATH, $message, FILE_APPEND | LOCK_EX) ? true : false;
+        return file_put_contents($this->path, $message, FILE_APPEND | LOCK_EX) ? true : false;
     }
 
     /**
@@ -98,8 +108,8 @@ class Logger
      */
     private function initNew(): void
     {
-        if ($File = fopen(self::PATH, 'w+')) {
-            $path = realpath(self::PATH);
+        if ($File = fopen($this->path, 'w+')) {
+            $path = realpath($this->path);
             fwrite($File, "ArchFW Log File, created on [{$this->date}] in [{$path}]. \n");
             fclose($File);
         } else {
