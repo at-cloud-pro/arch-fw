@@ -150,7 +150,7 @@ class Logger
      */
     public function __debugInfo(): array
     {
-        $last = isset($this->last) ? $this->last : 'No previous messages were sent.';
+        $last = (string)$this;
         $debug = ($this->debug) ? 'on' : 'off';
         return [
             'currentTime' => $this->date,

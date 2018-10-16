@@ -21,5 +21,6 @@
 $Log = new \ArchFW\Controller\Logger();
 
 $Log->log('Loaded correctly the main screen', 200);
+var_dump($Log);
 
 return ['test' => 'working'];
