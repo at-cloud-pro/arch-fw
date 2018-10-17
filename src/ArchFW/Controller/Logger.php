@@ -24,8 +24,10 @@ namespace ArchFW\Controller;
  */
 class Logger
 {
-    const DEFAULT_PATH = '../logs/ArchFWLogFile.log';
-
+    /**
+     * Holds path to default log file
+     */
+    const DEFAULT_PATH = CONFIG['app']['defaultLogPath'];
 
     /**
      * @var string $path Holds path to log file
@@ -81,14 +83,19 @@ class Logger
         string $callbackMessage = null
     ): bool {
         if (!empty($callbackMessage)) {
-            $message = "[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}. \n";
+            $message = " \n [{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}.";
         } else {
             $message = "[{$this->date}] > [CODE {$code}]: {$message}. No callback provided. \n";
         }
         // Write last sent message as field
         $this->last = $message;
 
-        $callback();
+        // If callback specified, execute a callback
+        if ($callback) {
+            call_user_func($callback);
+        }
+
+        // I debug mode is on, echo message to screen and die
         if ($this->debug) {
             die($message);
         }

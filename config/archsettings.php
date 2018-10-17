@@ -19,7 +19,8 @@ return [
 
 # If you want to add your own setting, place it carefully below this settings, match the key so you won't override actual settings. You can reach this config as defined CONFIG constant in every scope.
 
-# Production server switch. When set to false, all PHP errors will be hidden, written to logs. When set to true, all PHP erros will occur, helping debug the application.
+# Production server switch. When set to false, all PHP errors will be hidden, written to logs.
+# When set to true, all PHP erros will occur, helping debug the application.
 'production'       => false,
 
 # This settings will set the security details of your app. Keep it untouched, it's field for application programmer.
@@ -34,10 +35,8 @@ return [
 # Every page has
 'metaConfig'       => [
     'pageTitle'       => 'ArchFW installed!',
-    'pageEncoding'    => 'UTF-8'
-    /* NOT NULL*/,
-    'pageLanguage'    => "pl"
-    /* NOT NULL*/,
+    'pageEncoding'    => 'UTF-8'/* NOT NULL*/,
+    'pageLanguage'    => "pl"/* NOT NULL*/,
     'pageDescription' => '',
     'pageKeywords'    => '',
     'pageAuthor'      => "Oskar 'archi_tektur' Barcz",
@@ -74,6 +73,9 @@ Example:
 
 # Path to catalogue with errorcodes, files inside should be named like an errors they are written for - e.g. '404.html'. PHP is not allowed in this files. Until you modify framework internal structure (not recommended!), no need to touch this.
 'pathToErrorPages' => '../assets/errorpages',
+
+#Path to default log file (new file will be there created if any does not exist
+'defaultLogPath'   => '../logs/ArchFWLogFile.log',
 
 # Simple switch to disable API in whole application. If user will try access, app will throw 601 "Api turned off in app config" error.
 'APIrunning'       => true,

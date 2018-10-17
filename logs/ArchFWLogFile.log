@@ -1,10 +1,32 @@
-ArchFW Log File, created on [2018-10-17 13:43:11] in [D:\Projects\ArchFW\logs\ArchFWLogFile.log]. 
-[2018-10-17 13:43:11] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
-[2018-10-17 13:43:12] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
-[2018-10-17 13:43:12] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
-[2018-10-17 13:43:12] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
-[2018-10-17 13:43:12] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
-[2018-10-17 13:43:13] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
-[2018-10-17 13:43:13] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
-[2018-10-17 13:43:13] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
-[2018-10-17 13:43:50] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ArchFW Log File, created on [2018-10-17 13:43:11] in [D:\Projects\ArchFW\logs\ArchFWLogFile.log].
+[2018-10-17 14:10:41] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+[2018-10-17 14:10:41] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen. 
+[2018-10-17 14:10:41] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+[2018-10-17 14:10:41] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen. 
+[2018-10-17 14:10:42] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+[2018-10-17 14:10:42] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen. 
+[2018-10-17 14:10:42] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+[2018-10-17 14:10:42] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen. 
+[2018-10-17 14:16:30] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:16:30] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:17:11] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:17:11] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:32:26] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:32:26] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:32:26] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:32:26] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:32:27] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:32:27] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:32:27] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:32:27] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:32:27] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:32:27] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:32:27] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:32:27] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:32:27] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:32:27] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:32:28] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:32:28] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.[2018-10-17 14:34:07] > [CODE 200]: Loaded correctly the main screen. No callback provided. 
+ 
+ [2018-10-17 14:34:07] > [CODE 201]: Loaded correctly the main screen with callback. Callback: Message shown on screen.
