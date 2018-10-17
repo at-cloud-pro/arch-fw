@@ -18,6 +18,7 @@
 namespace ArchFW\Base;
 
 use ArchFW\Controller\Error;
+use ArchFW\Exceptions\ArchFWException;
 use Exception;
 use Twig_Environment as Environment;
 use Twig_Loader_Filesystem as Loader;
@@ -65,11 +66,17 @@ abstract class View
                 ];
             }*/
 
-
-            $variables += require_once CONFIG['app']['twigConfig']['twigWrappersPath'] . $wrapperfile;
+            if (!file_exists(CONFIG['app']['twigConfig']['twigWrappersPath'] . $wrapperfile)) {
+                throw new ArchFWException('No wrapper file found', 600);
+            }
+            if (is_array($arr = require_once CONFIG['app']['twigConfig']['twigWrappersPath'] . $wrapperfile)) {
+                $variables += $arr;
+            }
             echo $template->render($variables);
-        } catch (Exception $twigerr) {
-            new Error(602, "Twig Error: {$twigerr->getMessage()}", Error::PLAIN);
+        } catch (ArchFWException $twigerr) {
+            new Error(404, "Twig Error: {$twigerr->getMessage()}", Error::PLAIN);
+        } catch (Exception $e) {
+            new Error(404, "Twig Error: {$e->getMessage()}", Error::PLAIN);
         }
     }
 }

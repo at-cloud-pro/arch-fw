@@ -21,10 +21,4 @@
 $Log = new \ArchFW\Controller\Logger();
 
 $Log->log('Loaded correctly the main screen', 200);
-//$Log->log('Loaded correctly the main screen with callback', 201, function () {
-//    echo 'Callback action';
-//}, 'Message shown on screen');
-
-throw new \ArchFW\Exceptions\ArchFWException('Unknown error occured', 404);
-
 return ['test' => 'working'];

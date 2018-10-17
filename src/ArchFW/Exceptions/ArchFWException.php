@@ -30,7 +30,7 @@ use Throwable;
 class ArchFWException extends Exception
 {
     /**
-     * ArchFWException constructor enforces giving an message, it also loads all data to special log file.
+     * ArchFWException constructor enforces giving an message, it also loads all data to dedicated log file.
      *
      * @param string $message
      * @param int $code
