@@ -83,9 +83,9 @@ class Logger
         string $callbackMessage = null
     ): bool {
         if (!empty($callbackMessage)) {
-            $message = " \n [{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}.";
+            $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}.";
         } else {
-            $message = "[{$this->date}] > [CODE {$code}]: {$message}. No callback provided. \n";
+            $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. No callback provided.";
         }
         // Write last sent message as field
         $this->last = $message;
@@ -103,6 +103,7 @@ class Logger
         // The LOCK_EX flag to prevent anyone else writing to the file at the same time
         return file_put_contents($this->path, $message, FILE_APPEND | LOCK_EX) ? true : false;
     }
+
 
     /**
      * Displays actual information instead of writing it to system logs.
@@ -123,7 +124,7 @@ class Logger
     {
         if ($File = fopen($this->path, 'w+')) {
             $path = realpath($this->path);
-            fwrite($File, "ArchFW Log File, created on [{$this->date}] in [{$path}]. \n");
+            fwrite($File, "ArchFW Log File, created on [{$this->date}] in [{$path}].");
             fclose($File);
         } else {
             echo 'Logger sends visual error, because error occured on creating log';
