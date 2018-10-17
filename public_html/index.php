@@ -16,7 +16,7 @@
  */
 
 use ArchFW\Application as Service;
-use Exception as ArchFWException;
+use ArchFW\Exceptions\ArchFWException;
 
 /*
 HERE IS A PART OF THE FILE YOU CAN AND SHOULD EDIT IF YOU CHANGED THE FRAMEWORK STRUCTURE
@@ -57,7 +57,7 @@ try {
     try {
         // Run a service
         new Service($configPath);
-    } catch (Exception $mainClassError) {
+    } catch (ArchFWException $mainClassError) {
         // Catch the exceptions that came while running the app.
         header('Content-Type text/plain');
         http_response_code(404);

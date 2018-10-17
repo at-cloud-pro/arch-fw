@@ -20,7 +20,7 @@ namespace ArchFW;
 use ArchFW\Base\View;
 use ArchFW\Controller\Error;
 use ArchFW\Controller\Router;
-use Exception;
+use ArchFW\Exceptions\ArchFWException;
 
 /**
  * Representation of ArchFW Application
@@ -48,7 +48,7 @@ final class Application extends View
         // Load application configuration details as constant
         try {
             define('CONFIG', $this->loadConfig($configPath));
-        } catch (Exception $err) {
+        } catch (ArchFWException $err) {
             new Error($err->getCode(), $err->getMessage(), Error::PLAIN);
         }
 
@@ -82,7 +82,7 @@ final class Application extends View
      * Returns config array
      *
      * @param string $path
-     * @throws Exception when config files were not found
+     * @throws ArchFWException when config files were not found
      *
      * @return array Application config files
      */
@@ -95,28 +95,26 @@ final class Application extends View
         if (file_exists($masterCfgPath)) {
             $applicationConfig = require $masterCfgPath;
         } else {
-            throw new Exception('No master config file found.', 404);
+            throw new ArchFWException('No master config file found.', 404);
         }
 
         if (file_exists($databaseCfgPath)) {
             $databaseConfig = require $databaseCfgPath;
         } else {
-            throw new Exception('No database config file found.', 404);
+            throw new ArchFWException('No database config file found.', 404);
         }
 
         if (file_exists($routesCfgPath)) {
             $routesConfig = require $routesCfgPath;
         } else {
-            throw new Exception('No routes config file found.', 404);
+            throw new ArchFWException('No routes config file found.', 404);
         }
-
 
         return [
             'app'      => $applicationConfig,
             'database' => $databaseConfig,
             'routes'   => $routesConfig,
         ];
-
     }
 
     /**
