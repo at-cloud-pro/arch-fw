@@ -15,9 +15,12 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 return [
-# Welcome in config file dear programmer! In care for your safety and comfort we've commented everything what you may change or destroy. Please read comments carefully, deleting some of this lines and settings might be a strong reason why your app isn't working correctly.
+# Welcome in config file dear programmer! In care for your safety and comfort we've commented everything what you
+# may change or destroy. Please read comments carefully, deleting some of this lines and settings might be a strong
+# reason why your app isn't working correctly.
 
-# If you want to add your own setting, place it carefully below this settings, match the key so you won't override actual settings. You can reach this config as defined CONFIG constant in every scope.
+# If you want to add your own setting, place it carefully below this settings, match the key so you won't override
+# actual settings. You can reach this config as defined CONFIG constant in every scope.
 
 # Production server switch. When set to false, all PHP errors will be hidden, written to logs.
 # When set to true, all PHP erros will occur, helping debug the application.
@@ -43,7 +46,9 @@ return [
     'metaComment'     => '',
 ],
 
-# Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid name, type, rel and path. Don't forget to check if browser sees your new stylesheet in Page Inspector or similiar tool.
+# Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid
+# name, type, rel and path. Don't forget to check if browser sees your new stylesheet in Page Inspector or similiar
+# tool.
 /*
 Example:
 "Desktop" => [
@@ -64,20 +69,25 @@ Example:
     ],
 ],
 
-# Here enter relative paths to TWIG templates and application wrappers. Until you modify framework internal structure (not recommended!), no need to touch this.
+# Here enter relative paths to TWIG templates and application wrappers. Until you modify framework internal structure
+# (not recommended!), no need to touch this.
 'twigConfig'       => [
     'twigWrappersPath'  => '../assets/wrappers/',
     'twigTemplatesPath' => '..\assets\templates',
 ],
 
 
-# Path to catalogue with errorcodes, files inside should be named like an errors they are written for - e.g. '404.html'. PHP is not allowed in this files. Until you modify framework internal structure (not recommended!), no need to touch this.
+# Path to catalogue with errorcodes, files inside should be named like an errors they are written for - e.g. '404
+#.html'. PHP is not allowed in this files. Until you modify framework internal structure (not recommended!), no need
+# to touch this.
 'pathToErrorPages' => '../assets/errorpages',
 
 #Path to default log file (new file will be there created if any does not exist
 'defaultLogPath'   => '../logs/ArchFWLogFile.log',
+'exceptionLogPath' => '../logs/ArchFWExceptions.log',
 
-# Simple switch to disable API in whole application. If user will try access, app will throw 601 "Api turned off in app config" error.
+# Simple switch to disable API in whole application. If user will try access, app will throw 601 "Api turned off in
+# app config" error.
 'APIrunning'       => true,
 
 

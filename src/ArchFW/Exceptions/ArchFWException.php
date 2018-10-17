@@ -38,8 +38,11 @@ class ArchFWException extends Exception
      */
     public function __construct(string $message, int $code = 0, Throwable $previous = null)
     {
-        $Log = new Logger(CONFIG['app']['exceptionLogPath']);
-        $Log->log($message, $code);
         parent::__construct($message, $code, $previous);
+        $Log = new Logger(CONFIG['app']['exceptionLogPath']);
+        $msg = "\n[{$Log->getDate()}]";
+        $msg .= "\n\t\t[{$this->code}] [{$this->message}]";
+        $msg .= "\n\t\tLine {$this->line} in file [{$this->file}]";
+        $Log->log($msg, $code);
     }
 }

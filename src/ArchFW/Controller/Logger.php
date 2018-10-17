@@ -82,11 +82,18 @@ class Logger
         callable $callback = null,
         string $callbackMessage = null
     ): bool {
-        if (!empty($callbackMessage)) {
-            $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}.";
-        } else {
-            $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. No callback provided.";
+
+
+        // Message is builded on standard log file, and raw on other files
+        if ($this->path === self::DEFAULT_PATH) {
+            // CREATE CODE TEMPLATE
+            if (!empty($callbackMessage)) {
+                $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}.";
+            } else {
+                $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. No callback provided.";
+            }
         }
+
         // Write last sent message as field
         $this->last = $message;
 
@@ -118,13 +125,21 @@ class Logger
     }
 
     /**
+     * @return string
+     */
+    public function getDate(): string
+    {
+        return $this->date;
+    }
+
+    /**
      * Creates new log file with name saved in const and initiate it with proper message
      */
     private function initNew(): void
     {
         if ($File = fopen($this->path, 'w+')) {
             $path = realpath($this->path);
-            fwrite($File, "ArchFW Log File, created on [{$this->date}] in [{$path}].");
+            fwrite($File, "ArchFW Log File, created on [{$this->date}] in [{$path}]");
             fclose($File);
         } else {
             echo 'Logger sends visual error, because error occured on creating log';
