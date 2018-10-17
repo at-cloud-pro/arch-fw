@@ -69,12 +69,17 @@ class Logger
      * Log an error to custom log file
      *
      * @param string $message provide a message that describes the problem
-     * @param int $code provide error code
-     * @param string $callbackMessage provide an information what will happen after error occurs
+     * @param int|null $code provide error code
+     * @param callable|null $callback callback done after file logging
+     * @param string|null $callbackMessage provide an information what will happen after error occurs
      * @return bool true on success, false on fail
      */
-    public function log(string $message, int $code = null, string $callbackMessage = ''): bool
-    {
+    public function log(
+        string $message,
+        int $code = null,
+        callable $callback = null,
+        string $callbackMessage = null
+    ): bool {
         if (!empty($callbackMessage)) {
             $message = "[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}. \n";
         } else {
@@ -83,6 +88,7 @@ class Logger
         // Write last sent message as field
         $this->last = $message;
 
+        $callback();
         if ($this->debug) {
             die($message);
         }

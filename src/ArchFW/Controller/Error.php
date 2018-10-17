@@ -134,7 +134,6 @@ class Error implements IError
      */
     public function action(): void
     {
-
     }
 }
 

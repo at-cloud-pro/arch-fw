@@ -23,7 +23,8 @@ namespace ArchFW\Controller\Interfaces;
 interface IError
 {
     /**
-     * Action which is given to user. By default it's doing nothing, but while overriding this function by inheritance user may add his own needs.
+     * Action which is given to user. By default it's doing nothing,
+     * but while overriding this function by inheritance user may add his own needs.
      *
      * @return void
      */
