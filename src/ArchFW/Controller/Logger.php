@@ -72,14 +72,12 @@ class Logger
      *
      * @param string $message provide a message that describes the problem
      * @param int|null $code provide error code
-     * @param callable|null $callback callback done after file logging
      * @param string|null $callbackMessage provide an information what will happen after error occurs
      * @return bool true on success, false on fail
      */
     public function log(
         string $message,
         int $code = null,
-        callable $callback = null,
         string $callbackMessage = null
     ): bool {
 
@@ -96,11 +94,6 @@ class Logger
 
         // Write last sent message as field
         $this->last = $message;
-
-        // If callback specified, execute a callback
-        if ($callback) {
-            call_user_func($callback);
-        }
 
         // I debug mode is on, echo message to screen and die
         if ($this->debug) {
@@ -142,7 +135,7 @@ class Logger
             fwrite($File, "ArchFW Log File, created on [{$this->date}] in [{$path}]");
             fclose($File);
         } else {
-            echo 'Logger sends visual error, because error occured on creating log';
+            echo 'Logger sent visual error, because error occured on creating log';
         }
     }
 

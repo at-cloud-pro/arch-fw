@@ -39,10 +39,20 @@ class ArchFWException extends Exception implements Throwable
     public function __construct(string $message, int $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
+        $this->log();
+
+    }
+
+    /**
+     * Method logs data to dedicated log file, specified in config
+     *
+     */
+    protected function log()
+    {
         $Log = new Logger(CONFIG['app']['exceptionLogPath']);
         $msg = "\n[{$Log->getDate()}]";
         $msg .= "\n\t\t[{$this->code}] [{$this->message}]";
         $msg .= "\n\t\tLine {$this->line} in file [{$this->file}]";
-        $Log->log($msg, $code);
+        $Log->log($msg, $this->code);
     }
 }
