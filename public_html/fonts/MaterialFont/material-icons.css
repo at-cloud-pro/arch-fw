@@ -1,25 +1,35 @@
-<<<<<<< HEAD
-=======
-/*!
- * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services. ArchFW comes with pre-installed router and JSON API functionality.
+/*
+ * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services.
+ * ArchFW comes with pre-installed router and JSON API functionality.
  * Visit https://github.com/archi-tektur/ArchFW/ for more info.
  *
  * PHP version 7.2
  *
- * @category  Framework / Template
+ * @category  Framework/Boilerplate
  * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   2.5.0
+ * @version   4.0.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
->>>>>>> dev
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(MaterialIcons-Regular.woff2) format('woff2'),
+    url(MaterialIcons-Regular.woff) format('woff'),
+    url(MaterialIcons-Regular.ttf) format('truetype');
+}
+
 .material-icons {
     direction: ltr;
     display: inline-block;
-    font-family: 'Material Icons', sans-serif;
+    font-family: 'Material Icons';
     font-size: 24px; /* Preferred icon size */
     font-style: normal;
     font-weight: normal;

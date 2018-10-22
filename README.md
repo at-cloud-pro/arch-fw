@@ -1,5 +1,8 @@
 # ArchFW - modern boilerplate for innovative applications
-ArchFW is a short form of ArchFramework. We - archi_tektur team - developed this software as a solution for common PHP applications problems, such as securing session, cute error throwing and routing. Software is still growing, so we are expanding it's capabilities: API serving, using APIs and many many more!
+ArchFW is a short form of ArchFramework. We - archi_tektur team - developed this software as a solution for common 
+PHP applications problems, such as securing session, cute error throwing and routing. Software is still growing, so 
+we are expanding it's capabilities: API serving, using APIs and many many more! Application is predefined to be a 
+nice and cosy boilerplate for server-side rendered applications.
 ![GitHub Logo](https://archi-tektur.pl/img/gh/wizytowka-r.png)
 Format: ![Alt Text](url)
 
@@ -10,30 +13,31 @@ Here, in short we will introduce you to our framework. We are still trying to KI
 ### Download
 First things first. You will have to download our framework from this repo (please always use master branch, only there is the newest, stable version of our software). Place downloaded folder somewhere on your hard disk. Enter the folder - you will see `/public` catalogue, with index.php and some files and folders. Set your server root to this folder.
 ### Instalation
-Second, you may know Composer - it's PHP packet manager. Well, our application boilerplate use some common PHP Libraries, PHPMailer for example, so we'll use Composer to download them and automagically couple them to your new shiny app. Now, run Command Prompt or Terminal over the main framework folder (not `/public`!). Execute this commands in prompt:
+Second, you may know Composer - it's PHP package manager. Well, our application boilerplate use some common PHP 
+Libraries, PHPMailer for example, so we'll use Composer to download them and automagically couple them to your new shiny app. Now, run Command Prompt or Terminal over the main framework folder (not `/public`!). Execute this commands in prompt:
 ```sh
 $ composer install
 ```
 Congratulations, this step should create `/vendor` path in your main application folder. 
 
 ### Configuration
-Now grab config.php file that is located in main app catalogue, and edit it. It's PHP array, containing most values that you may want to change in framework. Pay attention to comments over there, don't delete any records, follow the instructions in file header. File has few sections:
+Now grab config folder. It has by default few config files. `archsettings.php` contains framework-itself 
+configuration settings, as far as you don't want change the framework structure, disable API functionality and many 
+more you have no reason to change anything there. 
 
-|Name|type|Value|
-|:-------------:|:-------------:|:----- |
-|__`dev`__|[__boolean__]|Contains information if framework is running whith developer mode. It will show all errors while developing, which might be really helpful.|
-|__`metaConfig`__|[__array__]|Holds basic information about webpage, it's common element for all pages - don't worry, you can change it manually later for selected pages.|
-|__`stylesheets`__|[__array__]|Has information about all CSS stylesheets over project. All CSS used here will be added to all pages using this framework, so use it wisely!. Every single stylesheet should has suitable array, example is commented in code.|
-|__`DBConfig`__|[__array__]|ArchFW supports awesomely Databases! Actually, we're using Medoo library for connecting and executing SQL queries so you are extremely safe against SQL Injections and many more!. Here you need to specify yours database details.|
-|__`MailerConfig`__|[__array__]|Enter here credintials to your mail account and few more details to have a possibility to send mails via application.|
-|__`twigConfig`__|[__array__]|As far as you are going to use ArchFW in our (best) way, you should leave it as it is. Here you can specify where application will be looking for wrappers and TWIG templates. What wrapper and TWIG file is we'll tell you under _Development_. |
-|__`appRouter`__|[__array__]|Here magic happens - details of routing in this app will be providen in 'Development with ArchFW' section of this document |
-|__`pathToErrorPages`__|[__string__]|Obviously - the path where application will look for errorpages. For example, if __404__ error happens, `404.html` file will be loaded.|
-|__`APIrunning`__|[__bolean__]||
-|__`APIrouter`__|[__array__]||
-|__`APIwrappers`__|[__string__]||
+File named `routes.php` is much more important. It holds all routes - assigning wrappers and TWIG templates to URL 
+adresses. For instance - user is entering `server/dupa` and he will load template from `assets/templates/filename
+.twig` and wrapper from `assets/wrappers/filename.php`. For this behavior, your routes should look like this:
+```php
+'APProuter' => [
+        '/dupa' => 'filename',
+    ]
+```
+All other adresses then will provide 404 error. Enter more adresses just adding new keys to this array.
 
-If everything is correctly builded you may run tests right now.
+Database credintials are held in `database.php`.
+
+If everything is correctly builded you may develop with it right now!
 ### Fail checklist
 
 ## Development with ArchFw
@@ -52,13 +56,14 @@ Our framework provides best-ever router, the application you will build can retu
 We're working here with TWIG templates engine. Below, in links section you will have link to TWIG documentation, where is perfectly shown what TWIG is, and why it's even better way than normal PHP markups. 
 But first things first. You want to create something simple. A simple webpage that will return server date and time, it will be located at `localhost/date`. At the beginning open `config.cfg` file which is located in main framework folder. In section __`appRouter`__ you will add query like this: `'/date' => 'date',`, so finally this part will looks like this:
 ```php
-'appRouter' =>
+'APProuter' =>
     [
         '/' => 'index',
         '/date' => 'date',
     ],
 ```
-And DO NOT miss names __`appRouter`__ and __`APIrouter`__ - it's really big difference. By putting this record to the config file, you've told the application that it has to look for __wrapper__ file in `/assets/wrappers` and __twig__ file in `/assets/templates`. 
+And DO NOT miss names __`APProuter`__ and __`APIrouter`__ - it's really big difference. By putting this record to the 
+config file, you've told the application that it has to look for __wrapper__ file in `/assets/wrappers` and __twig__ file in `/assets/templates`. 
 Now, go to `/assets/templates` and create new file - `date.twig`. Markup of this file will look like this:
 ```twig
 {% include "common/header.twig" %}
@@ -97,16 +102,11 @@ Perhaps you may ask for this line:
 ```php
 new Error(405, "Method not Allowed", Error::JSON);
 ```
-You will find this and other shared function in shared elements reference below.
-
-### Practise - creating controllers and all around OOP
-Okey, as far as simple status APIs or static pages might be running chasing it's logic only in __wrapper__ files, as soon you will want to develop more advanced task with your App. It's absolutely not a problem in ArchFW! 
-You have to learn - `/src` catalogue holds whole logic. Any advanced algorithms, classes, whole OOP stands there. Wrappers are only scripts thats creating new objects located in `/src`. In this Practise we will create simple login page. Ready? Let's go! 
-
-MORE DOCUMENTATION SOON
+This is the best way of throwing an errors in this case.
 
 ## Shared resources reference
 
+Shared resources list is still growing and under construction, so longer specifications will be provided later.
 
 
 
