@@ -40,7 +40,6 @@ class ArchFWException extends Exception implements Throwable
     {
         parent::__construct($message, $code, $previous);
         $this->log();
-
     }
 
     /**
