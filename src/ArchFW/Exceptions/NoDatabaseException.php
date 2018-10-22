@@ -15,4 +15,16 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-return ROUTER;
+
+namespace ArchFW\Exceptions;
+
+use Exception;
+
+/**
+ * NoDatabaseException is thrown when database cannot be reached or datas are wrong.
+ *
+ * @package ArchFW\Exceptions
+ */
+class NoDatabaseException extends Exception
+{
+}

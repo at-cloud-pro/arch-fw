@@ -15,4 +15,15 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-return ROUTER;
+return [
+    # Here enter database details, if you want to use our extention.
+    'databaseType' => 'mysql',
+    'databaseName' => 'test',
+    'server'       => 'localhost',
+    'user'         => 'root',
+    'password'     => '',
+    // additional PDO options - UTF8 by default
+    'addInfo'      => [
+        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+    ],
+];
