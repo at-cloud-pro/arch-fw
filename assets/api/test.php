@@ -24,8 +24,4 @@ $json = [
     'method'     => $_SERVER['REQUEST_METHOD'],
 ];
 
-// EXAMPLE OF THROWING ERRORS:
-// Application::error(404,"NOT FOUND", "json");
-
-
 return $json;

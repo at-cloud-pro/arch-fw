@@ -18,7 +18,7 @@
 // EXAMPLE OF THROWING ERRORS:
 // new Error(404,"NOT FOUND", Error::HTML);
 // new Authenticator();
-$Log = new \ArchFW\Controller\Logger();
 
+$Log = new \ArchFW\Controller\Logger();
 $Log->log('Loaded correctly the main screen', 200);
 return ['test' => 'working'];
