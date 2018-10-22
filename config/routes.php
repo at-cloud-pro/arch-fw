@@ -6,12 +6,12 @@
  *
  * PHP version 7.2
  *
- * @category  Framework / Template
+ * @category  Framework/Boilerplate
  * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   2.5.0
+ * @version   4.0.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -19,8 +19,7 @@ return [
     # Add adresses to our router. Key here is a URL adress user enters, and value is name of wrapper and twig files.
     # When file is in subdirectory, you can use '/', e.g. 'login/recoverpassword'.
     'APProuter' => [
-        '/'          => 'index',
-        '/testering' => 'testing',
+        '/' => 'index',
     ],
 
     # Router in API is matching URL (key here) and wrapper file name (value here)

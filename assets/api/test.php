@@ -6,12 +6,12 @@
  *
  * PHP version 7.2
  *
- * @category  Framework / Template
+ * @category  Framework/Boilerplate
  * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   2.5.0
+ * @version   4.0.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -21,6 +21,7 @@
 $json = [
     'state'      => 'working',
     'apiMessage' => 'test done correctly',
+    'method'     => $_SERVER['REQUEST_METHOD'],
 ];
 
 // EXAMPLE OF THROWING ERRORS:
