@@ -28,11 +28,11 @@ return [
 
 # This settings will set the security details of your app. Keep it untouched, it's field for application programmer.
 'security'         => [
-# Force users to access page via HTTP Secure protocol
-'https' => false,
+    # Force users to access page via HTTP Secure protocol
+    'https' => false,
 
-# Enable or disable HTTP Strict Transport Policy
-'hsts'  => false,
+    # Enable or disable HTTP Strict Transport Policy
+    'hsts'  => false,
 ],
 
 # Every page has

@@ -21,6 +21,7 @@ use ArchFW\Base\View;
 use ArchFW\Controller\Error;
 use ArchFW\Controller\Router;
 use ArchFW\Exceptions\ArchFWException;
+use ArchFW\Exceptions\RouteNotFoundException;
 
 /**
  * Representation of ArchFW Application
@@ -68,14 +69,60 @@ final class Application extends View
         $this->errorReporting(!CONFIG['app']['production']);
 
         // Start routing
-        $this->Router = new Router;
-        $file = $this->Router->getFileName();
+        try {
+            $this->Router = new Router();
+            $file = $this->Router->getFileName();
 
-        $wrapper = "$file.php";
-        $template = "$file.twig";
+            $wrapper = "$file.php";
+            $template = "$file.twig";
 
-        // Use renderer
-        parent::render($wrapper, $template);
+            // Use renderer
+            parent::render($wrapper, $template);
+        } catch (RouteNotFoundException $e) {
+            switch ($e->getCode()) {
+                case 601:
+                    new Error(
+                        601,
+                        $e->getMessage(),
+                        Error::JSON
+                    );
+                    break;
+
+                case 602:
+                    new Error(
+                        404,
+                        $e->getMessage(),
+                        Error::JSON
+                    );
+                    break;
+                case 603:
+                    new Error(
+                        404,
+                        $e->getMessage(),
+                        Error::JSON
+                    );
+                    break;
+
+                case 604:
+                    new Error(
+                        404,
+                        $e->getMessage(),
+                        Error::PLAIN
+                    );
+                    break;
+
+                case 605:
+                    new Error(
+                        404,
+                        $e->getMessage(),
+                        Error::HTML
+                    );
+                    break;
+
+            }
+        }
+
+
     }
 
     /**

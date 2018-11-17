@@ -17,6 +17,8 @@
 
 namespace ArchFW\Controller;
 
+use ArchFW\Exceptions\RouteNotFoundException;
+
 /**
  * Retrieves requested URI into file wrappers, sets GET variables, switching between api and html mode easily.
  */
@@ -28,11 +30,15 @@ final class Router
      * Depending on URI returns API wrappers or TWIG Templates and PHP Wrappers
      *
      * @return string filename that has to be loaded
+     * @throws RouteNotFoundException
      */
     public function getFileName(): string
     {
         // CHECK IF APP HAS
-        $uri = explode('?', $_SERVER['REQUEST_URI']);
+        $uri = explode(
+            '?',
+            $_SERVER['REQUEST_URI']
+        );
         if (array_key_exists(1, $uri)) {
             $_GET = $this->findArgs($uri[1]);
         }
@@ -80,6 +86,7 @@ final class Router
      * @param string $string Requested URI file part
      * @param boolean $isAPI Set to true when accessing API server
      * @return string Returns filename when found
+     * @throws RouteNotFoundException
      */
     private function findFiles(string $string, bool $isAPI): string
     {
@@ -90,28 +97,48 @@ final class Router
         // set URI parts as constant array
         define('ROUTER', $explodedURI);
 
+
+        // Looking in API router
         if ($isAPI) {
             // RUNS IF SERVER MAY BE USED AS API SERVO
             if (CONFIG['app']['APIrunning'] === false) {
-                header("Content-Type: application/json");
-                new Error(601, 'API functionality were turned off in app config file on server.', Error::JSON);
+                throw new RouteNotFoundException(
+                    'API functionality were turned off in app config file on server.',
+                    601
+                );
             }
             if (!array_key_exists('/' . $explodedURI[1], CONFIG['routes']['APIrouter'])) {
-                new Error(404, "Router did not found route '/{$explodedURI[1]}' in API config file!", Error::JSON);
+                throw new RouteNotFoundException(
+                    "Router did not found route '/{$explodedURI[1]}' in API config file!",
+                    602
+                );
             }
 
             $file = CONFIG['app']['APIwrappers'] . "/" . CONFIG['routes']['APIrouter']['/' . $explodedURI[1]];
             if (!file_exists("$file.php")) {
-                new Error(404, "Wrapper file does not exist or no access!", Error::JSON);
+                throw new RouteNotFoundException(
+                    "Wrapper file does not exist or no access!",
+                    603
+                );
+
             }
             $json = require_once "$file.php";
             echo json_encode($json);
             exit;
+
+            // Looking in APP router
         } elseif (!array_key_exists('/' . $explodedURI[0], CONFIG['routes']['APProuter'])) {
-            if (CONFIG['app']['production']) {
-                new Error(404, "Router did not found route '/{$explodedURI[0]}' in APP config file!", Error::PLAIN);
+            // if no router key contains URL
+            if (!CONFIG['app']['production']) {
+                throw new RouteNotFoundException(
+                    "Router did not found route '/{$explodedURI[0]}' in APP config file!",
+                    604
+                );
             }
-            new Error(404, "Not Found", Error::HTML);
+            throw new RouteNotFoundException(
+                "Not found",
+                605
+            );
         }
         return CONFIG['routes']['APProuter']['/' . $explodedURI[0]];
     }

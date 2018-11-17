@@ -101,11 +101,15 @@ class Error implements IError
     protected function jsonError(): void
     {
         header('Content-Type: application/json');
-        exit(json_encode([
-            'error'        => true,
-            'errorCode'    => $this->code,
-            'errorMessage' => $this->message,
-        ]));
+        exit(
+        json_encode(
+            [
+                'error'        => true,
+                'errorCode'    => $this->code,
+                'errorMessage' => $this->message,
+            ]
+        )
+        );
     }
 
     /**
@@ -117,12 +121,13 @@ class Error implements IError
      */
     protected function plainError(bool $force /* FORCE */): void
     {
-        if (CONFIG['app']['production'] or !$force) {
+        if (CONFIG['app']['production'] or $force) {
             $this->htmlError();
         } else {
             header('Content-Type: text/plain');
-            exit("ERROR $this->code OCCURED, WITH MESSAGE '$this->message'.
-                ERROR-SPECIFIC FILES WERE NOT FOUND, OR DEV MODE IS TURNED ON.");
+            exit(
+            "ERROR $this->code OCCURED, WITH MESSAGE '$this->message'. ERROR-SPECIFIC FILES WERE NOT FOUND, OR PROD MODE IS TURNED OFF."
+            );
         }
     }
 
