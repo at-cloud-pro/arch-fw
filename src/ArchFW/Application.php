@@ -11,7 +11,7 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0.0
+ * @version   2.5.1
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -119,10 +119,15 @@ final class Application extends View
                     );
                     break;
 
+                case 606:
+                    new Error(
+                        404,
+                        $e->getMessage(),
+                        Error::PLAIN
+                    );
+                    break;
             }
         }
-
-
     }
 
     /**

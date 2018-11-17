@@ -11,7 +11,7 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0.0
+ * @version   2.5.1
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -125,11 +125,21 @@ final class Router
             $json = require_once "$file.php";
             echo json_encode($json);
             exit;
-
             // Looking in APP router
         } elseif (!array_key_exists('/' . $explodedURI[0], CONFIG['routes']['APProuter'])) {
             // if no router key contains URL
-            if (!CONFIG['app']['production']) {
+            if ($route = CONFIG['routes']['redirectOnNoMatch'] and $route) {
+                if (isset($_SESSION['catchInfLoop']) and $_SESSION['catchInfLoop'] === true) {
+                    $_SESSION['catchInfLoop'] = false;
+                    throw new RouteNotFoundException(
+                        'RedirectOnMatch adress does not have assigned route path.',
+                        606
+                    );
+                }
+                $_SESSION['catchInfLoop'] = true;
+                header("Location: {$route}");
+                exit();
+            } elseif (!CONFIG['app']['production']) {
                 throw new RouteNotFoundException(
                     "Router did not found route '/{$explodedURI[0]}' in APP config file!",
                     604

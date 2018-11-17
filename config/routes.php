@@ -11,7 +11,7 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0.0
+ * @version   2.5.1
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -32,6 +32,6 @@ return [
     # Redirect all routes that does not match the above scheme to other, defined above route
     # set FALSE to turn off this function
     # set STRING with route to turn on this function
-    'redirectOnNoMatch' => false,
+    'redirectOnNoMatch' => '/',
 
 ];
