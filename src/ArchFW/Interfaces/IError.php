@@ -31,3 +31,4 @@ interface IError
     public function action(): void;
 }
 
+

@@ -32,12 +32,14 @@ final class DatabaseFactory
      */
     final public static function getInstance()
     {
-        return new Medoo([
-            'database_type' => CONFIG['database']['databaseType'],
-            'database_name' => CONFIG['database']['databaseName'],
-            'server'        => CONFIG['database']['server'],
-            'username'      => CONFIG['database']['user'],
-            'password'      => CONFIG['database']['password'],
-        ]);
+        return new Medoo(
+            [
+                'database_type' => CONFIG['database']['databaseType'],
+                'database_name' => CONFIG['database']['databaseName'],
+                'server'        => CONFIG['database']['server'],
+                'username'      => CONFIG['database']['user'],
+                'password'      => CONFIG['database']['password'],
+            ]
+        );
     }
 }

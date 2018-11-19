@@ -8,6 +8,11 @@
 
 namespace ArchFW\Interfaces;
 
+/**
+ * Short interface that shows what methods are designed to be working with
+ *
+ * @package ArchFW\Interfaces
+ */
 interface Configurable
 {
 

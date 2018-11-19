@@ -26,10 +26,11 @@
     url(MaterialIcons-Regular.ttf) format('truetype');
 }
 
+/*noinspection CssUnusedSymbol*/
 .material-icons {
     direction: ltr;
     display: inline-block;
-    font-family: 'Material Icons';
+    font-family: 'Material Icons', sans-serif;
     font-size: 24px; /* Preferred icon size */
     font-style: normal;
     font-weight: normal;

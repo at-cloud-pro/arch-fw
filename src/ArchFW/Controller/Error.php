@@ -78,6 +78,16 @@ class Error implements IError
     }
 
     /**
+     * Action which is given to user. By default it's doing nothing,
+     * but while overriding this function by inheritance user may add his own needs.
+     *
+     * @return void
+     */
+    public function action(): void
+    {
+    }
+
+    /**
      * Throw verbose HTML error
      *
      * @return void
@@ -91,25 +101,6 @@ class Error implements IError
         } else {
             $this->plainError(true);
         }
-    }
-
-    /**
-     * Throw JSON error response
-     *
-     * @return void
-     */
-    protected function jsonError(): void
-    {
-        header('Content-Type: application/json');
-        exit(
-        json_encode(
-            [
-                'error'        => true,
-                'errorCode'    => $this->code,
-                'errorMessage' => $this->message,
-            ]
-        )
-        );
     }
 
     /**
@@ -133,13 +124,14 @@ class Error implements IError
     }
 
     /**
-     * Action which is given to user. By default it's doing nothing,
-     * but while overriding this function by inheritance user may add his own needs.
+     * Throw JSON error response
      *
      * @return void
      */
-    public function action(): void
+    protected function jsonError(): void
     {
+        header('Content-Type: application/json');
+        exit(json_encode(['error' => true, 'errorCode' => $this->code, 'errorMessage' => $this->message]));
     }
 }
 

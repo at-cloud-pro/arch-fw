@@ -48,22 +48,15 @@ try {
 
     // ENSURE HAVING VENDOR FILES
     if (!file_exists($vendor)) {
-        throw new
-        ArchFWException('VENDOR files were not found, run \'composer install\' over main framework folder.', 3);
+        throw new ArchFWException(
+            'VENDOR files were not found, run \'composer install\'' .
+            ' over main framework folder.',
+            3
+        );
     }
     // LOADING LIBS AND CLASSES
     include_once $vendor;
-
-    try {
-        // Run a service
-        new Service($configPath);
-    } catch (ArchFWException $mainClassError) {
-        // Catch the exceptions that came while running the app.
-        header('Content-Type text/plain');
-        http_response_code(404);
-        exit('FATAL ERROR ' . $mainClassError->getCode() . ': ' . $mainClassError->getMessage());
-    }
-
+    new Service($configPath);
 } catch (ArchFWException $err) {
     // Catch the exceptions that came before running an app.
     http_response_code(500);

@@ -122,7 +122,6 @@ final class Router
                     "Wrapper file does not exist or no access!",
                     603
                 );
-
             }
             $json = require_once "$file.php";
             echo json_encode($json);
@@ -155,4 +154,3 @@ final class Router
         return Config::get(Config::SECTION_ROUTER, 'APProuter')['/' . $explodedURI[0]];
     }
 }
-
