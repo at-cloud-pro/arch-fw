@@ -101,20 +101,22 @@ final class Router
         // Looking in API router
         if ($isAPI) {
             // RUNS IF SERVER MAY BE USED AS API SERVO
-            if (CONFIG['app']['APIrunning'] === false) {
+            if (Config::get(Config::SECTION_APP, 'APIrunning')) {
                 throw new RouteNotFoundException(
                     'API functionality were turned off in app config file on server.',
                     601
                 );
             }
-            if (!array_key_exists('/' . $explodedURI[1], CONFIG['routes']['APIrouter'])) {
+            if (!array_key_exists('/' . $explodedURI[1], Config::get(Config::SECTION_ROUTER, 'APIrouter'))) {
                 throw new RouteNotFoundException(
                     "Router did not found route '/{$explodedURI[1]}' in API config file!",
                     602
                 );
             }
 
-            $file = CONFIG['app']['APIwrappers'] . "/" . CONFIG['routes']['APIrouter']['/' . $explodedURI[1]];
+            $file = Config::get(Config::SECTION_APP, 'APIwrappers')
+                . "/" .
+                Config::get(Config::SECTION_ROUTER, 'APIRouter')['/' . $explodedURI[1]];
             if (!file_exists("$file.php")) {
                 throw new RouteNotFoundException(
                     "Wrapper file does not exist or no access!",
@@ -126,9 +128,9 @@ final class Router
             echo json_encode($json);
             exit;
             // Looking in APP router
-        } elseif (!array_key_exists('/' . $explodedURI[0], CONFIG['routes']['APProuter'])) {
+        } elseif (!array_key_exists('/' . $explodedURI[0], Config::get(Config::SECTION_ROUTER, 'APPRouter'))) {
             // if no router key contains URL
-            if ($route = CONFIG['routes']['redirectOnNoMatch'] and $route) {
+            if ($route = Config::get(Config::SECTION_ROUTER, 'redirectOnNoMatch') and $route) {
                 if (isset($_SESSION['catchInfLoop']) and $_SESSION['catchInfLoop'] === true) {
                     $_SESSION['catchInfLoop'] = false;
                     throw new RouteNotFoundException(
@@ -139,7 +141,7 @@ final class Router
                 $_SESSION['catchInfLoop'] = true;
                 header("Location: {$route}");
                 exit();
-            } elseif (!CONFIG['app']['production']) {
+            } elseif (!Config::get(Config::SECTION_APP, 'production')) {
                 throw new RouteNotFoundException(
                     "Router did not found route '/{$explodedURI[0]}' in APP config file!",
                     604
@@ -150,7 +152,7 @@ final class Router
                 605
             );
         }
-        return CONFIG['routes']['APProuter']['/' . $explodedURI[0]];
+        return Config::get(Config::SECTION_ROUTER, 'APPRouter')['/' . $explodedURI[0]];
     }
 }
 
