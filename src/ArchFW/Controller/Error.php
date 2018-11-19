@@ -17,12 +17,12 @@
 
 namespace ArchFW\Controller;
 
-use ArchFW\Interfaces\IError;
+use ArchFW\Interfaces\Errorable;
 
 /**
  * Class shows verbose or JSON errors, easy to extend and add user's own action.
  */
-class Error implements IError
+class Error implements Errorable
 {
     /**
      * Defining class

@@ -20,7 +20,7 @@ namespace ArchFW\Interfaces;
 /**
  * Interface that requires that user who used Error class will implement his own _action() method
  */
-interface IError
+interface Errorable
 {
 
     /**
