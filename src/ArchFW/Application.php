@@ -131,19 +131,6 @@ final class Application extends View
     }
 
     /**
-     * Returns config array
-     *
-     * @param string $path
-     * @throws ArchFWException when config files were not found
-     *
-     * @return array Application config files
-     */
-    private function loadConfig(string $path): array
-    {
-
-    }
-
-    /**
      * Enforcing on app usage of HTTP Secure protocol instead of normal HTTP/
      *
      * If page is detected to run over HTTP only, page will be redirected to HTTPS.
