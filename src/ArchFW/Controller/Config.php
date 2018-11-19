@@ -17,12 +17,14 @@
 
 namespace ArchFW\Controller;
 
+use ArchFW\Interfaces\Configurable;
+
 /**
  * Class Config used with Property Design pattern holds application configuration data
  *
  * @package ArchFW\Controller
  */
-class Config
+class Config implements Configurable
 {
     /**
      * Consts for making Section param easier to use
