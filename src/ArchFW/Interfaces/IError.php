@@ -15,7 +15,7 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\Controller\Interfaces;
+namespace ArchFW\Interfaces;
 
 /**
  * Interface that requires that user who used Error class will implement his own _action() method

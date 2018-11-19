@@ -17,7 +17,7 @@
 
 namespace ArchFW\Controller;
 
-use ArchFW\Controller\Interfaces\IError;
+use ArchFW\Interfaces\IError;
 
 /**
  * Class shows verbose or JSON errors, easy to extend and add user's own action.
