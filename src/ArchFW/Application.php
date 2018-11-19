@@ -18,10 +18,12 @@
 namespace ArchFW;
 
 use ArchFW\Base\View;
+use ArchFW\Controller\Config;
 use ArchFW\Controller\Error;
 use ArchFW\Controller\Router;
-use ArchFW\Exceptions\ArchFWException;
+use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Exceptions\RouteNotFoundException;
+use ArchFW\Model\ConfigFactory;
 
 /**
  * Representation of ArchFW Application
@@ -46,30 +48,26 @@ final class Application extends View
      */
     public function __construct(string $configPath)
     {
-        // Load application configuration details as constant
         try {
-            define('CONFIG', $this->loadConfig($configPath));
-        } catch (ArchFWException $err) {
-            new Error($err->getCode(), $err->getMessage(), Error::PLAIN);
-        }
+            // Load application configuration details as constant
+            ConfigFactory::fill($configPath);
 
 
-        // Force HTTPS connection if setted in settings so
-        if (CONFIG['app']['security']['https']) {
-            $this->https();
-        }
+            // Force HTTPS connection if setted in settings so
+            if (Config::get(Config::SECTION_APP, 'security')['https']) {
+                $this->https();
+            }
 
-        // Run HTTP Secure Transport Policy
-        $this->hsts(CONFIG['app']['security']['hsts']);
+            // Run HTTP Secure Transport Policy
+            $this->hsts(CONFIG['app']['security']['hsts']);
 
-        // Ensure that session is securely started
-        $this->secureSession();
+            // Ensure that session is securely started
+            $this->secureSession();
 
-        // Turn on error reporting depending on production switch
-        $this->errorReporting(!CONFIG['app']['production']);
+            // Turn on error reporting depending on production switch
+            $this->errorReporting(Config::get(Config::SECTION_APP, 'security')['hsts']);
 
-        // Start routing
-        try {
+            // Start routing
             $this->Router = new Router();
             $file = $this->Router->getFileName();
 
@@ -79,54 +77,37 @@ final class Application extends View
             // Use renderer
             parent::render($wrapper, $template);
         } catch (RouteNotFoundException $e) {
+
             switch ($e->getCode()) {
                 case 601:
-                    new Error(
-                        601,
-                        $e->getMessage(),
-                        Error::JSON
-                    );
+                    $method = Error::JSON;
                     break;
-
                 case 602:
-                    new Error(
-                        404,
-                        $e->getMessage(),
-                        Error::JSON
-                    );
+                    $method = Error::JSON;
                     break;
                 case 603:
-                    new Error(
-                        404,
-                        $e->getMessage(),
-                        Error::JSON
-                    );
+                    $method = Error::JSON;
                     break;
-
                 case 604:
-                    new Error(
-                        404,
-                        $e->getMessage(),
-                        Error::PLAIN
-                    );
+                    $method = Error::PLAIN;
                     break;
-
                 case 605:
-                    new Error(
-                        404,
-                        $e->getMessage(),
-                        Error::HTML
-                    );
+                    $method = Error::HTML;
                     break;
-
                 case 606:
-                    new Error(
-                        404,
-                        $e->getMessage(),
-                        Error::PLAIN
-                    );
+                    $method = Error::PLAIN;
                     break;
+                default:
+                    $method = Error::HTML;
             }
+
+            new Error(
+                $e->getCode(),
+                $e->getMessage(),
+                $method
+            );
+        } catch (NoFileFoundException $e) {
+            new Error(404, 'Config files not found', Error::PLAIN)
         }
     }
 
