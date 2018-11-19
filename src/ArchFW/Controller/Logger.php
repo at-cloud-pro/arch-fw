@@ -11,7 +11,7 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0.0
+ * @version   2.5.1
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -24,10 +24,6 @@ namespace ArchFW\Controller;
  */
 class Logger
 {
-    /**
-     * Holds path to default log file
-     */
-    const DEFAULT_PATH = CONFIG['app']['defaultLogPath'];
 
     /**
      * @var string $path Holds path to log file
@@ -60,7 +56,9 @@ class Logger
         $this->date = date('Y-m-d H:i:s');
         $this->last = null;
 
-        $this->path = isset($customPath) ? $customPath : self::DEFAULT_PATH;
+        $this->path = isset($customPath) ? $customPath : Config::get(
+            Config::SECTION_APP, 'twigConfig'
+        )['defaultLogPath'];
 
         if (!file_exists($this->path)) {
             $this->initNew();
