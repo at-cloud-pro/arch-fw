@@ -11,12 +11,13 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0.0
+ * @version   2.5.1
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
 namespace ArchFW\Base;
 
+use ArchFW\Controller\Config;
 use ArchFW\Controller\Error;
 use ArchFW\Exceptions\ArchFWException;
 use Exception;
@@ -50,26 +51,23 @@ abstract class View
         $erro = null;
 
         try {
-            $this->loader = new Loader(CONFIG['app']['twigConfig']['twigTemplatesPath']);
+            $this->loader = new Loader(Config::get(Config::SECTION_APP, 'twigConfig')['twigTemplatesPath']);
 
             $this->twig = new Environment($this->loader);
             $template = $this->twig->load($templatefile);
 
-            $variables = CONFIG['app']['metaConfig'];
+            $variables = (Config::get(Config::SECTION_APP, 'metaConfig'));
             $variables += [
-                'stylesheets' => CONFIG['app']['stylesheets'],
+                'stylesheets' => (Config::get(Config::SECTION_APP, 'stylesheets')),
             ];
-            /*
-            if (is_array($GLOBALS['META'])) {
-                $vars += [
-                'meta' => $GLOBALS['META'],
-                ];
-            }*/
 
-            if (!file_exists(CONFIG['app']['twigConfig']['twigWrappersPath'] . $wrapperfile)) {
+            if (!file_exists(Config::get(Config::SECTION_APP, 'twigConfig')['twigWrappersPath'] . $wrapperfile)) {
                 throw new ArchFWException('No wrapper file found', 600);
             }
-            if (is_array($arr = require_once CONFIG['app']['twigConfig']['twigWrappersPath'] . $wrapperfile)) {
+            if (is_array(
+                $arr = require_once(Config::get(Config::SECTION_APP, 'twigConfig')
+                    ['twigWrappersPath'] . $wrapperfile)
+            )) {
                 $variables += $arr;
             }
             echo $template->render($variables);
