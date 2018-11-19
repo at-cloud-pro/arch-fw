@@ -4,14 +4,16 @@
   "description": "ArchFW is a short form of ArchFramework. We - archi_tektur team - developed this software as a solution for common PHP applications problems, such as securing session, cute error throwing and routing. Software is still growing, so we are expanding it's capabilities: API serving, using APIs and many many more!\r ![GitHub Logo](https://archi-tektur.pl/img/gh/wizytowka-r.png)\r Format: ![Alt Text](url)",
   "main": "index.js",
   "dependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-sass": "^4.0.1",
     "postcss-unprefix": "^2.1.3"
   },
   "devDependencies": {
     "gulp-autoprefixer": "^6.0.0",
     "gulp-clean-css": "^3.10.0",
-    "gulp-concat-css": "^3.1.0"
+    "gulp-concat-css": "^3.1.0",
+    "lodash": "^4.17.5",
+    "minimatch": "^3.0.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

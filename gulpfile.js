@@ -10,7 +10,7 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0.0
+ * @version   2.5.1
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -34,6 +34,15 @@ gulp.task('css', function () {
 });
 
 gulp.task('default', function () {
-    gulp.watch('public_html/scss/**/*.scss', ['css']);
-    // Other watchers
+    gulp.watch('public_html/scss/**/*.scss', function () {
+        return gulp.src('public_html/scss/**/*.scss')
+            .pipe(sass())
+            .pipe(concat("master.css"))
+            .pipe(autoprefixer({
+                browsers: ['last 2 versions'],
+                cascade: false
+            }))
+            .pipe(cleanCSS({compatibility: 'ie8'}))
+            .pipe(gulp.dest('public_html/css/'))
+    });
 });

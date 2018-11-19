@@ -77,7 +77,6 @@ class Logger
         string $callbackMessage = null
     ): bool {
 
-
         // Message is builded on standard log file, and raw on other files
         if ($this->path === Config::get(Config::SECTION_APP, 'defaultLogPath')) {
             // CREATE CODE TEMPLATE
