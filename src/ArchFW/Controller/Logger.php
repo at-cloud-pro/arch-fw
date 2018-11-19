@@ -56,9 +56,7 @@ class Logger
         $this->date = date('Y-m-d H:i:s');
         $this->last = null;
 
-        $this->path = isset($customPath) ? $customPath : Config::get(
-            Config::SECTION_APP, 'twigConfig'
-        )['defaultLogPath'];
+        $this->path = isset($customPath) ? $customPath : Config::get(Config::SECTION_APP, 'defaultLogPath');
 
         if (!file_exists($this->path)) {
             $this->initNew();
@@ -81,7 +79,7 @@ class Logger
 
 
         // Message is builded on standard log file, and raw on other files
-        if ($this->path === Config::get(Config::SECTION_APP, 'twigConfig')['defaultLogPath']) {
+        if ($this->path === Config::get(Config::SECTION_APP, 'defaultLogPath')) {
             // CREATE CODE TEMPLATE
             if (!empty($callbackMessage)) {
                 $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}.";
