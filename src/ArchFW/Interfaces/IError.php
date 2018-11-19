@@ -22,6 +22,16 @@ namespace ArchFW\Interfaces;
  */
 interface IError
 {
+
+    /**
+     * IError constructor.
+     *
+     * @param int $code
+     * @param string $message
+     * @param string $method
+     */
+    public function __construct(int $code, string $message, string $method);
+
     /**
      * Action which is given to user. By default it's doing nothing,
      * but while overriding this function by inheritance user may add his own needs.
@@ -30,5 +40,3 @@ interface IError
      */
     public function action(): void;
 }
-
-

@@ -4,7 +4,6 @@ PHP applications problems, such as securing session, cute error throwing and rou
 we are expanding it's capabilities: API serving, using APIs and many many more! Application is predefined to be a 
 nice and cosy boilerplate for server-side rendered applications.
 ![GitHub Logo](https://archi-tektur.pl/img/gh/wizytowka-r.png)
-Format: ![Alt Text](url)
 
 ## Requirements
 Application to be runned requires few composer components, PHP Interpreter above 7.0.0 version with preinstalled PDO library. Database is not required, but it definitely will help in development. Framework requires basic knowledge of PHP, variables, arrays, object-oriented programming. It's dedicated by developers for developers, it's not like WordPress - that every person can easily install. But we are sure that installation of our framework is siply easy.

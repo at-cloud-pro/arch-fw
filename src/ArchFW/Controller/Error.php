@@ -134,4 +134,3 @@ class Error implements IError
         exit(json_encode(['error' => true, 'errorCode' => $this->code, 'errorMessage' => $this->message]));
     }
 }
-
