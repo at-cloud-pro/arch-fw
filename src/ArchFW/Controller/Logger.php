@@ -81,7 +81,7 @@ class Logger
 
 
         // Message is builded on standard log file, and raw on other files
-        if ($this->path === self::DEFAULT_PATH) {
+        if ($this->path === Config::get(Config::SECTION_APP, 'twigConfig')['defaultLogPath']) {
             // CREATE CODE TEMPLATE
             if (!empty($callbackMessage)) {
                 $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}.";
