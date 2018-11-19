@@ -140,33 +140,7 @@ final class Application extends View
      */
     private function loadConfig(string $path): array
     {
-        $masterCfgPath = "{$path}/archsettings.php";
-        $databaseCfgPath = "{$path}/database.php";
-        $routesCfgPath = "{$path}/routes.php";
 
-        if (file_exists($masterCfgPath)) {
-            $applicationConfig = require $masterCfgPath;
-        } else {
-            throw new ArchFWException('No master config file found.', 404);
-        }
-
-        if (file_exists($databaseCfgPath)) {
-            $databaseConfig = require $databaseCfgPath;
-        } else {
-            throw new ArchFWException('No database config file found.', 404);
-        }
-
-        if (file_exists($routesCfgPath)) {
-            $routesConfig = require $routesCfgPath;
-        } else {
-            throw new ArchFWException('No routes config file found.', 404);
-        }
-
-        return [
-            'app'      => $applicationConfig,
-            'database' => $databaseConfig,
-            'routes'   => $routesConfig,
-        ];
     }
 
     /**
