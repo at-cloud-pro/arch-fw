@@ -128,7 +128,7 @@ final class Router
             echo json_encode($json);
             exit;
             // Looking in APP router
-        } elseif (!array_key_exists('/' . $explodedURI[0], Config::get(Config::SECTION_ROUTER, 'APPRouter'))) {
+        } elseif (!array_key_exists('/' . $explodedURI[0], Config::get(Config::SECTION_ROUTER, 'APProuter'))) {
             // if no router key contains URL
             if ($route = Config::get(Config::SECTION_ROUTER, 'redirectOnNoMatch') and $route) {
                 if (isset($_SESSION['catchInfLoop']) and $_SESSION['catchInfLoop'] === true) {
@@ -152,7 +152,7 @@ final class Router
                 605
             );
         }
-        return Config::get(Config::SECTION_ROUTER, 'APPRouter')['/' . $explodedURI[0]];
+        return Config::get(Config::SECTION_ROUTER, 'APProuter')['/' . $explodedURI[0]];
     }
 }
 

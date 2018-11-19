@@ -59,13 +59,13 @@ final class Application extends View
             }
 
             // Run HTTP Secure Transport Policy
-            $this->hsts(CONFIG['app']['security']['hsts']);
+            $this->hsts(Config::get(Config::SECTION_APP, 'security')['hsts']);
 
             // Ensure that session is securely started
             $this->secureSession();
 
             // Turn on error reporting depending on production switch
-            $this->errorReporting(Config::get(Config::SECTION_APP, 'security')['hsts']);
+            $this->errorReporting(!Config::get(Config::SECTION_APP, 'production'));
 
             // Start routing
             $this->Router = new Router();
@@ -77,7 +77,6 @@ final class Application extends View
             // Use renderer
             parent::render($wrapper, $template);
         } catch (RouteNotFoundException $e) {
-
             switch ($e->getCode()) {
                 case 601:
                     $method = Error::JSON;
@@ -100,14 +99,13 @@ final class Application extends View
                 default:
                     $method = Error::HTML;
             }
-
             new Error(
                 $e->getCode(),
                 $e->getMessage(),
                 $method
             );
         } catch (NoFileFoundException $e) {
-            new Error(404, 'Config files not found', Error::PLAIN)
+            new Error(404, 'Config files not found', Error::PLAIN);
         }
     }
 

@@ -11,7 +11,7 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0.0
+ * @version   2.5.1
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -84,7 +84,7 @@ class Error implements IError
      */
     protected function htmlError(): void
     {
-        $path = CONFIG['app']['pathToErrorPages'] . "/$this->code.html";
+        $path = Config::get(Config::SECTION_APP, 'pathToErrorPages') . "/$this->code.html";
         if (file_exists($path)) {
             require_once($path);
             exit;
@@ -121,12 +121,13 @@ class Error implements IError
      */
     protected function plainError(bool $force /* FORCE */): void
     {
-        if (CONFIG['app']['production'] or $force) {
+        if (Config::get(Config::SECTION_APP, 'production') or $force) {
             $this->htmlError();
         } else {
             header('Content-Type: text/plain');
             exit(
-            "ERROR $this->code OCCURED, WITH MESSAGE '$this->message'. ERROR-SPECIFIC FILES WERE NOT FOUND, OR PROD MODE IS TURNED OFF."
+                "ERROR {$this->code} OCCURED, WITH MESSAGE '{$this->message}'. " . '
+                 ERROR-SPECIFIC FILES WERE NOT FOUND, OR PROD MODE IS TURNED OFF.'
             );
         }
     }
