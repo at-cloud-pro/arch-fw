@@ -8,12 +8,14 @@
 
 namespace ArchFW\Model;
 
+use ArchFW\Interfaces\Propertable;
+
 /**
  * Property design pattern object
  *
  * @package ArchFW\Model
  */
-class RouterData
+class RouterData implements Propertable
 {
     /**
      * @var array datas
