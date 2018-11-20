@@ -8,7 +8,6 @@
 
 namespace ArchFW\Base\Renderers;
 
-use ArchFW\Base\Render;
 use ArchFW\Controller\Config;
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Interfaces\Renderable;
@@ -21,7 +20,7 @@ use Twig_TemplateWrapper;
  *
  * @package ArchFW\Base\Renderers
  */
-final class HTMLRenderer extends Render implements Renderable
+final class HTMLRenderer implements Renderable
 {
 
     /**
@@ -45,7 +44,7 @@ final class HTMLRenderer extends Render implements Renderable
     private $wrapperFile;
 
     /**
-     * @var Twig_TemplateWrapper holds template
+     * @var Twig_TemplateWrapper holds actual choosen template
      */
     private $template;
 
@@ -58,9 +57,15 @@ final class HTMLRenderer extends Render implements Renderable
      * Renders HTML content of the page
      *
      * @return string
+     * @throws NoFileFoundException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function render(): string
     {
+        $this->prepare();
+
         // return ready generated page
         return $this->template->render($this->vars);
     }
@@ -86,7 +91,7 @@ final class HTMLRenderer extends Render implements Renderable
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function prepare(): void
+    private function prepare(): void
     {
         // Set folders where Twig will look for files
         $this->Loader = new Loader(Config::get(Config::SECTION_APP, 'twigConfig')['twigTemplatesPath']);

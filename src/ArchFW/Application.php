@@ -17,7 +17,7 @@
 
 namespace ArchFW;
 
-use ArchFW\Base\Renderers\HTMLRenderer;
+use ArchFW\Base\RendererFactory;
 use ArchFW\Base\View;
 use ArchFW\Controller\Config;
 use ArchFW\Controller\Error;
@@ -73,9 +73,9 @@ final class Application extends View
             $template = "{$file}.twig";
 
             // rendering HTML
-            $Renderer = new HTMLRenderer();
+            $Factory = new RendererFactory();
+            $Renderer = $Factory->getInstance(RendererFactory::TYPE_HTML);
             $Renderer->setFiles($template, $wrapper);
-            $Renderer->prepare();
             $page = $Renderer->render();
 
             // display

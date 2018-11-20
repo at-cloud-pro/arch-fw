@@ -8,13 +8,13 @@
 
 namespace ArchFW\Interfaces;
 
+/**
+ * Requires methods required to run render in any technology
+ *
+ * @package ArchFW\Interfaces
+ */
 interface Renderable
 {
-    /**
-     * @return mixed
-     */
-    public function prepare();
-
     /**
      * Method used to render data
      *
