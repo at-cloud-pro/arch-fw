@@ -26,5 +26,4 @@ use Throwable;
  */
 class RenderException extends ArchFWException implements Throwable
 {
-
 }
