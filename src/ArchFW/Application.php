@@ -17,6 +17,7 @@
 
 namespace ArchFW;
 
+use ArchFW\Base\Renderers\HTMLRenderer;
 use ArchFW\Base\View;
 use ArchFW\Controller\Config;
 use ArchFW\Controller\Error;
@@ -34,13 +35,6 @@ use ArchFW\Model\ConfigFactory;
  */
 final class Application extends View
 {
-    /**
-     * Holds pointer to application router
-     *
-     * @var Router
-     */
-    private $Router;
-
     /**
      * Application constructor. Main method that is running selected classes, initiate session and router.
      *
@@ -68,14 +62,23 @@ final class Application extends View
             $this->errorReporting(!Config::get(Config::SECTION_APP, 'production'));
 
             // Start routing
-            $this->Router = new Router();
-            $file = $this->Router->getFileName();
+            $Router = new Router();
+            $file = $Router->getFileName();
 
-            $wrapper = "$file.php";
-            $template = "$file.twig";
+            // Creating paths
+            $wrapper = "{$file}.php";
+            $template = "{$file}.twig";
 
-            // Use renderer
-            parent::render($wrapper, $template);
+            // rendering HTML
+            $Renderer = new HTMLRenderer();
+            $Renderer->setFiles($template, $wrapper);
+            $Renderer->prepare();
+            $page = $Renderer->render();
+
+            // print page
+            print $page;
+
+
         } catch (RouteNotFoundException $e) {
             switch ($e->getCode()) {
                 case 601:

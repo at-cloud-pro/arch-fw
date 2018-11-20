@@ -38,7 +38,7 @@ final class HTMLRenderer extends Render implements Renderable
     public function render(): string
     {
         // return ready generated page
-        return $this->template->render($variables);
+        return $this->template->render($this->vars);
     }
 
     /**
