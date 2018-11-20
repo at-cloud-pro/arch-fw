@@ -52,7 +52,6 @@ class Error implements Errorable
      * @param string $message message to be shown
      * @param string $method Choose between method to show error, values: html|plain|json
      *
-     * @return void
      */
     public function __construct(int $code, string $message, string $method)
     {
