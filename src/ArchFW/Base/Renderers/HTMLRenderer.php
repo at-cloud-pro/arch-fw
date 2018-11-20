@@ -10,24 +10,48 @@ namespace ArchFW\Base\Renderers;
 
 use ArchFW\Base\Render;
 use ArchFW\Controller\Config;
-use ArchFW\Exceptions\ArchFWException;
+use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Interfaces\Renderable;
 use Twig_Environment as Environment;
 use Twig_Loader_Filesystem as Loader;
+use Twig_TemplateWrapper;
 
+/**
+ * Class HTMLRenderer renders HTML page
+ *
+ * @package ArchFW\Base\Renderers
+ */
 final class HTMLRenderer extends Render implements Renderable
 {
 
+    /**
+     * @var Loader holds Twig file loader
+     */
     private $Loader;
 
-    private $Twig;
+    /**
+     * @var Environment Holds Twig Environment object
+     */
+    private $TwigEnv;
 
+    /**
+     * @var string holds path to template file
+     */
     private $templateFile;
 
+    /**
+     * @var string holds path to wrapper file
+     */
     private $wrapperFile;
 
+    /**
+     * @var Twig_TemplateWrapper holds template
+     */
     private $template;
 
+    /**
+     * @var array variables to be sent to template
+     */
     private $vars;
 
     /**
@@ -57,7 +81,7 @@ final class HTMLRenderer extends Render implements Renderable
      * Prepare all data to being rendered
      *
      * @return void
-     * @throws ArchFWException
+     * @throws \ArchFW\Exceptions\NoFileFoundException
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -68,10 +92,10 @@ final class HTMLRenderer extends Render implements Renderable
         $this->Loader = new Loader(Config::get(Config::SECTION_APP, 'twigConfig')['twigTemplatesPath']);
 
         // Create new Twig object
-        $this->Twig = new Environment($this->Loader);
+        $this->TwigEnv = new Environment($this->Loader);
 
         // Load Twig file
-        $this->template = $this->Twig->load($this->templateFile);
+        $this->template = $this->TwigEnv->load($this->templateFile);
 
         // Add variables describing MetaTags and stylesheets
         $this->vars = (Config::get(Config::SECTION_APP, 'metaConfig'));
@@ -81,7 +105,7 @@ final class HTMLRenderer extends Render implements Renderable
 
         // check if wrapper file exists
         if (!file_exists(Config::get(Config::SECTION_APP, 'twigConfig')['twigWrappersPath'] . $this->wrapperFile)) {
-            throw new ArchFWException('No wrapper file found', 600);
+            throw new NoFileFoundException('No wrapper file found', 600);
         }
 
         // check if wrapper file returns an array

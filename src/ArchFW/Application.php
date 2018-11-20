@@ -25,6 +25,9 @@ use ArchFW\Controller\Router;
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Exceptions\RouteNotFoundException;
 use ArchFW\Model\ConfigFactory;
+use Twig_Error_Loader;
+use Twig_Error_Runtime;
+use Twig_Error_Syntax;
 
 /**
  * Representation of ArchFW Application
@@ -75,7 +78,7 @@ final class Application extends View
             $Renderer->prepare();
             $page = $Renderer->render();
 
-            // print page
+            // display
             print $page;
 
 
@@ -109,6 +112,14 @@ final class Application extends View
             );
         } catch (NoFileFoundException $e) {
             new Error(404, 'Config files not found', Error::PLAIN);
+        } catch (NoFileFoundException $e) {
+            new Error(404, $e->getMessage(), Error::PLAIN);
+        } catch (Twig_Error_Loader $e) {
+            new Error(500, $e->getMessage(), Error::PLAIN);
+        } catch (Twig_Error_Runtime $e) {
+            new Error(500, $e->getMessage(), Error::PLAIN);
+        } catch (Twig_Error_Syntax $e) {
+            new Error(500, $e->getMessage(), Error::PLAIN);
         }
     }
 
