@@ -158,7 +158,7 @@ final class Router
         define('ROUTER', $explodedURI);
 
         // check if API is turned on in config
-        if (Config::get(Config::SECTION_APP, 'APIrunning')) {
+        if (!Config::get(Config::SECTION_APP, 'APIrunning')) {
             throw new RouteNotFoundException(
                 'API functionality were turned off in app config file on server.',
                 601
@@ -176,7 +176,7 @@ final class Router
         // return path if exists
         return Config::get(Config::SECTION_APP, 'APIwrappers')
             . '/' .
-            Config::get(Config::SECTION_ROUTER, 'APIRouter')['/' . $explodedURI[1]];
+            Config::get(Config::SECTION_ROUTER, 'APIrouter')['/' . $explodedURI[1]];
     }
 
     /**
