@@ -6,13 +6,13 @@
  *
  * PHP version 7.2
  *
- * @category  Framework/Boilerplate
- * @package   ArchFW
- * @author    Oskar Barcz <kontakt@archi-tektur.pl>
- * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   MIT
- * @version   4.0.0
- * @link      https://github.com/archi-tektur/ArchFW/
+ *  @category  Framework/Boilerplate
+ *  @package   ArchFW
+ *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ *  @copyright 2018 Oskar 'archi_tektur' Barcz
+ *  @license   MIT
+ *  @version   2.6.0
+ *  @link      https://github.com/archi-tektur/ArchFW/
  */
 
 

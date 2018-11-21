@@ -6,21 +6,21 @@
  *
  * PHP version 7.2
  *
- * @category  Framework/Boilerplate
- * @package   ArchFW
- * @author    Oskar Barcz <kontakt@archi-tektur.pl>
- * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   MIT
- * @version   2.5.1
- * @link      https://github.com/archi-tektur/ArchFW/
+ *  @category  Framework/Boilerplate
+ *  @package   ArchFW
+ *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ *  @copyright 2018 Oskar 'archi_tektur' Barcz
+ *  @license   MIT
+ *  @version   2.6.0
+ *  @link      https://github.com/archi-tektur/ArchFW/
  */
 
 namespace ArchFW\Controller;
 
-use ArchFW\Base\Renderers\HTMLRenderer;
-use ArchFW\Base\Renderers\JSONRenderer;
 use ArchFW\Exceptions\RouteNotFoundException;
 use ArchFW\Interfaces\Renderable;
+use ArchFW\View\Renderers\HTMLRenderer;
+use ArchFW\View\Renderers\JSONRenderer;
 
 /**
  * Retrieves requested URI into file wrappers, sets GET variables, switching between api and html mode easily.
@@ -183,6 +183,7 @@ final class Router
      * Method returns proper renderer depending on content
      *
      * @return Renderable returns renderer to be used
+     * @throws \ArchFW\Exceptions\NoFileFoundException
      */
     public function getRenderer(): Renderable
     {

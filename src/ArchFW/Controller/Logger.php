@@ -6,13 +6,13 @@
  *
  * PHP version 7.2
  *
- * @category  Framework/Boilerplate
- * @package   ArchFW
- * @author    Oskar Barcz <kontakt@archi-tektur.pl>
- * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   MIT
- * @version   2.5.1
- * @link      https://github.com/archi-tektur/ArchFW/
+ *  @category  Framework/Boilerplate
+ *  @package   ArchFW
+ *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ *  @copyright 2018 Oskar 'archi_tektur' Barcz
+ *  @license   MIT
+ *  @version   2.6.0
+ *  @link      https://github.com/archi-tektur/ArchFW/
  */
 
 namespace ArchFW\Controller;
@@ -71,11 +71,8 @@ class Logger
      * @param string|null $callbackMessage provide an information what will happen after error occurs
      * @return bool true on success, false on fail
      */
-    public function log(
-        string $message,
-        int $code = null,
-        string $callbackMessage = null
-    ): bool {
+    public function log(string $message, int $code = null, string $callbackMessage = null): bool
+    {
 
         // Message is builded on standard log file, and raw on other files
         if ($this->path === Config::get(Config::SECTION_APP, 'defaultLogPath')) {
@@ -96,9 +93,7 @@ class Logger
         // Using the FILE_APPEND flag to append the content to the end of the file
         // The LOCK_EX flag to prevent anyone else writing to the file at the same time
         return file_put_contents(
-            realpath($_SERVER['DOCUMENT_ROOT'] . $this->path),
-            $message,
-            FILE_APPEND | LOCK_EX
+            realpath($_SERVER['DOCUMENT_ROOT'] . $this->path), $message, FILE_APPEND | LOCK_EX
         ) ? true : false;
     }
 

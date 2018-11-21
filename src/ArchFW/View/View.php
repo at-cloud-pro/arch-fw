@@ -6,16 +6,16 @@
  *
  * PHP version 7.2
  *
- * @category  Framework/Boilerplate
- * @package   ArchFW
- * @author    Oskar Barcz <kontakt@archi-tektur.pl>
- * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   MIT
- * @version   2.5.1
- * @link      https://github.com/archi-tektur/ArchFW/
+ *  @category  Framework/Boilerplate
+ *  @package   ArchFW
+ *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ *  @copyright 2018 Oskar 'archi_tektur' Barcz
+ *  @license   MIT
+ *  @version   2.6.0
+ *  @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\Base;
+namespace ArchFW\View;
 
 use ArchFW\Controller\Config;
 use ArchFW\Controller\Error;
@@ -27,7 +27,7 @@ use Twig_Loader_Filesystem as Loader;
 /**
  * Class View
  *
- * @package ArchFW\Base
+ * @package ArchFW\View
  */
 abstract class View
 {

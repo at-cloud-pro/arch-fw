@@ -1,12 +1,28 @@
 <?php
 /**
+ * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services.
+ * ArchFW comes with pre-installed router and JSON API functionality.
+ * Visit https://github.com/archi-tektur/ArchFW/ for more info.
+ *
+ * PHP version 7.2
+ *
+ *  @category  Framework/Boilerplate
+ *  @package   ArchFW
+ *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ *  @copyright 2018 Oskar 'archi_tektur' Barcz
+ *  @license   MIT
+ *  @version   2.6.0
+ *  @link      https://github.com/archi-tektur/ArchFW/
+ */
+
+/**
  * Created by PhpStorm.
  * User: konta
  * Date: 20 November 2018
  * Time: 21:48
  */
 
-namespace ArchFW\Base\Renderers;
+namespace ArchFW\View\Renderers;
 
 use ArchFW\Controller\Config;
 use ArchFW\Exceptions\NoFileFoundException;
@@ -18,7 +34,7 @@ use Twig_TemplateWrapper;
 /**
  * Class HTMLRenderer renders HTML page
  *
- * @package ArchFW\Base\Renderers
+ * @package ArchFW\View\Renderers
  */
 final class HTMLRenderer implements Renderable
 {
