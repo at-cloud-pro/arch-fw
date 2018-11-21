@@ -13,8 +13,18 @@ use ArchFW\Interfaces\Renderable;
 
 class JSONRenderer implements Renderable
 {
+    private $path;
+
+    public function __construct(string $path)
+    {
+        $this->path = $path;
+        echo $path;
+        die;
+
+    }
+
     public function render(): string
     {
-        // TODO: Implement render() method.
+        return '';
     }
 }

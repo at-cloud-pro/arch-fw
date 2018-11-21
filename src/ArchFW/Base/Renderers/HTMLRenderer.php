@@ -53,6 +53,10 @@ final class HTMLRenderer implements Renderable
      */
     private $vars;
 
+    public function __construct(string $path)
+    {
+    }
+
     /**
      * Renders HTML content of the page
      *

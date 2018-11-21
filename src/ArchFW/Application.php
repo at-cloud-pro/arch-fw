@@ -17,7 +17,6 @@
 
 namespace ArchFW;
 
-use ArchFW\Base\RendererFactory;
 use ArchFW\Base\View;
 use ArchFW\Controller\Config;
 use ArchFW\Controller\Error;
@@ -64,21 +63,12 @@ final class Application extends View
             // Turn on error reporting depending on production switch
             $this->errorReporting(!Config::get(Config::SECTION_APP, 'production'));
 
-            // Start routing
-            $Router = new Router();
-            $file = $Router->getFileName();
-
-            // Creating paths
-            $wrapper = "{$file}.php";
-            $template = "{$file}.twig";
-
-            // rendering HTML
-            $Factory = new RendererFactory();
-            $Renderer = $Factory->getInstance(RendererFactory::TYPE_HTML);
-            $Renderer->setFiles($template, $wrapper);
+            // Start routing and rendering
+            $Router = new Router($_SERVER['REQUEST_URI']);
+            $Renderer = $Router->getRenderer();
             $page = $Renderer->render();
 
-            // display
+            // response
             print $page;
 
 

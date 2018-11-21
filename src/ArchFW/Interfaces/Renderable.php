@@ -16,6 +16,13 @@ namespace ArchFW\Interfaces;
 interface Renderable
 {
     /**
+     * Renderable constructor expects path to files
+     *
+     * @param string $path
+     */
+    public function __construct(string $path);
+
+    /**
      * Method used to render data
      *
      * @return string
