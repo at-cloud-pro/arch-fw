@@ -1,4 +1,4 @@
-#ArchFW Changelog
+# ArchFW Changelog
 
 All notable changes to this project will be written here.
 
@@ -9,12 +9,12 @@ All notable changes to this project will be written here.
 - Installation wizard
 
 ## [2.6.0] - 24-11-2018
-###Added
+### Added
 - Completely rebuilt Config mechanism.
 - Partially rebuilt Router mechanism.
 - Added new custom Exceptions.
 - Now config array data are filled by ConfigFactory.
-###Changed
+### Changed
 - Now access to friendly addresses like `http://localhost/this/is/friendly/address` is served by 
 `ArchFW\Controller\Router::getAllURI();` and `ArchFW\Controller\Router::getNthURI();` instead of `ROUTER` constant.
 - Now access to configuration files is served by 
@@ -22,7 +22,7 @@ All notable changes to this project will be written here.
 - Rewritten `ArchFW\Controller\Router` class to be and `Renderable` object factory.
 - Framework load time shortened by 22% using PHP7 syntaxes.
 
-###Removed
+### Removed
 - `ROUTER` superglobal constant that kept all router friendly path data. Use `ArchFW\Controller\Router::getAllURI();` 
 and 
 `ArchFW\Controller\Router::getNthURI();` instead.
@@ -30,9 +30,9 @@ and
 `ArchFW\Controller\Config::set()` instead.
 
 ## [2.5.1] - 18-11-2018
-###Added
+### Added
 - Added `redirectOnNoMatch` function to routing config
-###Removed
+### Removed
 Removed ArchAPI tools which has been always marked as `BETA - do not use`. New version of this tools will be given 
 sooner or later.
 
