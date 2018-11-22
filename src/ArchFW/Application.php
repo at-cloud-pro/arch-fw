@@ -47,7 +47,6 @@ final class Application
             // Load application configuration details as constant
             ConfigFactory::fill($configPath);
 
-
             // Force HTTPS connection if setted in settings so
             if (Config::get(Config::SECTION_APP, 'security')['https']) {
                 $this->https();
