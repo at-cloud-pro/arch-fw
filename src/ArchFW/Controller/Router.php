@@ -6,13 +6,13 @@
  *
  * PHP version 7.2
  *
- *  @category  Framework/Boilerplate
- *  @package   ArchFW
- *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
- *  @copyright 2018 Oskar 'archi_tektur' Barcz
- *  @license   MIT
- *  @version   2.6.0
- *  @link      https://github.com/archi-tektur/ArchFW/
+ * @category  Framework/Boilerplate
+ * @package   ArchFW
+ * @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ * @copyright 2018 Oskar 'archi_tektur' Barcz
+ * @license   MIT
+ * @version   2.6.0
+ * @link      https://github.com/archi-tektur/ArchFW/
  */
 
 namespace ArchFW\Controller;
@@ -27,10 +27,19 @@ use ArchFW\View\Renderers\JSONRenderer;
  */
 final class Router
 {
+    /**
+     * @var string $requestURI Holds request URL
+     */
     private $requestURI;
 
+    /**
+     * @var string $fileName Holds locator name
+     */
     private $fileName;
 
+    /**
+     * @var bool Holds information is API requested (true means yes, false means no)
+     */
     private $isAPI;
 
     /**

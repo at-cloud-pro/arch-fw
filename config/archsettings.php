@@ -73,7 +73,7 @@ Example:
 # (not recommended!), no need to touch this.
 'twigConfig'       => [
     'twigWrappersPath'  => '../assets/wrappers/',
-    'twigTemplatesPath' => '..\assets\templates',
+    'twigTemplatesPath' => '..\assets\templates\\',
 ],
 
 

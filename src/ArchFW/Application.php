@@ -6,24 +6,24 @@
  *
  * PHP version 7.2
  *
- *  @category  Framework/Boilerplate
- *  @package   ArchFW
- *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
- *  @copyright 2018 Oskar 'archi_tektur' Barcz
- *  @license   MIT
- *  @version   2.6.0
- *  @link      https://github.com/archi-tektur/ArchFW/
+ * @category  Framework/Boilerplate
+ * @package   ArchFW
+ * @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ * @copyright 2018 Oskar 'archi_tektur' Barcz
+ * @license   MIT
+ * @version   2.6.0
+ * @link      https://github.com/archi-tektur/ArchFW/
  */
 
 namespace ArchFW;
 
-use ArchFW\View\View;
 use ArchFW\Controller\Config;
 use ArchFW\Controller\Error;
 use ArchFW\Controller\Router;
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Exceptions\RouteNotFoundException;
 use ArchFW\Model\ConfigFactory;
+use ArchFW\View\View;
 use Twig_Error_Loader;
 use Twig_Error_Runtime;
 use Twig_Error_Syntax;
@@ -70,8 +70,6 @@ final class Application extends View
 
             // response
             print $page;
-
-
         } catch (RouteNotFoundException $e) {
             switch ($e->getCode()) {
                 case 601:
@@ -100,8 +98,6 @@ final class Application extends View
                 $e->getMessage(),
                 $method
             );
-        } catch (NoFileFoundException $e) {
-            new Error(404, 'Config files not found', Error::PLAIN);
         } catch (NoFileFoundException $e) {
             new Error(404, $e->getMessage(), Error::PLAIN);
         } catch (Twig_Error_Loader $e) {

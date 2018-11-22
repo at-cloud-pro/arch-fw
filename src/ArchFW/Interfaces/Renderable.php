@@ -6,23 +6,22 @@
  *
  * PHP version 7.2
  *
- *  @category  Framework/Boilerplate
- *  @package   ArchFW
- *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
- *  @copyright 2018 Oskar 'archi_tektur' Barcz
- *  @license   MIT
- *  @version   2.6.0
- *  @link      https://github.com/archi-tektur/ArchFW/
- */
-
-/**
- * Created by PhpStorm.
- * User: konta
- * Date: 20 November 2018
- * Time: 21:46
+ * @category  Framework/Boilerplate
+ * @package   ArchFW
+ * @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ * @copyright 2018 Oskar 'archi_tektur' Barcz
+ * @license   MIT
+ * @version   2.6.0
+ * @link      https://github.com/archi-tektur/ArchFW/
  */
 
 namespace ArchFW\Interfaces;
+
+use ArchFW\Exceptions\NoFileFoundException;
+use Twig_Error_Loader;
+use Twig_Error_Runtime;
+use Twig_Error_Syntax;
+use Twig_TemplateWrapper;
 
 /**
  * Requires methods required to run render in any technology
@@ -35,13 +34,18 @@ interface Renderable
      * Renderable constructor expects path to files
      *
      * @param string $path
+     * @throws NoFileFoundException
      */
     public function __construct(string $path);
 
     /**
      * Method used to render data
      *
-     * @return string
+     * @return string complete response
+     * @return Twig_TemplateWrapper
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
      */
     public function render(): string;
 }

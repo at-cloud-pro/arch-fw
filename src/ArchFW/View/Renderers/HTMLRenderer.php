@@ -15,13 +15,6 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-/**
- * Created by PhpStorm.
- * User: konta
- * Date: 20 November 2018
- * Time: 21:48
- */
-
 namespace ArchFW\View\Renderers;
 
 use ArchFW\Controller\Config;
@@ -42,8 +35,8 @@ final class HTMLRenderer implements Renderable
     /**
      * Consts for easier creating
      */
-    const EXT_PHP = 'php';
-    const EXT_TWIG = 'twig';
+    private const EXT_PHP = '.php';
+    private const EXT_TWIG = '.twig';
 
     /**
      * @var string
@@ -78,8 +71,8 @@ final class HTMLRenderer implements Renderable
     public function __construct(string $path)
     {
         // change file locators into valid path
-        $this->wrapperFile = $this->locateFile($path, self::EXT_PHP);
-        $this->templateFile = $this->locateFile($path, self::EXT_TWIG);
+        $this->wrapperFile = $this->locateWrapper($path);
+        $this->templateFile = $this->locateTemplate($path);
 
         $this->wrapperVars = require_once $this->wrapperFile;
     }
@@ -104,22 +97,42 @@ final class HTMLRenderer implements Renderable
     }
 
     /**
-     * Changes file locators into valid path
+     * Changes file locators into valid wrapper path
      *
      * @param string $path file locator from config
-     * @param string $extention file format
      * @return string valid file path
      * @throws NoFileFoundException when file is not found
      */
-    private function locateFile(string $path, string $extention): string
+    private function locateWrapper(string $path): string
     {
         // create format
-        $file = $path . '.' . $extention;
+        $file = Config::get(Config::SECTION_APP, 'twigConfig')['twigWrappersPath'] . $path . self::EXT_PHP;
+
         // try to return
         if (file_exists($file)) {
             return $file;
         } else {
-            throw new NoFileFoundException(' File "' . $file . '" not found.', 601);
+            throw new NoFileFoundException('Wrapper "' . $file . '" not found.', 601);
+        }
+    }
+
+    /**
+     * Changes file locators into valid template path
+     *
+     * @param string $path
+     * @return string
+     * @throws NoFileFoundException
+     */
+    private function locateTemplate(string $path): string
+    {
+        // create format
+        $file = $path . self::EXT_TWIG;
+        $fullPath = Config::get(Config::SECTION_APP, 'twigConfig')['twigTemplatesPath'];
+        // try to return
+        if (file_exists($fullPath)) {
+            return $file;
+        } else {
+            throw new NoFileFoundException('Wrapper "' . $file . '" not found.', 601);
         }
     }
 
