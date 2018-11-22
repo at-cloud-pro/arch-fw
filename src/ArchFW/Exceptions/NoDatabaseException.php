@@ -18,13 +18,13 @@
 
 namespace ArchFW\Exceptions;
 
-use Exception;
+use Throwable;
 
 /**
  * NoDatabaseException is thrown when database cannot be reached or datas are wrong.
  *
  * @package ArchFW\Exceptions
  */
-class NoDatabaseException extends Exception
+class NoDatabaseException extends ArchFWException implements Throwable
 {
 }
