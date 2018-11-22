@@ -21,4 +21,4 @@
 
 $Log = new \ArchFW\Controller\Logger();
 $Log->log('Loaded correctly the main screen', 200);
-return ['test' => 'working'];
+return ['test' => 'working', 'version' => '2.6.0'];
