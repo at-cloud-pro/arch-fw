@@ -44,6 +44,11 @@ final class Router implements RendererFactoryInterface
     private $isAPI;
 
     /**
+     * @var array Holds "cute" URL adress as array (exploded by "/")
+     */
+    private static $routingPaths = '';
+
+    /**
      * Router constructor.
      *
      * @param $requestURI
@@ -128,8 +133,8 @@ final class Router implements RendererFactoryInterface
 
         // delete first key, it's always empty because given string has /*/* format
         array_shift($explodedURI);
-        // set URI parts as constant array
-        define('ROUTER', $explodedURI);
+        // set URI parts as static array
+        self::$routingPaths = $explodedURI;
 
         // if no route found
         if (!array_key_exists('/' . $explodedURI[0], Config::get(Config::SECTION_ROUTER, 'APProuter'))) {
@@ -180,7 +185,7 @@ final class Router implements RendererFactoryInterface
         // delete first key, it's always empty because given string has /*/* format
         array_shift($explodedURI);
         // set URI parts as constant array
-        define('ROUTER', $explodedURI);
+        self::$routingPaths = $explodedURI;
 
         // check if API is turned on in config
         if (!Config::get(Config::SECTION_APP, 'APIrunning')) {
@@ -203,4 +208,26 @@ final class Router implements RendererFactoryInterface
             . '/' .
             Config::get(Config::SECTION_ROUTER, 'APIrouter')['/' . $explodedURI[1]];
     }
+
+    /**
+     * Get nth element of URL in cute adresses (exploded by "/")
+     *
+     * @param int $index
+     * @return string
+     */
+    public static function getNthURI(int $index): string
+    {
+        return (isset(self::$routingPaths[$index])) ? self::$routingPaths[$index] : '';
+    }
+
+    /**
+     * Get nth element of URL in cute adresses (exploded by "/")
+     *
+     * @return array
+     */
+    public static function getAllURI(): array
+    {
+        return self::$routingPaths;
+    }
+
 }
