@@ -29,24 +29,21 @@ use ArchFW\View\Renderers\JSONRenderer;
 final class Router implements RendererFactoryInterface
 {
     /**
+     * @var array Holds "cute" URL adress as array (exploded by "/")
+     */
+    private static $routingPaths = '';
+    /**
      * @var string $requestURI Holds request URL
      */
     private $requestURI;
-
     /**
      * @var string $fileName Holds locator name
      */
     private $fileName;
-
     /**
      * @var bool Holds information is API requested (true means yes, false means no)
      */
     private $isAPI;
-
-    /**
-     * @var array Holds "cute" URL adress as array (exploded by "/")
-     */
-    private static $routingPaths = '';
 
     /**
      * Router constructor.
@@ -79,21 +76,6 @@ final class Router implements RendererFactoryInterface
     }
 
     /**
-     * Method returns proper renderer depending on content
-     *
-     * @return Renderable returns renderer to be used
-     * @throws \ArchFW\Exceptions\NoFileFoundException
-     */
-    public function getRenderer(): Renderable
-    {
-        if ($this->isAPI) {
-            return new JSONRenderer($this->fileName);
-        } else {
-            return new HTMLRenderer($this->fileName);
-        }
-    }
-
-    /**
      * Returns array of GET values in URI
      *
      * Simple gets all data after '?', then puts it in an array. Required if
@@ -118,6 +100,44 @@ final class Router implements RendererFactoryInterface
             }
         }
         return $output;
+    }
+
+    /**
+     * Find API files in routes configuration file
+     *
+     * @param string $name
+     * @return string
+     * @throws RouteNotFoundException
+     */
+    private function findAPIWrappers(string $name): string
+    {
+        $explodedURI = (explode("/", $name));
+
+        // delete first key, it's always empty because given string has /*/* format
+        array_shift($explodedURI);
+        // set URI parts as constant array
+        self::$routingPaths = $explodedURI;
+
+        // check if API is turned on in config
+        if (!Config::get(Config::SECTION_APP, 'APIrunning')) {
+            throw new RouteNotFoundException(
+                'API functionality were turned off in app config file on server.',
+                601
+            );
+        }
+
+        // check if path exists, if no throw an exception
+        if (!array_key_exists('/' . $explodedURI[1], Config::get(Config::SECTION_ROUTER, 'APIrouter'))) {
+            throw new RouteNotFoundException(
+                "Router did not found route '/{$explodedURI[1]}' in API config file!",
+                602
+            );
+        }
+
+        // return path if exists
+        return Config::get(Config::SECTION_APP, 'APIwrappers')
+            . '/' .
+            Config::get(Config::SECTION_ROUTER, 'APIrouter')['/' . $explodedURI[1]];
     }
 
     /**
@@ -172,44 +192,6 @@ final class Router implements RendererFactoryInterface
     }
 
     /**
-     * Find API files in routes configuration file
-     *
-     * @param string $name
-     * @return string
-     * @throws RouteNotFoundException
-     */
-    private function findAPIWrappers(string $name): string
-    {
-        $explodedURI = (explode("/", $name));
-
-        // delete first key, it's always empty because given string has /*/* format
-        array_shift($explodedURI);
-        // set URI parts as constant array
-        self::$routingPaths = $explodedURI;
-
-        // check if API is turned on in config
-        if (!Config::get(Config::SECTION_APP, 'APIrunning')) {
-            throw new RouteNotFoundException(
-                'API functionality were turned off in app config file on server.',
-                601
-            );
-        }
-
-        // check if path exists, if no throw an exception
-        if (!array_key_exists('/' . $explodedURI[1], Config::get(Config::SECTION_ROUTER, 'APIrouter'))) {
-            throw new RouteNotFoundException(
-                "Router did not found route '/{$explodedURI[1]}' in API config file!",
-                602
-            );
-        }
-
-        // return path if exists
-        return Config::get(Config::SECTION_APP, 'APIwrappers')
-            . '/' .
-            Config::get(Config::SECTION_ROUTER, 'APIrouter')['/' . $explodedURI[1]];
-    }
-
-    /**
      * Get nth element of URL in cute adresses (exploded by "/")
      *
      * @param int $index
@@ -230,4 +212,18 @@ final class Router implements RendererFactoryInterface
         return self::$routingPaths;
     }
 
+    /**
+     * Method returns proper renderer depending on content
+     *
+     * @return Renderable returns renderer to be used
+     * @throws \ArchFW\Exceptions\NoFileFoundException
+     */
+    public function getRenderer(): Renderable
+    {
+        if ($this->isAPI) {
+            return new JSONRenderer($this->fileName);
+        } else {
+            return new HTMLRenderer($this->fileName);
+        }
+    }
 }

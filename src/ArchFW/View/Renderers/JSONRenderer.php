@@ -55,17 +55,6 @@ class JSONRenderer implements Renderable
     }
 
     /**
-     * Prepare to rendering JSON content
-     *
-     * @return string
-     */
-    public function render(): string
-    {
-        header('Content-Type: application/json; charset=utf-8');
-        return json_encode($this->values);
-    }
-
-    /**
      * Change file locator into file path
      *
      * @param $path
@@ -83,5 +72,16 @@ class JSONRenderer implements Renderable
         } else {
             throw new NoFileFoundException('API Wrapper not found', 500);
         }
+    }
+
+    /**
+     * Prepare to rendering JSON content
+     *
+     * @return string
+     */
+    public function render(): string
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        return json_encode($this->values);
     }
 }

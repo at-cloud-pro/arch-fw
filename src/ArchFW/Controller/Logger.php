@@ -64,6 +64,20 @@ class Logger
     }
 
     /**
+     * Creates new log file with name saved in const and initiate it with proper message
+     */
+    private function initNew(): void
+    {
+        if ($File = fopen($_SERVER['DOCUMENT_ROOT'] . $this->path, 'w+')) {
+            $path = realpath($_SERVER['DOCUMENT_ROOT'] . $this->path);
+            fwrite($File, "ArchFW Log File, created on [{$this->date}] in [{$path}]");
+            fclose($File);
+        } else {
+            echo 'Logger sent visual error, because error occured on creating log';
+        }
+    }
+
+    /**
      * Log an error to custom log file
      *
      * @param string $message provide a message that describes the problem
@@ -99,7 +113,6 @@ class Logger
         ) ? true : false;
     }
 
-
     /**
      * Displays actual information instead of writing it to system logs.
      * Usable when need to check something quickly.
@@ -118,20 +131,6 @@ class Logger
     public function getDate(): string
     {
         return $this->date;
-    }
-
-    /**
-     * Creates new log file with name saved in const and initiate it with proper message
-     */
-    private function initNew(): void
-    {
-        if ($File = fopen($_SERVER['DOCUMENT_ROOT'] . $this->path, 'w+')) {
-            $path = realpath($_SERVER['DOCUMENT_ROOT'] . $this->path);
-            fwrite($File, "ArchFW Log File, created on [{$this->date}] in [{$path}]");
-            fclose($File);
-        } else {
-            echo 'Logger sent visual error, because error occured on creating log';
-        }
     }
 
     /**

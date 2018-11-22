@@ -78,25 +78,6 @@ final class HTMLRenderer implements Renderable
     }
 
     /**
-     * Prepare to rendering HTML content
-     *
-     * @return string full HTML page
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
-    public function render(): string
-    {
-        // load Twig objects
-        $Template = $this->loadTwig();
-        // load variables form sources, config etc.
-        $array = $this->prepareVars();
-
-        // return ready generated page
-        return $Template->render($array);
-    }
-
-    /**
      * Changes file locators into valid wrapper path
      *
      * @param string $path file locator from config
@@ -134,6 +115,25 @@ final class HTMLRenderer implements Renderable
         } else {
             throw new NoFileFoundException('Wrapper "' . $file . '" not found.', 601);
         }
+    }
+
+    /**
+     * Prepare to rendering HTML content
+     *
+     * @return string full HTML page
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function render(): string
+    {
+        // load Twig objects
+        $Template = $this->loadTwig();
+        // load variables form sources, config etc.
+        $array = $this->prepareVars();
+
+        // return ready generated page
+        return $Template->render($array);
     }
 
     /**
