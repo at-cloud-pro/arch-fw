@@ -19,13 +19,14 @@ namespace ArchFW\Controller;
 
 use ArchFW\Exceptions\RouteNotFoundException;
 use ArchFW\Interfaces\Renderable;
+use ArchFW\Interfaces\RendererFactoryInterface;
 use ArchFW\View\Renderers\HTMLRenderer;
 use ArchFW\View\Renderers\JSONRenderer;
 
 /**
  * Retrieves requested URI into file wrappers, sets GET variables, switching between api and html mode easily.
  */
-final class Router
+final class Router implements RendererFactoryInterface
 {
     /**
      * @var string $requestURI Holds request URL
@@ -69,6 +70,21 @@ final class Router
             // when requestURI is HTML uri
             $this->isAPI = false;
             $this->fileName = $this->findAPPWrappers($uri[0]);
+        }
+    }
+
+    /**
+     * Method returns proper renderer depending on content
+     *
+     * @return Renderable returns renderer to be used
+     * @throws \ArchFW\Exceptions\NoFileFoundException
+     */
+    public function getRenderer(): Renderable
+    {
+        if ($this->isAPI) {
+            return new JSONRenderer($this->fileName);
+        } else {
+            return new HTMLRenderer($this->fileName);
         }
     }
 
@@ -186,20 +202,5 @@ final class Router
         return Config::get(Config::SECTION_APP, 'APIwrappers')
             . '/' .
             Config::get(Config::SECTION_ROUTER, 'APIrouter')['/' . $explodedURI[1]];
-    }
-
-    /**
-     * Method returns proper renderer depending on content
-     *
-     * @return Renderable returns renderer to be used
-     * @throws \ArchFW\Exceptions\NoFileFoundException
-     */
-    public function getRenderer(): Renderable
-    {
-        if ($this->isAPI) {
-            return new JSONRenderer($this->fileName);
-        } else {
-            return new HTMLRenderer($this->fileName);
-        }
     }
 }
