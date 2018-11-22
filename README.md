@@ -31,7 +31,7 @@ Remember that server root must be set on `/public_html` folder. A version that d
 If all has been successfully set, you will see proper screen entering `http://localhost/` or any domain/IP adress.
 
 ## Code Examples
-Soon here will be released some code sniffs and tricks
+In near future here will be huge section about configuring and using this framework.
 
 ## Features
 Framework is going to be perfect, now it does:
