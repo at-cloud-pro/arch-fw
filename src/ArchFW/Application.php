@@ -23,7 +23,6 @@ use ArchFW\Controller\Router;
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Exceptions\RouteNotFoundException;
 use ArchFW\Model\ConfigFactory;
-use ArchFW\View\View;
 use Twig_Error_Loader;
 use Twig_Error_Runtime;
 use Twig_Error_Syntax;
@@ -35,7 +34,7 @@ use Twig_Error_Syntax;
  * It's also an app starter - constructor here does all stuff you need to run an app.
  * App will not check validity of vendor or config, so you have to do it separately.
  */
-final class Application extends View
+final class Application
 {
     /**
      * Application constructor. Main method that is running selected classes, initiate session and router.
