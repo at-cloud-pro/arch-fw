@@ -6,13 +6,13 @@
  *
  * PHP version 7.2
  *
- *  @category  Framework/Boilerplate
- *  @package   ArchFW
- *  @author    Oskar Barcz <kontakt@archi-tektur.pl>
- *  @copyright 2018 Oskar 'archi_tektur' Barcz
- *  @license   MIT
- *  @version   2.6.0
- *  @link      https://github.com/archi-tektur/ArchFW/
+ * @category  Framework/Boilerplate
+ * @package   ArchFW
+ * @author    Oskar Barcz <kontakt@archi-tektur.pl>
+ * @copyright 2018 Oskar 'archi_tektur' Barcz
+ * @license   MIT
+ * @version   2.6.0
+ * @link      https://github.com/archi-tektur/ArchFW/
  */
 
 /**
@@ -30,6 +30,7 @@ use ArchFW\Interfaces\Renderable;
 use Twig_Environment as Environment;
 use Twig_Loader_Filesystem as Loader;
 use Twig_TemplateWrapper;
+use function file_exists;
 
 /**
  * Class HTMLRenderer renders HTML page
@@ -38,7 +39,21 @@ use Twig_TemplateWrapper;
  */
 final class HTMLRenderer implements Renderable
 {
+    /**
+     * Consts for easier creating
+     */
+    const EXT_PHP = 'php';
+    const EXT_TWIG = 'twig';
 
+    /**
+     * @var string
+     */
+    private $wrapperFile;
+
+    /**
+     * @var string
+     */
+    private $templateFile;
     /**
      * @var Loader holds Twig file loader
      */
@@ -50,96 +65,103 @@ final class HTMLRenderer implements Renderable
     private $TwigEnv;
 
     /**
-     * @var string holds path to template file
+     * @var array wrapper variables to be sent to template
      */
-    private $templateFile;
+    private $wrapperVars;
 
     /**
-     * @var string holds path to wrapper file
+     * HTMLRenderer constructor.
+     *
+     * @param string $path
+     * @throws NoFileFoundException
      */
-    private $wrapperFile;
-
-    /**
-     * @var Twig_TemplateWrapper holds actual choosen template
-     */
-    private $template;
-
-    /**
-     * @var array variables to be sent to template
-     */
-    private $vars;
-
     public function __construct(string $path)
     {
+        // change file locators into valid path
+        $this->wrapperFile = $this->locateFile($path, self::EXT_PHP);
+        $this->templateFile = $this->locateFile($path, self::EXT_TWIG);
+
+        $this->wrapperVars = require_once $this->wrapperFile;
     }
 
     /**
-     * Renders HTML content of the page
+     * Prepare to rendering HTML content
      *
-     * @return string
-     * @throws NoFileFoundException
+     * @return string full HTML page
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
     public function render(): string
     {
-        $this->prepare();
+        // load Twig objects
+        $Template = $this->loadTwig();
+        // load variables form sources, config etc.
+        $array = $this->prepareVars();
 
         // return ready generated page
-        return $this->template->render($this->vars);
+        return $Template->render($array);
     }
 
     /**
-     * Sets wrapper and template files
+     * Changes file locators into valid path
      *
-     * @param string $templateFile relative path to template file
-     * @param string $wrapperFile relative path to wrapper file
+     * @param string $path file locator from config
+     * @param string $extention file format
+     * @return string valid file path
+     * @throws NoFileFoundException when file is not found
      */
-    public function setFiles(string $templateFile, string $wrapperFile): void
+    private function locateFile(string $path, string $extention): string
     {
-        $this->templateFile = $templateFile;
-        $this->wrapperFile = $wrapperFile;
+        // create format
+        $file = $path . '.' . $extention;
+        // try to return
+        if (file_exists($file)) {
+            return $file;
+        } else {
+            throw new NoFileFoundException(' File "' . $file . '" not found.', 601);
+        }
     }
 
     /**
-     * Prepare all data to being rendered
+     * Loads Twig objects
      *
-     * @return void
-     * @throws \ArchFW\Exceptions\NoFileFoundException
+     * @see https://twig.symfony.com/doc/2.x/api.html
+     *
+     * @return Twig_TemplateWrapper
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    private function prepare(): void
+    private function loadTwig(): Twig_TemplateWrapper
     {
         // Set folders where Twig will look for files
         $this->Loader = new Loader(Config::get(Config::SECTION_APP, 'twigConfig')['twigTemplatesPath']);
-
         // Create new Twig object
         $this->TwigEnv = new Environment($this->Loader);
-
         // Load Twig file
-        $this->template = $this->TwigEnv->load($this->templateFile);
+        return $this->TwigEnv->load($this->templateFile);
+    }
 
+    /**
+     * Locates and adds variables to templates
+     *
+     * @return array
+     */
+    protected function prepareVars(): array
+    {
         // Add variables describing MetaTags and stylesheets
-        $this->vars = (Config::get(Config::SECTION_APP, 'metaConfig'));
-        $this->vars += [
-            'stylesheets' => (Config::get(Config::SECTION_APP, 'stylesheets')),
-        ];
+        $vars = (Config::get(Config::SECTION_APP, 'metaConfig'));
 
-        // check if wrapper file exists
-        if (!file_exists(Config::get(Config::SECTION_APP, 'twigConfig')['twigWrappersPath'] . $this->wrapperFile)) {
-            throw new NoFileFoundException('No wrapper file found', 600);
-        }
+        // add stylesheets
+        $vars += ['stylesheets' => (Config::get(Config::SECTION_APP, 'stylesheets'))];
 
         // check if wrapper file returns an array
-        if (is_array(
-            $arr = require_once(Config::get(Config::SECTION_APP, 'twigConfig')
-                ['twigWrappersPath'] . $this->wrapperFile)
-        )) {
+        if (is_array($this->wrapperVars)) {
             // if it does add this array to general variables array
-            $this->vars += $arr;
+            $vars += $this->wrapperVars;
         }
+
+        return $vars;
     }
 }

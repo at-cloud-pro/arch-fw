@@ -55,6 +55,8 @@ class JSONRenderer implements Renderable
     }
 
     /**
+     * Prepare to rendering JSON content
+     *
      * @return string
      */
     public function render(): string
