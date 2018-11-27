@@ -15,12 +15,14 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\View\Renderers;
+namespace ArchFW\Views\Renderers;
 
 use ArchFW\Controllers\Config;
+use ArchFW\Controllers\Utils\UriEncoder;
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Interfaces\Renderable;
 use Twig_Environment as Environment;
+use Twig_Filter;
 use Twig_Loader_Filesystem as Loader;
 use Twig_TemplateWrapper;
 use function file_exists;
@@ -152,6 +154,14 @@ final class HTMLRenderer implements Renderable
         $this->Loader = new Loader(Config::get(Config::SECTION_APP, 'twigConfig')['twigTemplatesPath']);
         // Create new Twig object
         $this->TwigEnv = new Environment($this->Loader);
+        // Add extentions (URL-safe encode)
+        $filter = new Twig_Filter(
+            'urlencode',
+            function ($string) {
+                return UriEncoder::encode($string);
+            }
+        );
+        $this->TwigEnv->addFilter($filter);
         // Load Twig file
         return $this->TwigEnv->load($this->templateFile);
     }

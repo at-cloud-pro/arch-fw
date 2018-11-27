@@ -15,7 +15,7 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\View\Renderers;
+namespace ArchFW\Views\Renderers;
 
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Interfaces\Renderable;
