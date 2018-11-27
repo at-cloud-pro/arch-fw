@@ -17,7 +17,7 @@
 
 namespace ArchFW\View\Renderers;
 
-use ArchFW\Controller\Config;
+use ArchFW\Controllers\Config;
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Interfaces\Renderable;
 use Twig_Environment as Environment;
@@ -28,7 +28,7 @@ use function file_exists;
 /**
  * Class HTMLRenderer renders HTML page
  *
- * @package ArchFW\View\Renderers
+ * @package ArchFW\Views\Renderers
  */
 final class HTMLRenderer implements Renderable
 {

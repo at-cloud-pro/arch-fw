@@ -15,6 +15,6 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-use ArchFW\Controller\Router;
+use ArchFW\Controllers\Router;
 
 return Router::getAllURI();

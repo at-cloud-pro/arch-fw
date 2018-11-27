@@ -15,9 +15,9 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\Model;
+namespace ArchFW\Models;
 
-use ArchFW\Controller\Config;
+use ArchFW\Controllers\Config;
 use Medoo\Medoo;
 
 /**

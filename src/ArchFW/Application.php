@@ -17,12 +17,12 @@
 
 namespace ArchFW;
 
-use ArchFW\Controller\Config;
-use ArchFW\Controller\Error;
-use ArchFW\Controller\Router;
+use ArchFW\Controllers\Config;
+use ArchFW\Controllers\Error;
+use ArchFW\Controllers\Router;
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Exceptions\RouteNotFoundException;
-use ArchFW\Model\ConfigFactory;
+use ArchFW\Models\ConfigFactory;
 use Twig_Error_Loader;
 use Twig_Error_Runtime;
 use Twig_Error_Syntax;

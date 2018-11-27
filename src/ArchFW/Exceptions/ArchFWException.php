@@ -17,8 +17,8 @@
 
 namespace ArchFW\Exceptions;
 
-use ArchFW\Controller\Config;
-use ArchFW\Controller\Logger;
+use ArchFW\Controllers\Config;
+use ArchFW\Controllers\Logger;
 use Exception;
 use Throwable;
 

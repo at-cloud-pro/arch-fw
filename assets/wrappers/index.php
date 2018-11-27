@@ -19,6 +19,6 @@
 // new Error(404,"NOT FOUND", Error::HTML);
 // new Authenticator();
 
-$Log = new \ArchFW\Controller\Logger();
+$Log = new \ArchFW\Controllers\Logger();
 $Log->log('Loaded correctly the main screen', 200);
 return ['test' => 'working', 'version' => '2.6.0'];

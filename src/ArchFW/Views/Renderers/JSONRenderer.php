@@ -26,7 +26,7 @@ use function json_encode;
 /**
  * Renders JSON as response
  *
- * @package ArchFW\View\Renderers
+ * @package ArchFW\Views\Renderers
  */
 class JSONRenderer implements Renderable
 {

@@ -15,7 +15,7 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\Controller;
+namespace ArchFW\Controllers;
 
 use ArchFW\Interfaces\Configurable;
 

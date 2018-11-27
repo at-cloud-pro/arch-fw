@@ -15,7 +15,7 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\Controller;
+namespace ArchFW\Controllers;
 
 /**
  * Logger object is used to create new messages in server log files.

@@ -14,6 +14,8 @@ All notable changes to this project will be written here.
 - Partially rebuilt Router mechanism.
 - Added new custom Exceptions.
 - Now config array data are filled by ConfigFactory.
+- Added URLBase64 encoding class.
+- Added TWIG filter to base64() values.
 ### Changed
 - Now access to friendly addresses like `http://localhost/this/is/friendly/address` is served by 
 `ArchFW\Controller\Router::getAllURI();` and `ArchFW\Controller\Router::getNthURI();` instead of `ROUTER` constant.
