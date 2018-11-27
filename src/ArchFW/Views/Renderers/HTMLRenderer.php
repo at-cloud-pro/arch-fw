@@ -156,7 +156,7 @@ final class HTMLRenderer implements Renderable
         $this->TwigEnv = new Environment($this->Loader);
         // Add extentions (URL-safe encode)
         $filter = new Twig_Filter(
-            'urlencode',
+            'safe_uri_encode',
             function ($string) {
                 return UriEncoder::encode($string);
             }

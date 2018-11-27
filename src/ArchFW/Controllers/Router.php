@@ -20,8 +20,8 @@ namespace ArchFW\Controllers;
 use ArchFW\Exceptions\RouteNotFoundException;
 use ArchFW\Interfaces\Renderable;
 use ArchFW\Interfaces\RendererFactoryInterface;
-use ArchFW\View\Renderers\HTMLRenderer;
-use ArchFW\View\Renderers\JSONRenderer;
+use ArchFW\Views\Renderers\HTMLRenderer;
+use ArchFW\Views\Renderers\JSONRenderer;
 
 /**
  * Retrieves requested URI into file wrappers, sets GET variables, switching between api and html mode easily.
