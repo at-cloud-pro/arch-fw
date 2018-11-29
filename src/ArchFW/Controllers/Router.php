@@ -33,10 +33,6 @@ final class Router implements RendererFactoryInterface
      */
     private static $routingPaths = '';
     /**
-     * @var string $requestURI Holds request URL
-     */
-    private $requestURI;
-    /**
      * @var string $fileName Holds locator name
      */
     private $fileName;
@@ -53,9 +49,6 @@ final class Router implements RendererFactoryInterface
      */
     public function __construct($requestURI)
     {
-        // Assign values
-        $this->requestURI = $requestURI;
-
         // Check if adress has GET attribues
         $uri = explode('?', $requestURI);
         if (array_key_exists(1, $uri)) {
@@ -111,7 +104,7 @@ final class Router implements RendererFactoryInterface
      */
     private function findAPIWrappers(string $name): string
     {
-        $explodedURI = (explode("/", $name));
+        $explodedURI = explode('/', $name);
 
         // delete first key, it's always empty because given string has /*/* format
         array_shift($explodedURI);
@@ -149,7 +142,7 @@ final class Router implements RendererFactoryInterface
      */
     private function findAPPWrappers(string $name): string
     {
-        $explodedURI = (explode("/", $name));
+        $explodedURI = explode('/', $name);
 
         // delete first key, it's always empty because given string has /*/* format
         array_shift($explodedURI);
@@ -172,7 +165,6 @@ final class Router implements RendererFactoryInterface
 
                 // redirect to route
                 header("Location: {$route}");
-                exit();
             } elseif (!Config::get(Config::SECTION_APP, 'production')) {
                 // if route weren't found and redirectOnNoMatch wasn't set and developer mode is on
                 throw new RouteNotFoundException(
@@ -182,13 +174,13 @@ final class Router implements RendererFactoryInterface
             }
             // if route isn't found and production mode is turned on
             throw new RouteNotFoundException(
-                "Not found",
+                'Not found',
                 605
             );
-        } else {
-            // return path if found
-            return Config::get(Config::SECTION_ROUTER, 'APProuter')['/' . $explodedURI[0]];
         }
+
+        // return path if found
+        return Config::get(Config::SECTION_ROUTER, 'APProuter')['/' . $explodedURI[0]];
     }
 
     /**
@@ -199,7 +191,7 @@ final class Router implements RendererFactoryInterface
      */
     public static function getNthURI(int $index): string
     {
-        return (isset(self::$routingPaths[$index])) ? self::$routingPaths[$index] : '';
+        return self::$routingPaths[$index] ?? '';
     }
 
     /**
@@ -222,8 +214,7 @@ final class Router implements RendererFactoryInterface
     {
         if ($this->isAPI) {
             return new JSONRenderer($this->fileName);
-        } else {
-            return new HTMLRenderer($this->fileName);
         }
+        return new HTMLRenderer($this->fileName);
     }
 }

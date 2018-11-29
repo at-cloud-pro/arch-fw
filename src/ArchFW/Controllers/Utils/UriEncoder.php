@@ -37,7 +37,7 @@ class UriEncoder
      * @param string $input
      * @return string
      */
-    public static function encode(string $input)
+    public static function encode(string $input): string
     {
         return strtr(base64_encode($input), '+/=', self::DEFAULT_KEY_REPLACEMENT);
     }
@@ -48,7 +48,7 @@ class UriEncoder
      * @param $input
      * @return bool|string
      */
-    public static function decode($input)
+    public static function decode($input): string
     {
         return base64_decode(strtr($input, self::DEFAULT_KEY_REPLACEMENT, '+/='));
     }
