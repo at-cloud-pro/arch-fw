@@ -31,7 +31,7 @@ final class DatabaseFactory
      *
      * @return Medoo Returns database object with config given
      */
-    final public static function getInstance()
+    public static function getInstance(): Medoo
     {
         return new Medoo(
             [
@@ -39,7 +39,7 @@ final class DatabaseFactory
                 'database_name' => Config::get(Config::SECTION_DB, 'databaseName'),
                 'server'        => Config::get(Config::SECTION_DB, 'server'),
                 'username'      => Config::get(Config::SECTION_DB, 'user'),
-                'password'      => Config::get(Config::SECTION_DB, 'password'),
+                'password'      => Config::get(Config::SECTION_DB, 'password')
             ]
         );
     }

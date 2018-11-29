@@ -28,7 +28,7 @@ use Throwable;
  *
  * @package ArchFW\Exceptions
  */
-class ArchFWException extends Exception implements Throwable
+class ArchFWException extends Exception
 {
     /**
      * ArchFWException constructor enforces giving an message, it also loads all data to dedicated log file.
@@ -45,7 +45,6 @@ class ArchFWException extends Exception implements Throwable
 
     /**
      * Method logs data to dedicated log file, specified in config
-     *
      */
     protected function log()
     {

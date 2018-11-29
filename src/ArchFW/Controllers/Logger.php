@@ -54,9 +54,8 @@ class Logger
     {
         $this->debug = false;
         $this->date = date('Y-m-d H:i:s');
-        $this->last = null;
 
-        $this->path = isset($customPath) ? $customPath : Config::get(Config::SECTION_APP, 'defaultLogPath');
+        $this->path = $customPath ? $customPath : Config::get(Config::SECTION_APP, 'defaultLogPath');
 
         if (!file_exists(realpath($_SERVER['DOCUMENT_ROOT'] . $this->path))) {
             $this->initNew();
@@ -91,7 +90,7 @@ class Logger
         // Message is builded on standard log file, and raw on other files
         if ($this->path === Config::get(Config::SECTION_APP, 'defaultLogPath')) {
             // CREATE CODE TEMPLATE
-            if (!empty($callbackMessage)) {
+            if ($callbackMessage !== null) {
                 $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. Callback: {$callbackMessage}.";
             } else {
                 $message = "\n[{$this->date}] > [CODE {$code}]: {$message}. No callback provided.";
@@ -100,9 +99,9 @@ class Logger
         // Write last sent message as field
         $this->last = $message;
 
-        // I debug mode is on, echo message to screen and die
+        // I debug mode is on, echo message to screen
         if ($this->debug) {
-            die($message);
+            echo $message;
         }
         // Using the FILE_APPEND flag to append the content to the end of the file
         // The LOCK_EX flag to prevent anyone else writing to the file at the same time
@@ -158,7 +157,7 @@ class Logger
      */
     public function __toString(): string
     {
-        return isset($this->last) ? $this->last : 'No previous messages were sent.';
+        return $this->last ? $this->last : 'No previous messages were sent.';
     }
 
     /**
@@ -167,11 +166,11 @@ class Logger
     public function __debugInfo(): array
     {
         $last = (string)$this;
-        $debug = ($this->debug) ? 'on' : 'off';
+        $debug = $this->debug ? 'on' : 'off';
         return [
             'currentTime' => $this->date,
             'last'        => $last,
-            'debugMode'   => $debug,
+            'debugMode'   => $debug
         ];
     }
 }

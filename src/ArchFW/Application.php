@@ -117,9 +117,8 @@ final class Application
      */
     private function https(): void
     {
-        if ($_SERVER['HTTPS'] !== "on") {
-            header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-            exit();
+        if ($_SERVER['HTTPS'] !== 'on') {
+            header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         }
     }
 
@@ -145,7 +144,7 @@ final class Application
     private function secureSession(): void
     {
         // RUN SESSION WHEN IT'S NOT RUNNING
-        if (session_status() == PHP_SESSION_NONE) {
+        if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 

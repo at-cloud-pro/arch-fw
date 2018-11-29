@@ -41,7 +41,7 @@ class ConfigFactory
      * @param string $path
      * @throws NoFileFoundException when
      */
-    public static function fill(string $path)
+    public static function fill(string $path): void
     {
 
         // generate paths

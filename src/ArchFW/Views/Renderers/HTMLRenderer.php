@@ -92,11 +92,10 @@ final class HTMLRenderer implements Renderable
         $file = Config::get(Config::SECTION_APP, 'twigConfig')['twigWrappersPath'] . $path . self::EXT_PHP;
 
         // try to return
-        if (file_exists($file)) {
-            return $file;
-        } else {
+        if (!file_exists($file)) {
             throw new NoFileFoundException('Wrapper "' . $file . '" not found.', 601);
         }
+        return $file;
     }
 
     /**
@@ -111,12 +110,12 @@ final class HTMLRenderer implements Renderable
         // create format
         $file = $path . self::EXT_TWIG;
         $fullPath = Config::get(Config::SECTION_APP, 'twigConfig')['twigTemplatesPath'];
+
         // try to return
-        if (file_exists($fullPath)) {
-            return $file;
-        } else {
+        if (!file_exists($fullPath)) {
             throw new NoFileFoundException('Wrapper "' . $file . '" not found.', 601);
         }
+        return $file;
     }
 
     /**
@@ -130,12 +129,12 @@ final class HTMLRenderer implements Renderable
     public function render(): string
     {
         // load Twig objects
-        $Template = $this->loadTwig();
+        $template = $this->loadTwig();
         // load variables form sources, config etc.
         $array = $this->prepareVars();
 
         // return ready generated page
-        return $Template->render($array);
+        return $template->render($array);
     }
 
     /**

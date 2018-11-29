@@ -31,11 +31,6 @@ use function json_encode;
 class JSONRenderer implements Renderable
 {
     /**
-     * @var string Holds path to API wrapper file
-     */
-    private $path;
-
-    /**
      * @var mixed Holds array to be encoded as JSON
      */
     private $values;
@@ -49,9 +44,9 @@ class JSONRenderer implements Renderable
     public function __construct(string $path)
     {
         // change file locator into file path
-        $this->path = $this->locateFile($path);
+        $path = $this->locateFile($path);
         // load values from file
-        $this->values = require_once $this->path;
+        $this->values = require_once $path;
     }
 
     /**
@@ -67,11 +62,10 @@ class JSONRenderer implements Renderable
         $file = $path . '.php';
 
         // check if file exists
-        if (file_exists($file)) {
-            return $file;
-        } else {
+        if (!file_exists($file)) {
             throw new NoFileFoundException('API Wrapper not found', 500);
         }
+        return $file;
     }
 
     /**

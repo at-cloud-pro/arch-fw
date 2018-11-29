@@ -95,8 +95,7 @@ class Error implements Errorable
     {
         $path = Config::get(Config::SECTION_APP, 'pathToErrorPages') . "/$this->code.html";
         if (file_exists($path)) {
-            require_once($path);
-            exit;
+            require_once $path;
         } else {
             $this->plainError(true);
         }
@@ -115,10 +114,8 @@ class Error implements Errorable
             $this->htmlError();
         } else {
             header('Content-Type: text/plain');
-            exit(
-                "ERROR {$this->code} OCCURED, WITH MESSAGE '{$this->message}'. " . '
-                 ERROR-SPECIFIC FILES WERE NOT FOUND, OR PROD MODE IS TURNED OFF.'
-            );
+            echo "ERROR {$this->code} OCCURED, WITH MESSAGE '{$this->message}'. " . '
+                 ERROR-SPECIFIC FILES WERE NOT FOUND, OR PROD MODE IS TURNED OFF.';
         }
     }
 
@@ -130,6 +127,6 @@ class Error implements Errorable
     protected function jsonError(): void
     {
         header('Content-Type: application/json');
-        exit(json_encode(['error' => true, 'errorCode' => $this->code, 'errorMessage' => $this->message]));
+        echo json_encode(['error' => true, 'errorCode' => $this->code, 'errorMessage' => $this->message]);
     }
 }

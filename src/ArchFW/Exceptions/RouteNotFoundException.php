@@ -17,14 +17,11 @@
 
 namespace ArchFW\Exceptions;
 
-use Throwable;
-
 /**
  * Thrown when route do not exist
  *
  * @package ArchFW\Exceptions
  */
-class RouteNotFoundException extends ArchFWException implements Throwable
+class RouteNotFoundException extends ArchFWException
 {
-
 }

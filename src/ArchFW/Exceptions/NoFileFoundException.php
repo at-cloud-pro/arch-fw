@@ -17,14 +17,12 @@
 
 namespace ArchFW\Exceptions;
 
-use Throwable;
-
 /**
  * Thrown when file do not exist
  *
  * @package ArchFW\Exceptions
  */
-class NoFileFoundException extends ArchFWException implements Throwable
+class NoFileFoundException extends ArchFWException
 {
 
 }

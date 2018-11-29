@@ -11,7 +11,7 @@
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT
- * @version   4.0.0
+ * @version   2.6.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 return [
@@ -32,18 +32,18 @@ return [
     'https' => false,
 
     # Enable or disable HTTP Strict Transport Policy
-    'hsts'  => false,
+    'hsts'  => false
 ],
 
 # Every page has
 'metaConfig'       => [
     'pageTitle'       => 'ArchFW installed!',
     'pageEncoding'    => 'UTF-8'/* NOT NULL*/,
-    'pageLanguage'    => "pl"/* NOT NULL*/,
+    'pageLanguage'    => 'pl'/* NOT NULL*/,
     'pageDescription' => '',
     'pageKeywords'    => '',
     'pageAuthor'      => "Oskar 'archi_tektur' Barcz",
-    'metaComment'     => '',
+    'metaComment'     => ''
 ],
 
 # Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid
@@ -60,20 +60,20 @@ Example:
 ],
 */
 'stylesheets'      => [
-    "Example" => [
+    'Example' => [
         'name' => 'example stylesheet',
         'type' => 'text/css',
         'desc' => 'This stylesheet is for better view of startup page, ',
         'rel'  => 'stylesheet',
-        'link' => '/css/master.css',
-    ],
+        'link' => '/css/master.css'
+    ]
 ],
 
 # Here enter relative paths to TWIG templates and application wrappers. Until you modify framework internal structure
 # (not recommended!), no need to touch this.
 'twigConfig'       => [
     'twigWrappersPath'  => '../assets/wrappers/',
-    'twigTemplatesPath' => '..\assets\templates\\',
+    'twigTemplatesPath' => '..\assets\templates\\'
 ],
 
 
@@ -92,5 +92,5 @@ Example:
 
 
 # Holds path to API wrappers. Until you modify framework internal structure (not recommended!), no need to touch this.
-'APIwrappers'      => '../assets/api',
+'APIwrappers'      => '../assets/api'
 ];
