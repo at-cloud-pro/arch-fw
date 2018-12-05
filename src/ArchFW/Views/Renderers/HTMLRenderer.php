@@ -32,7 +32,7 @@ use function file_exists;
  *
  * @package ArchFW\Views\Renderers
  */
-final class HTMLRenderer implements Renderable
+class HTMLRenderer implements Renderable
 {
     /**
      * Consts for easier creating

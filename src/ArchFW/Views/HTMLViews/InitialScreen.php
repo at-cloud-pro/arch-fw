@@ -15,20 +15,19 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\Interfaces;
+namespace ArchFW\Views\HTMLViews;
+
+use ArchFW\Views\Renderers\HTMLRenderer;
 
 /**
- * Requires methods required to run render in any technology
+ * Class InitialScreen
  *
- * @package ArchFW\Interfaces
+ * @package ArchFW\Views\HTMLViews
  */
-interface Renderable
+class InitialScreen extends HTMLRenderer
 {
-    /**
-     * Method used to render data
-     *
-     * @param array $vars
-     * @return string complete response
-     */
-    public function render(array $vars): string;
+    public function __construct()
+    {
+        parent::render();
+    }
 }
