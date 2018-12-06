@@ -2,11 +2,22 @@
 
 All notable changes to this project will be written here.
 
-## [Unreleased]
+## [Unreleased] - in development
 
 ###Changed
 - Autoloading config files
 - Installation wizard
+
+## [2.7.0] - 07-12-2018
+### Added
+- New way to configure wrappers - now they are replaced by OOP View classes. Each class has to be renderable, it 
+means that the class have to implements Renderable interface. It's new way to support growing of big applications.
+### Changed
+- `ROUTER` class were totally rebuild due to new architecture.
+- Also the whole architecture around wrappers had changed.
+
+### Removed
+None of elements should be gone, all formerly developed modules should work fine.
 
 ## [2.6.0] - 24-11-2018
 ### Added
