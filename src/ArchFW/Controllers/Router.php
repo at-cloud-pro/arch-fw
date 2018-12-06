@@ -124,8 +124,8 @@ class Router
         $output = [];
 
         if (count($args) > 0) {
-            foreach ($args as $key => $value) {
-                $str = explode('=', $value);
+            foreach ($args as $arg) {
+                $str = explode('=', $arg);
                 if (array_key_exists(1, $str)) {
                     $output += [$str[0] => $str[1]];
                 } elseif ($str[0] != '') {
