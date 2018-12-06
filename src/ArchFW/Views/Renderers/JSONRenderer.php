@@ -31,6 +31,7 @@ class JSONRenderer implements Renderable
     /**
      * Prepare to rendering JSON content
      *
+     * @param array $values
      * @return string
      */
     public function render(array $values): string

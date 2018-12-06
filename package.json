@@ -1,8 +1,7 @@
 {
-  "name": "archfw-boilerplate",
-  "version": "1.0.0",
-  "description": "ArchFW is a short form of ArchFramework. We - archi_tektur team - developed this software as a solution for common PHP applications problems, such as securing session, cute error throwing and routing. Software is still growing, so we are expanding it's capabilities: API serving, using APIs and many many more!\r ![GitHub Logo](https://archi-tektur.pl/img/gh/wizytowka-r.png)\r Format: ![Alt Text](url)",
-  "main": "index.js",
+  "name": "arch-framework",
+  "version": "2.7.0",
+  "description": "ArchFW is fluent new way to write PHP apps. This file ",
   "dependencies": {
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.1",
@@ -22,8 +21,8 @@
     "type": "git",
     "url": "git+https://github.com/archi-tektur/ArchFW-Boilerplate.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Oskar Barcz",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/archi-tektur/ArchFW-Boilerplate/issues"
   },

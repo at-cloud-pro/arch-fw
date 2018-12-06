@@ -47,7 +47,7 @@ class Router
         // Assign GET style values to proper superglobal variable
         if (array_key_exists(1, $requestUri)) {
             // Assign it if has
-            $_GET = $this->findArgs($uri[1]);
+            $_GET = $this->findArgs($requestUri[1]);
         }
     }
 
