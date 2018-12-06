@@ -17,7 +17,7 @@
 
 namespace ArchFW\Controllers\Storage;
 
-use ArchFW\Controllers\AbstractStorage;
+use function array_key_exists;
 
 /**
  * Holds data in server RAM over one run time

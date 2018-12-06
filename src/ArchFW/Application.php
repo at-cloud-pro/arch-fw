@@ -18,8 +18,15 @@
 namespace ArchFW;
 
 use ArchFW\Controllers\Config;
+use ArchFW\Controllers\Error;
 use ArchFW\Controllers\Router;
 use ArchFW\Models\ConfigFactory;
+use function error_reporting;
+use function header;
+use function ini_set;
+use function session_regenerate_id;
+use function session_start;
+use function session_status;
 
 /**
  * Representation of ArchFW Application
@@ -34,6 +41,7 @@ final class Application
      * Application constructor. Main method that is running selected classes, initiate session and router.
      *
      * @param string $configPath Contains path to config files
+     * @throws Exceptions\NoFileFoundException
      */
     public function __construct(string $configPath)
     {
@@ -54,10 +62,16 @@ final class Application
         // Turn on error reporting depending on production switch
         $this->errorReporting(!Config::get(Config::SECTION_APP, 'production'));
 
-        // Start routing and rendering
-        $Router = new Router($_SERVER['REQUEST_URI']);
-        $view = $Router->getViewClassName();
-        new $view();
+        // may go wrong
+        try {
+            // Start routing and rendering
+            $router = new Router($_SERVER['REQUEST_URI']);
+            $view = $router->getViewClassName();
+            // instantiate
+            new $view();
+        } catch (Exceptions\RouteNotFoundException $e) {
+            new Error(500, $e->getMessage(), Error::PLAIN);
+        }
     }
 
     /**

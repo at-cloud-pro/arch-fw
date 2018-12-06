@@ -15,28 +15,25 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-namespace ArchFW\Views\Renderers;
+namespace ArchFW\Views\JSONViews;
 
-use ArchFW\Interfaces\Renderable;
-use function header;
-use function json_encode;
+use ArchFW\Controllers\Router;
+use ArchFW\Views\Renderers\JSONRenderer;
 
 /**
- * Renders JSON as response
+ * Test class for testing the routing
  *
- * @package ArchFW\Views\Renderers
+ * @package ArchFW\Views\JSONViews
  */
-abstract class JSONRenderer implements Renderable
+class RouterTest extends JSONRenderer
 {
-    /**
-     * Prepare to rendering JSON content
-     *
-     * @param array $values
-     * @return string
-     */
-    public function render(array $values): string
+    public function __construct()
     {
-        header('Content-Type: application/json; charset=utf-8');
-        return json_encode($values);
+        echo parent::render(
+            [
+                'vars'   => $_GET,
+                'routes' => Router::getAllURI(),
+            ]
+        );
     }
 }

@@ -37,7 +37,7 @@ return [
             ],
         ],
         'api'         => [
-            'test' => 'InitialScreen',
+            'routerTest' => 'RouterTest',
         ],
     ],
 

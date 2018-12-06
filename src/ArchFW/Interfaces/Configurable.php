@@ -15,13 +15,6 @@
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-/**
- * Created by PhpStorm.
- * User: konta
- * Date: 19 November 2018
- * Time: 19:17
- */
-
 namespace ArchFW\Interfaces;
 
 /**

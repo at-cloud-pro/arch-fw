@@ -17,6 +17,14 @@
 
 namespace ArchFW\Controllers;
 
+use function date;
+use function fclose;
+use function file_exists;
+use function file_put_contents;
+use function fopen;
+use function fwrite;
+use function realpath;
+
 /**
  * Logger object is used to create new messages in server log files.
  *
@@ -170,7 +178,7 @@ class Logger
         return [
             'currentTime' => $this->date,
             'last'        => $last,
-            'debugMode'   => $debug
+            'debugMode'   => $debug,
         ];
     }
 }

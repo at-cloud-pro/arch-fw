@@ -24,5 +24,4 @@ namespace ArchFW\Exceptions;
  */
 class NoFileFoundException extends ArchFWException
 {
-
 }

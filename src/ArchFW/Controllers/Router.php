@@ -19,6 +19,9 @@
 namespace ArchFW\Controllers;
 
 use ArchFW\Exceptions\RouteNotFoundException;
+use function array_key_exists;
+use function array_shift;
+use function explode;
 
 /**
  * Class NewRouter
@@ -70,7 +73,7 @@ class Router
     public function getViewClassName(): string
     {
         $routingPaths = Config::get('routes', 'routingPaths');
-        $address = explode('/', $this->requestedUri)[1];
+        $address = self::$routingPaths[1];
         $prefix = Config::get(Config::SECTION_ROUTER, 'safeClassCalloutPath');
 
         // select where to look for
@@ -83,20 +86,20 @@ class Router
 
         // if match 'address' => class found in array
         if (array_key_exists($address, $routingPaths[$key])) {
-            if (!$this->isApi) {
+            if ($this->isApi) {
+                // class name if API
+                $className = $routingPaths[$key][$address];
+            } else {
                 // class and template name if application
                 self::$templateName = $routingPaths[$key][$address]['template'];
                 $className = $routingPaths[$key][$address]['class'];
-            } else {
-                // class name if API
-                $className = $routingPaths[$key][$address];
             }
             $fqn = $prefix[$key] . '\\' . $className;
         } else {
             throw new RouteNotFoundException("Route {$address} has not been found in routes file!", 601);
         }
 
-        return $fqn;
+        return '\\' . $fqn;
     }
 
     /**

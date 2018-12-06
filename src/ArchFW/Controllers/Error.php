@@ -18,6 +18,10 @@
 namespace ArchFW\Controllers;
 
 use ArchFW\Interfaces\Errorable;
+use function file_exists;
+use function header;
+use function http_response_code;
+use function json_encode;
 
 /**
  * Class shows verbose or JSON errors, easy to extend and add user's own action.

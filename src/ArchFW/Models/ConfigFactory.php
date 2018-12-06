@@ -19,6 +19,7 @@ namespace ArchFW\Models;
 
 use ArchFW\Controllers\Config;
 use ArchFW\Exceptions\NoFileFoundException;
+use function file_exists;
 
 /**
  * Class ConfigFactory loads file arrays to initial Config object

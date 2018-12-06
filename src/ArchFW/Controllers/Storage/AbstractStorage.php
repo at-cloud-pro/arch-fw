@@ -22,7 +22,7 @@
  * Time: 18:06
  */
 
-namespace ArchFW\Controllers;
+namespace ArchFW\Controllers\Storage;
 
 /**
  * Base class for most type of storages

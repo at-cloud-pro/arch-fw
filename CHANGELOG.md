@@ -8,7 +8,7 @@ All notable changes to this project will be written here.
 - Autoloading config files
 - Installation wizard
 
-## [2.7.0] - 07-12-2018
+## [2.7.0] - 06-12-2018
 ### Added
 - New way to configure wrappers - now they are replaced by OOP View classes. Each class has to be renderable, it 
 means that the class have to implements Renderable interface. It's new way to support growing of big applications.

@@ -26,6 +26,11 @@ Run required commands in your system shell:
 $ composer install
 $ npm install
 ```
+It may happen that some packages from this project will be outdated, then run:
+```sh
+$ npm audit fix
+```
+
 Remember that server root must be set on `/public_html` folder. A version that does not requite changing server root will be released someday, but for safety this method is simly the best.
 
 If all has been successfully set, you will see proper screen entering `http://localhost/` or any domain/IP adress.
@@ -39,7 +44,7 @@ Framework is going to be perfect, now it does:
 * HTML and JSON renderers
 * Own logger with file saving
 * Extensible exceptions with error logging
-* Modern procedural view engine
+* Modern OOP view engine
 * Fast OOP MC classes
 * Easiest extentible config ever (PHP Array file)
 * Medoo database - lightest library included
@@ -53,13 +58,13 @@ Have any ideas what this FW should contain? PM me over _kontakt@archi-tektur.pl_
 
 ## Status
 
-Framework has stable release __2.6.0__ in `master` branch, in `dev` branch you can find also the newest version - but 
+Framework has stable release __2.7.0__ in `master` branch, in `dev` branch you can find also the newest version - but 
 watch out,
  it 
 probably WILL NOT be stable. 
 
 New functionalities, bux fixes and code reusages are developed quite often, at least once a two months something is 
-changing. Backward compatibility can't be provided on this stage of development, but it will be available soon.
+changing. Backward compatibility can't be provided on this stage of development, but it will be guaranteed soon.
 
 
 ## Inspiration
