@@ -32,7 +32,7 @@ return [
     'https' => false,
 
     # Enable or disable HTTP Strict Transport Policy
-    'hsts'  => false
+    'hsts'  => false,
 ],
 
 # Every page has
@@ -43,7 +43,7 @@ return [
     'pageDescription' => '',
     'pageKeywords'    => '',
     'pageAuthor'      => "Oskar 'archi_tektur' Barcz",
-    'metaComment'     => ''
+    'metaComment'     => '',
 ],
 
 # Add new stylesheets easily, just add another stylesheet (copy "Desktop") to see how. You need to provide valid
@@ -65,32 +65,21 @@ Example:
         'type' => 'text/css',
         'desc' => 'This stylesheet is for better view of startup page, ',
         'rel'  => 'stylesheet',
-        'link' => '/css/master.css'
-    ]
+        'link' => '/css/master.css',
+    ],
 ],
 
 # Here enter relative paths to TWIG templates and application wrappers. Until you modify framework internal structure
 # (not recommended!), no need to touch this.
-'twigConfig'       => [
-    'twigWrappersPath'  => '../assets/wrappers/',
-    'twigTemplatesPath' => '..\assets\templates\\'
-],
-
+'templatesPath'    => '..\resources\templates\\'
+,
 
 # Path to catalogue with errorcodes, files inside should be named like an errors they are written for - e.g. '404
 #.html'. PHP is not allowed in this files. Until you modify framework internal structure (not recommended!), no need
 # to touch this.
-'pathToErrorPages' => '../assets/errorpages',
+'pathToErrorPages' => '../resources/errorpages',
 
 #Path to default log file (new file will be there created if any does not exist
 'defaultLogPath'   => '/../logs/ArchFWLogFile.log',
 'exceptionLogPath' => '/../logs/ArchFWExceptions.log',
-
-# Simple switch to disable API in whole application. If user will try access, app will throw 601 "Api turned off in
-# app config" error.
-'APIrunning'       => true,
-
-
-# Holds path to API wrappers. Until you modify framework internal structure (not recommended!), no need to touch this.
-'APIwrappers'      => '../assets/api'
 ];

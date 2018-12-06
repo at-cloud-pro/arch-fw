@@ -1,23 +1,36 @@
 <?php
 
-
 return [
-    # Add adresses to our router. Key here is a URL adress user enters, and value is name of wrapper and twig files.
-    # When file is in subdirectory, you can use '/', e.g. 'login/recoverpassword'.
-    'APProuter'         => [
-        '/' => 'index'
+
+    /*
+     * Directory where view classes are located. Only classes in this directory can be called.
+     * With below routingPaths it should create Full Qualified class name to be called.
+     */
+    'safeClassCalloutPath' => [
+        'application' => 'ArchFW\Views\HTMLViews',
+        'api'         => 'ArchFW\Views\JSONViews',
     ],
 
-    # Router in API is matching URL (key here) and wrapper file name (value here)
-    'APIrouter'         => [
-        '/test'        => 'test',
-        '/routercheck' => 'routercheck',
-        '/auth'        => 'auth'
+    /*
+     * Here are stored
+     */
+    'routingPaths'         => [
+        'application' => [
+            'index' => [
+                'class'    => 'InitialScreen',
+                'template' => 'index.twig',
+            ],
+        ],
+        'api'         => [
+            'test' => 'InitialScreen',
+        ],
     ],
 
-    # Redirect all routes that does not match the above scheme to other, defined above route
-    # set FALSE to turn off this function
-    # set STRING with route to turn on this function
-    'redirectOnNoMatch' => '/'
+    /*
+     Redirect all routes that does not match the above scheme to other, defined above route
+     set FALSE to turn off this function
+     set STRING with route to turn on this function
+    */
+    'redirectOnNoMatch'    => '/',
 
 ];

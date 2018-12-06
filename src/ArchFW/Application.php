@@ -18,14 +18,8 @@
 namespace ArchFW;
 
 use ArchFW\Controllers\Config;
-use ArchFW\Controllers\Error;
 use ArchFW\Controllers\Router;
-use ArchFW\Exceptions\NoFileFoundException;
-use ArchFW\Exceptions\RouteNotFoundException;
 use ArchFW\Models\ConfigFactory;
-use Twig_Error_Loader;
-use Twig_Error_Runtime;
-use Twig_Error_Syntax;
 
 /**
  * Representation of ArchFW Application
@@ -43,68 +37,27 @@ final class Application
      */
     public function __construct(string $configPath)
     {
-        try {
-            // Load application configuration details as constant
-            ConfigFactory::fill($configPath);
+        // Load application configuration details as constant
+        ConfigFactory::fill($configPath);
 
-            // Force HTTPS connection if setted in settings so
-            if (Config::get(Config::SECTION_APP, 'security')['https']) {
-                $this->https();
-            }
-
-            // Run HTTP Secure Transport Policy
-            $this->hsts(Config::get(Config::SECTION_APP, 'security')['hsts']);
-
-            // Ensure that session is securely started
-            $this->secureSession();
-
-            // Turn on error reporting depending on production switch
-            $this->errorReporting(!Config::get(Config::SECTION_APP, 'production'));
-
-            // Start routing and rendering
-            $Router = new Router($_SERVER['REQUEST_URI']);
-            $Renderer = $Router->getRenderer();
-            $page = $Renderer->render();
-
-            // response
-            print $page;
-        } catch (RouteNotFoundException $e) {
-            switch ($e->getCode()) {
-                case 601:
-                    $method = Error::JSON;
-                    break;
-                case 602:
-                    $method = Error::JSON;
-                    break;
-                case 603:
-                    $method = Error::JSON;
-                    break;
-                case 604:
-                    $method = Error::PLAIN;
-                    break;
-                case 605:
-                    $method = Error::HTML;
-                    break;
-                case 606:
-                    $method = Error::PLAIN;
-                    break;
-                default:
-                    $method = Error::HTML;
-            }
-            new Error(
-                $e->getCode(),
-                $e->getMessage(),
-                $method
-            );
-        } catch (NoFileFoundException $e) {
-            new Error(404, $e->getMessage(), Error::PLAIN);
-        } catch (Twig_Error_Loader $e) {
-            new Error(500, $e->getMessage(), Error::PLAIN);
-        } catch (Twig_Error_Runtime $e) {
-            new Error(500, $e->getMessage(), Error::PLAIN);
-        } catch (Twig_Error_Syntax $e) {
-            new Error(500, $e->getMessage(), Error::PLAIN);
+        // Force HTTPS connection if setted in settings so
+        if (Config::get(Config::SECTION_APP, 'security')['https']) {
+            $this->https();
         }
+
+        // Run HTTP Secure Transport Policy
+        $this->hsts(Config::get(Config::SECTION_APP, 'security')['hsts']);
+
+        // Ensure that session is securely started
+        $this->secureSession();
+
+        // Turn on error reporting depending on production switch
+        $this->errorReporting(!Config::get(Config::SECTION_APP, 'production'));
+
+        // Start routing and rendering
+        $Router = new Router($_SERVER['REQUEST_URI']);
+        $view = $Router->getViewClassName();
+        new $view();
     }
 
     /**

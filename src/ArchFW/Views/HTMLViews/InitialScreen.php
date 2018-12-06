@@ -17,6 +17,7 @@
 
 namespace ArchFW\Views\HTMLViews;
 
+use ArchFW\Interfaces\Renderable;
 use ArchFW\Views\Renderers\HTMLRenderer;
 
 /**
@@ -24,10 +25,24 @@ use ArchFW\Views\Renderers\HTMLRenderer;
  *
  * @package ArchFW\Views\HTMLViews
  */
-class InitialScreen extends HTMLRenderer
+class InitialScreen extends HTMLRenderer implements Renderable
 {
     public function __construct()
     {
-        parent::render();
+        parent::render(
+            [
+                'version' => $this->getVersion(),
+            ]
+        );
+    }
+
+    /**
+     * Returns current framework version. Test function.
+     *
+     * @return string
+     */
+    private function getVersion(): string
+    {
+        return '2.7.0';
     }
 }
