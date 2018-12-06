@@ -10,17 +10,11 @@
  * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   MIT
- * @version   2.6.0
+ * @license   MIT https://opensource.org/licenses/MIT
+ * @version   2.7.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
-/**
- * Created by PhpStorm.
- * User: Oskar Barcz
- * Date: 06.12.2018
- * Time: 00:39
- */
 
 namespace ArchFW\Controllers;
 
@@ -49,6 +43,12 @@ class Router
         // assing value
         $this->requestedUri = $requestUri;
         self::$routingPaths = explode('/', $requestUri);
+
+        // Assign GET style values to proper superglobal variable
+        if (array_key_exists(1, $requestUri)) {
+            // Assign it if has
+            $_GET = $this->findArgs($uri[1]);
+        }
     }
 
     /**
@@ -79,6 +79,33 @@ class Router
         }
         self::$templateName = $routingPaths['application'][$adress[1]]['template'];
         return $fqn;
+    }
+
+    /**
+     * Returns array of GET values in URI
+     *
+     * Simple gets all data after '?', then puts it in an array. Required if
+     * using REST style routing. Run function and assing returned values to $_GET variable.
+     *
+     * @param string $string
+     * @return array
+     */
+    private function findArgs(string $string): array
+    {
+        $args = explode('&', $string);
+        $output = [];
+
+        if (count($args) > 0) {
+            foreach ($args as $key => $value) {
+                $str = explode('=', $value);
+                if (array_key_exists(1, $str)) {
+                    $output += [$str[0] => $str[1]];
+                } elseif ($str[0] != '') {
+                    $output += [$str[0] => null];
+                }
+            }
+        }
+        return $output;
     }
 
     /**

@@ -10,16 +10,14 @@
  * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   MIT
- * @version   2.6.0
+ * @license   MIT https://opensource.org/licenses/MIT
+ * @version   2.7.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
 namespace ArchFW\Views\Renderers;
 
-use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Interfaces\Renderable;
-use function file_exists;
 use function header;
 use function json_encode;
 
@@ -31,51 +29,13 @@ use function json_encode;
 class JSONRenderer implements Renderable
 {
     /**
-     * @var mixed Holds array to be encoded as JSON
-     */
-    private $values;
-
-    /**
-     * JSONRenderer constructor.
-     *
-     * @param string $path
-     * @throws NoFileFoundException
-     */
-    public function __construct(string $path)
-    {
-        // change file locator into file path
-        $path = $this->locateFile($path);
-        // load values from file
-        $this->values = require_once $path;
-    }
-
-    /**
-     * Change file locator into file path
-     *
-     * @param $path
-     * @return string
-     * @throws NoFileFoundException
-     */
-    private function locateFile(string $path): string
-    {
-        // adding extention
-        $file = $path . '.php';
-
-        // check if file exists
-        if (!file_exists($file)) {
-            throw new NoFileFoundException('API Wrapper not found', 500);
-        }
-        return $file;
-    }
-
-    /**
      * Prepare to rendering JSON content
      *
      * @return string
      */
-    public function render(): string
+    public function render(array $values): string
     {
         header('Content-Type: application/json; charset=utf-8');
-        return json_encode($this->values);
+        return json_encode($values);
     }
 }

@@ -10,8 +10,8 @@
  * @package   ArchFW
  * @author    Oskar Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   MIT
- * @version   2.6.0
+ * @license   MIT https://opensource.org/licenses/MIT
+ * @version   2.7.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 return [
