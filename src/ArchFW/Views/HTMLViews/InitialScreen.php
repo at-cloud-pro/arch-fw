@@ -29,7 +29,7 @@ class InitialScreen extends HTMLRenderer implements Renderable
 {
     public function __construct()
     {
-        parent::render(
+        echo parent::render(
             [
                 'version' => $this->getVersion(),
             ]

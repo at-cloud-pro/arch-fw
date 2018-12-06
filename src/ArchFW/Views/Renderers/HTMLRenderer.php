@@ -26,6 +26,7 @@ use Twig_Environment as Environment;
 use Twig_Filter;
 use Twig_Loader_Filesystem as Loader;
 use Twig_TemplateWrapper;
+use function is_array;
 
 /**
  * Class HTMLRenderer renders HTML page
@@ -34,8 +35,17 @@ use Twig_TemplateWrapper;
  */
 abstract class HTMLRenderer implements Renderable
 {
+    /**
+     * @param array $variablesFromView
+     * @return string
+     * @throws NoFileFoundException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     final public function render($variablesFromView): string
     {
+
         // load Twig objects
         $template = $this->loadTwig();
         // load variables form sources, config etc.
@@ -55,9 +65,9 @@ abstract class HTMLRenderer implements Renderable
     private function loadTwig(): Twig_TemplateWrapper
     {
         // Set folders where Twig will look for files
-        $Loader = new Loader(Config::get(Config::SECTION_APP, 'templatesPath'));
+        $loader = new Loader(Config::get(Config::SECTION_APP, 'templatesPath'));
         // Create new Twig object
-        $TwigEnv = new Environment($Loader);
+        $twigEnv = new Environment($loader);
         // Add extentions (URL-safe encode)
         $filter = new Twig_Filter(
             'safe_uri_encode',
@@ -65,9 +75,9 @@ abstract class HTMLRenderer implements Renderable
                 return UriEncoder::encode($string);
             }
         );
-        $TwigEnv->addFilter($filter);
+        $twigEnv->addFilter($filter);
         // Load Twig file
-        return $TwigEnv->load($this->locateTemplate());
+        return $twigEnv->load($this->locateTemplate());
     }
 
     /**
@@ -77,7 +87,7 @@ abstract class HTMLRenderer implements Renderable
     private function locateTemplate(): string
     {
         $path = Config::get(Config::SECTION_APP, 'templatesPath');
-        $file = Router::getTemplateName() . '.twig';
+        $file = Router::getTemplateName();
         $pathToFile = $path . DIRECTORY_SEPARATOR . $file;
 
         // test if file exists

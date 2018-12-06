@@ -16,7 +16,7 @@ return [
      */
     'routingPaths'         => [
         'application' => [
-            'index' => [
+            '' => [
                 'class'    => 'InitialScreen',
                 'template' => 'index.twig',
             ],
