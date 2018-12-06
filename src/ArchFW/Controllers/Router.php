@@ -41,13 +41,14 @@ class Router
     public function __construct(string $requestUri)
     {
         // assing value
-        $this->requestedUri = $requestUri;
-        self::$routingPaths = explode('/', $requestUri);
+        $expl = explode('?', $requestUri);
+        $this->requestedUri = $expl[0];
+        self::$routingPaths = explode('/', $expl[0]);
 
         // Assign GET style values to proper superglobal variable
-        if (array_key_exists(1, $requestUri)) {
+        if (array_key_exists(1, $expl)) {
             // Assign it if has
-            $_GET = $this->findArgs($requestUri[1]);
+            $_GET = $this->findArgs($expl[1]);
         }
     }
 
