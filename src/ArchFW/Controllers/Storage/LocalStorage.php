@@ -47,7 +47,7 @@ class LocalStorage extends AbstractStorage
      */
     public static function set(string $key, $value): void
     {
-        self::$data = $value;
+        self::$data[$key] = $value;
     }
 
     /**
