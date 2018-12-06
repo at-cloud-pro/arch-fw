@@ -16,7 +16,6 @@
  */
 
 use ArchFW\Application as Service;
-use ArchFW\Exceptions\ArchFWException;
 
 /*
 HERE IS A PART OF THE FILE YOU CAN AND SHOULD EDIT IF YOU CHANGED THE FRAMEWORK STRUCTURE
@@ -35,7 +34,7 @@ Better do not edit the code below.
 try {
     // ENSURE CONFIG FILES PATH IS VALID
     if (!file_exists($configPath)) {
-        throw new ArchFWException('Config file wasn\'t found!', 2);
+        throw new Exception('Config file wasn\'t found!', 2);
     }
 
     /*
@@ -43,12 +42,12 @@ try {
     it uses functionality that were not implemented before.
      */
     if (version_compare(PHP_VERSION, '7.0.0') < 0) {
-        throw new ArchFWException('Unsupported PHP version, minimum: 7.0.0, yours: ' . PHP_VERSION, 4);
+        throw new Exception('Unsupported PHP version, minimum: 7.0.0, yours: ' . PHP_VERSION, 4);
     }
 
     // ENSURE HAVING VENDOR FILES
     if (!file_exists($vendor)) {
-        throw new ArchFWException(
+        throw new Exception(
             'VENDOR files were not found, run \'composer install\'' .
             ' over main framework folder.',
             3
@@ -57,7 +56,7 @@ try {
     // LOADING LIBS AND CLASSES
     include_once $vendor;
     new Service($configPath);
-} catch (ArchFWException $err) {
+} catch (Exception $err) {
     // Catch the exceptions that came before running an app.
     http_response_code(500);
     exit('INIT ERROR ' . $err->getCode() . ': ' . $err->getMessage());

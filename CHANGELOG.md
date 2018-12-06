@@ -13,11 +13,13 @@ All notable changes to this project will be written here.
 - New way to configure wrappers - now they are replaced by OOP View classes. Each class has to be renderable, it 
 means that the class have to implements Renderable interface. It's new way to support growing of big applications.
 ### Changed
+- Now errors that are shown when Application is not yet runned (such as vendor files missing, paths incompatibility, 
+etc.) will not raise PHP Error, they will generate fluent, granded, easy to understand message. 
 - `ROUTER` class were totally rebuild due to new architecture.
 - Also the whole architecture around wrappers had changed.
 
 ### Removed
-None of elements should be gone, all formerly developed modules should work fine.
+None of elements are gone, all formerly developed modules should work fine.
 
 ## [2.6.0] - 24-11-2018
 ### Added
