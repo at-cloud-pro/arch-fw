@@ -16,7 +16,7 @@
  */
 
 return [
-    # Here enter database details, if you want to use our extention.
+    // Here enter database details, if you want to use our extention.
     'databaseType' => 'mysql',
     'databaseName' => 'test',
     'server'       => 'localhost',

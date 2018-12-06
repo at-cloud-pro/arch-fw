@@ -27,7 +27,7 @@ return [
     ],
 
     /*
-     * Here are stored
+     * Here are stored class and template names for each route
      */
     'routingPaths'         => [
         'application' => [

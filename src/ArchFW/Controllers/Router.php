@@ -29,6 +29,8 @@ class Router
 {
     private $requestedUri;
 
+    private $isApi;
+
     private static $routingPaths;
 
     private static $templateName;
@@ -40,10 +42,19 @@ class Router
      */
     public function __construct(string $requestUri)
     {
-        // assing value
+        // chop values into like ADRESS ? GET VARIABLES
         $expl = explode('?', $requestUri);
-        $this->requestedUri = $expl[0];
-        self::$routingPaths = explode('/', $expl[0]);
+        $requestDirs = $expl[0];
+        $routes = explode('/', $requestDirs);
+
+        // delete /api/ from API routers
+        if ($this->isApi($requestDirs)) {
+            array_shift($routes);
+        }
+
+        // assign
+        self::$routingPaths = $routes;
+        $this->requestedUri = $requestDirs;
 
         // Assign GET style values to proper superglobal variable
         if (array_key_exists(1, $expl)) {
@@ -59,27 +70,43 @@ class Router
     public function getViewClassName(): string
     {
         $routingPaths = Config::get('routes', 'routingPaths');
-        $adress = explode('/', $this->requestedUri);
+        $address = explode('/', $this->requestedUri)[1];
         $prefix = Config::get(Config::SECTION_ROUTER, 'safeClassCalloutPath');
-        // define api or not
-        if ($this->isApi()) {
-            // if match 'address' => class found in array
-            if (array_key_exists($adress[2], $routingPaths['api'])) {
-                $className = $routingPaths['api'][$adress[2]];
-                $fqn = $prefix['api'] . '\\' . $className;
-            } else {
-                throw new RouteNotFoundException("Route {$adress[2]} has not been found in routes file!", 601);
-            }
-        } else {
-            if (array_key_exists($adress[1], $routingPaths['application'])) {
-                $className = $routingPaths['application'][$adress[1]]['class'];
-                $fqn = $prefix['application'] . '\\' . $className;
-            } else {
-                throw new RouteNotFoundException("Route {$adress[1]} has not been found in routes file!", 601);
-            }
+
+        // select where to look for
+        $key = ($this->isApi) ? 'api' : 'application';
+
+        // define template name if needeed
+        if (!$this->isApi) {
+            self::$templateName = $routingPaths[$key][$address]['template'];
         }
-        self::$templateName = $routingPaths['application'][$adress[1]]['template'];
+
+        // if match 'address' => class found in array
+        if (array_key_exists($address, $routingPaths[$key])) {
+            if (!$this->isApi) {
+                // class and template name if application
+                self::$templateName = $routingPaths[$key][$address]['template'];
+                $className = $routingPaths[$key][$address]['class'];
+            } else {
+                // class name if API
+                $className = $routingPaths[$key][$address];
+            }
+            $fqn = $prefix[$key] . '\\' . $className;
+        } else {
+            throw new RouteNotFoundException("Route {$address} has not been found in routes file!", 601);
+        }
+
         return $fqn;
+    }
+
+    /**
+     * @param string $requestDir
+     * @return bool Define whether using the API or application classes
+     */
+    private function isApi(string $requestDir): bool
+    {
+        $this->isApi = (strpos($requestDir, '/api/') === 0);
+        return $this->isApi;
     }
 
     /**
@@ -109,13 +136,6 @@ class Router
         return $output;
     }
 
-    /**
-     * @return bool Define whether using the API or application classes
-     */
-    private function isApi(): bool
-    {
-        return (strpos($this->requestedUri, '/api/') === 0);
-    }
 
     /**
      * Get nth element of URL in cute adresses (exploded by "/")
