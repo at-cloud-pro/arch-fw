@@ -20,44 +20,42 @@ namespace ArchFW\Controllers\Storage;
 use ArchFW\Controllers\AbstractStorage;
 
 /**
- * Holds data in server RAM over one run time
+ * Holds data in HTTP Session
  *
  * @package ArchFW\Controllers\Storage
  */
-class LocalStorage extends AbstractStorage
+class SessionStorage extends AbstractStorage
 {
-    private static $data;
-
     /**
-     * Gets value from Local Storage by key
+     * Gets value from HTTP Session by key
      *
      * @param string $key
      * @return mixed|null
      */
     public static function get(string $key)
     {
-        return array_key_exists($key, self::$data) ? self::$data[$key] : null;
+        return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : null;
     }
 
     /**
-     * Sets value to Local Storage by key
+     * Sets value to HTTP Session by key
      *
      * @param string $key
      * @param $value
      */
     public static function set(string $key, $value): void
     {
-        self::$data[$key] = $value;
+        $_SESSION[$key] = $value;
     }
 
     /**
-     * Checks if Local Storage has given key
+     * Checks if HTTP Session has given key
      *
      * @param string $key
      * @return bool
      */
     public static function exist(string $key): bool
     {
-        return array_key_exists($key, self::$data);
+        return array_key_exists($key, $_SESSION);
     }
 }
