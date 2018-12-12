@@ -25,9 +25,9 @@
   },
   "require": {
     "php": ">=7.2.4",
-    "twig/twig": "^2.0",
     "ext-json": "*",
     "ext-pdo": "*",
+    "twig/twig": "^2.0",
     "catfan/medoo": "^1.6"
   }
 }
