@@ -4,6 +4,7 @@
   "description": "Boilerplate for ArchFW",
   "homepage": "https://archi-tektur.pl/archFW",
   "license": "MIT",
+  "version": "2.7.0",
   "authors": [
     {
       "name": "Oskar 'archi_tektur' Barcz",
