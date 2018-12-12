@@ -1,5 +1,9 @@
 # ArchFW
-[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+[![Latest Stable Version](https://poser.pugx.org/archi-tektur/arch-fw/v/stable)](https://packagist.org/packages/archi-tektur/arch-fw)
+[![Total Downloads](https://poser.pugx.org/archi-tektur/arch-fw/downloads)](https://packagist.org/packages/archi-tektur/arch-fw)
+[![License](https://poser.pugx.org/archi-tektur/arch-fw/license)](https://packagist.org/packages/archi-tektur/arch-fw)
+[![Monthly Downloads](https://poser.pugx.org/archi-tektur/arch-fw/d/monthly)](https://packagist.org/packages/archi-tektur/arch-fw)
+[![composer.lock](https://poser.pugx.org/archi-tektur/arch-fw/composerlock)](https://packagist.org/packages/archi-tektur/arch-fw)
 
 > Tired of using heavy frameworks like Symfony, CodeIgniter and others? Try our new boilerplating framework. It does 
 a lot of magic things to make your development only a pleasure.
