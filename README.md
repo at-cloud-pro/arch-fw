@@ -1,4 +1,6 @@
 # ArchFW
+[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+
 > Tired of using heavy frameworks like Symfony, CodeIgniter and others? Try our new boilerplating framework. It does 
 a lot of magic things to make your development only a pleasure.
 
