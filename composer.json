@@ -1,8 +1,8 @@
 {
-  "name": "okbrcz/arch-fw-boilerplate",
-  "type": "framework-boilerplate",
+  "name": "archi-tektur/ArchFW",
+  "type": "framework",
   "description": "Boilerplate for ArchFW",
-  "homepage": "https://github.com/okbrcz/ArchFW-boilerplate",
+  "homepage": "https://archi-tektur.pl/archFW",
   "license": "MIT",
   "authors": [
     {
@@ -12,6 +12,11 @@
       "role": "Developer"
     }
   ],
+  "config": {
+    "medoo-database-data": "config/database.php",
+    "framework-settings": "config/archsettings.php",
+    "router": "config/routes.php"
+  },
   "autoload": {
     "psr-4": {
       "": "src/"
