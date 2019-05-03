@@ -11,7 +11,7 @@
  * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.7.0
+ * @version   2.8.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -30,13 +30,10 @@ use function explode;
  */
 class Router
 {
-    private $requestedUri;
-
-    private $isApi;
-
     private static $routingPaths;
-
     private static $templateName;
+    private $requestedUri;
+    private $isApi;
 
     /**
      * NewRouter constructor.
@@ -64,42 +61,6 @@ class Router
             // Assign it if has
             $_GET = $this->findArgs($expl[1]);
         }
-    }
-
-    /**
-     * @return string
-     * @throws RouteNotFoundException
-     */
-    public function getViewClassName(): string
-    {
-        $routingPaths = Config::get('routes', 'routingPaths');
-        $address = self::$routingPaths[1];
-        $prefix = Config::get(Config::SECTION_ROUTER, 'safeClassCalloutPath');
-
-        // select where to look for
-        $key = ($this->isApi) ? 'api' : 'application';
-
-        // define template name if needeed
-        if (!$this->isApi) {
-            self::$templateName = $routingPaths[$key][$address]['template'];
-        }
-
-        // if match 'address' => class found in array
-        if (array_key_exists($address, $routingPaths[$key])) {
-            if ($this->isApi) {
-                // class name if API
-                $className = $routingPaths[$key][$address];
-            } else {
-                // class and template name if application
-                self::$templateName = $routingPaths[$key][$address]['template'];
-                $className = $routingPaths[$key][$address]['class'];
-            }
-            $fqn = $prefix[$key] . '\\' . $className;
-        } else {
-            throw new RouteNotFoundException("Route {$address} has not been found in routes file!", 601);
-        }
-
-        return '\\' . $fqn;
     }
 
     /**
@@ -139,7 +100,6 @@ class Router
         return $output;
     }
 
-
     /**
      * Get nth element of URL in cute adresses (exploded by "/")
      *
@@ -167,6 +127,42 @@ class Router
     public static function getTemplateName(): string
     {
         return self::$templateName;
+    }
+
+    /**
+     * @return string
+     * @throws RouteNotFoundException
+     */
+    public function getViewClassName(): string
+    {
+        $routingPaths = Config::get('routes', 'routingPaths');
+        $address = self::$routingPaths[1];
+        $prefix = Config::get(Config::SECTION_ROUTER, 'safeClassCalloutPath');
+
+        // select where to look for
+        $key = ($this->isApi) ? 'api' : 'application';
+
+        // define template name if needeed
+        if (!$this->isApi) {
+            self::$templateName = $routingPaths[$key][$address]['template'];
+        }
+
+        // if match 'address' => class found in array
+        if (array_key_exists($address, $routingPaths[$key])) {
+            if ($this->isApi) {
+                // class name if API
+                $className = $routingPaths[$key][$address];
+            } else {
+                // class and template name if application
+                self::$templateName = $routingPaths[$key][$address]['template'];
+                $className = $routingPaths[$key][$address]['class'];
+            }
+            $fqn = $prefix[$key] . '\\' . $className;
+        } else {
+            throw new RouteNotFoundException("Route {$address} has not been found in routes file!", 601);
+        }
+
+        return '\\' . $fqn;
     }
 
 }

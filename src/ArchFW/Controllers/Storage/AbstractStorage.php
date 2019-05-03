@@ -11,7 +11,7 @@
  * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.7.0
+ * @version   2.8.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -44,7 +44,7 @@ abstract class AbstractStorage
      * Sets value with assigned key in storage
      *
      * @param string $key
-     * @param $value
+     * @param        $value
      * @return mixed
      */
     abstract public static function set(string $key, $value): void;

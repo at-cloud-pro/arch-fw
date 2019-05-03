@@ -11,7 +11,7 @@
  * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.7.0
+ * @version   2.8.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -39,7 +39,7 @@ try {
 
     /*
     As far as you are using PHP older than 7.0.0 this framework won't start, because
-    it uses functionality that were not implemented before.
+    it uses functionality that was not implemented before.
      */
     if (version_compare(PHP_VERSION, '7.0.0') < 0) {
         throw new RuntimeException('Unsupported PHP version, minimum: 7.0.0, yours: ' . PHP_VERSION, 4);
@@ -53,9 +53,10 @@ try {
         );
     }
     // LOADING LIBS AND CLASSES
-    include_once $vendor;
+    /** @noinspection PhpIncludeInspection */
+    require_once $vendor;
     new Service($configPath);
-} catch (Exception $err) {
+} catch (Throwable $err) {
     // Catch the exceptions that came before running an app.
     http_response_code(500);
     exit('INIT ERROR ' . $err->getCode() . ': ' . $err->getMessage());

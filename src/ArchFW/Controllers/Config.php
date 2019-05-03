@@ -11,7 +11,7 @@
  * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.7.0
+ * @version   2.8.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -42,7 +42,7 @@ class Config implements Configurable
      * Get value from configuration
      *
      * @param string $section the file where to look for, use class consts to access
-     * @param string $key key used to store the data
+     * @param string $key     key used to store the data
      * @return mixed value
      */
     public static function get(string $section, string $key)
@@ -54,8 +54,8 @@ class Config implements Configurable
      * Set or override value in configurations
      *
      * @param string $section the file where to look for, use class consts to access
-     * @param string $key key used to store the data
-     * @param mixed $value value to being stored in config
+     * @param string $key     key used to store the data
+     * @param mixed  $value   value to being stored in config
      */
     public static function set(string $section, string $key, $value): void
     {
@@ -65,8 +65,8 @@ class Config implements Configurable
     /**
      * Initially set the whole array trees
      *
-     * @param string $key key used to store the data
-     * @param mixed $value value to being stored in config
+     * @param string $key   key used to store the data
+     * @param mixed  $value value to being stored in config
      */
     public static function setAll(string $key, $value): void
     {

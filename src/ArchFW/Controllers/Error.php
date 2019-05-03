@@ -11,7 +11,7 @@
  * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.7.0
+ * @version   2.8.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -52,9 +52,9 @@ class Error implements Errorable
     /**
      * Showing visual or JSON style errors.
      *
-     * @param integer $code HTTP code of an error to be thrown
-     * @param string $message message to be shown
-     * @param string $method Choose between method to show error, values: html|plain|json
+     * @param integer $code    HTTP code of an error to be thrown
+     * @param string  $message message to be shown
+     * @param string  $method  Choose between method to show error, values: html|plain|json
      *
      */
     public function __construct(int $code, string $message, string $method)
@@ -108,9 +108,9 @@ class Error implements Errorable
     /**
      * Throw plaintext error
      *
+     * @return void
      * @var bool set true to force plain error
      *
-     * @return void
      */
     protected function plainError(bool $force /* FORCE */): void
     {

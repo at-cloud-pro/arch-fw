@@ -11,7 +11,7 @@
  * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.7.0
+ * @version   2.8.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -52,9 +52,12 @@ class ConfigFactory
 
         // load files
         if (file_exists($masterCfgPath) && file_exists($routesCfgPath) && file_exists($databaseCfgPath)) {
-            $applicationConfig = require $masterCfgPath;
-            $databaseConfig = require $databaseCfgPath;
-            $routesConfig = require $routesCfgPath;
+            /** @noinspection PhpIncludeInspection */
+            $applicationConfig = include $masterCfgPath;
+            /** @noinspection PhpIncludeInspection */
+            $databaseConfig = include $databaseCfgPath;
+            /** @noinspection PhpIncludeInspection */
+            $routesConfig = include $routesCfgPath;
         } else {
             throw new NoFileFoundException('No master config file found.');
         }

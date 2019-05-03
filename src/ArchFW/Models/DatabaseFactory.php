@@ -11,7 +11,7 @@
  * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.7.0
+ * @version   2.8.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -39,7 +39,7 @@ final class DatabaseFactory
                 'database_name' => Config::get(Config::SECTION_DB, 'databaseName'),
                 'server'        => Config::get(Config::SECTION_DB, 'server'),
                 'username'      => Config::get(Config::SECTION_DB, 'user'),
-                'password'      => Config::get(Config::SECTION_DB, 'password')
+                'password'      => Config::get(Config::SECTION_DB, 'password'),
             ]
         );
     }

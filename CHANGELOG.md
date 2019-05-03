@@ -1,12 +1,22 @@
 # ArchFW Changelog
 
-All notable changes to this project will be written here.
+All notable changes to this project will be written here. Project uses Semantic Versioning to mark up new versions.
 
 ## [Unreleased] - in development
-
-###Changed
 - Autoloading config files
 - Installation wizard
+
+## [2.8.0] - 3-05-2019
+### Added
+- Twig templates based on extending mechanism
+### Changed
+- Secured by updating TAR dependency leak __[IMPORTANT!]__
+- Improved error pages SEO and HTML-compatibility
+- Improved code speed by removing unnessessary clauses
+- Removed some dead code leftovers
+### Deleted
+- Twig templates that used __@import__ statement to print HTML HEAD and BODY
+None of elements are gone, all formerly developed modules should work fine.
 
 ## [2.7.0] - 06-12-2018
 ### Added

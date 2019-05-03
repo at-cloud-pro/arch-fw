@@ -11,7 +11,7 @@
  * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
  * @copyright 2018 Oskar 'archi_tektur' Barcz
  * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.7.0
+ * @version   2.8.0
  * @link      https://github.com/archi-tektur/ArchFW/
  */
 
@@ -87,8 +87,8 @@ class Logger
     /**
      * Log an error to custom log file
      *
-     * @param string $message provide a message that describes the problem
-     * @param int|null $code provide error code
+     * @param string      $message         provide a message that describes the problem
+     * @param int|null    $code            provide error code
      * @param string|null $callbackMessage provide an information what will happen after error occurs
      * @return bool true on success, false on fail
      */
@@ -165,7 +165,7 @@ class Logger
      */
     public function __toString(): string
     {
-        return $this->last ? $this->last : 'No previous messages were sent.';
+        return $this->last ? (string)$this->last : 'No previous messages were sent.';
     }
 
     /**
