@@ -33,7 +33,7 @@ return [
         'application' => [
             '' => [
                 'class'    => 'InitialScreen',
-                'template' => 'index.twig',
+                'template' => 'initial-screen.html.twig',
             ],
         ],
         'api'         => [
