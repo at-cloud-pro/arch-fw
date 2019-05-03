@@ -620,3 +620,6 @@ ArchFW Log File, created on [2018-11-29 19:25:50] in [D:\PHPStorm\ArchFW\logs\Ar
 [2018-12-06 19:44:02]
 		[601] [Route favicon.ico has not been found in routes file!]
 		Line 97 in file [D:\PHPStorm\ArchFW\src\ArchFW\Controllers\Router.php]
+[2019-05-03 15:54:55]
+		[601] [Route login has not been found in routes file!]
+		Line 99 in file [/var/projects/arch-fw/src/ArchFW/Controllers/Router.php]

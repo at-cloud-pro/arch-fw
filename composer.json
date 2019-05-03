@@ -4,7 +4,7 @@
   "description": "Boilerplate for ArchFW",
   "homepage": "https://archi-tektur.pl/archFW",
   "license": "MIT",
-  "version": "2.7.0-stable",
+  "version": "3.0.0-stable",
   "authors": [
     {
       "name": "Oskar 'archi_tektur' Barcz",
@@ -27,7 +27,10 @@
     "php": ">=7.2.4",
     "ext-json": "*",
     "ext-pdo": "*",
-    "twig/twig": "^2.0",
-    "catfan/medoo": "^1.6"
+    "twig/twig": "^2.9.0",
+    "catfan/medoo": "^1.6.1"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
   }
 }

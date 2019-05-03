@@ -34,7 +34,7 @@ Better do not edit the code below.
 try {
     // ENSURE CONFIG FILES PATH IS VALID
     if (!file_exists($configPath)) {
-        throw new Exception('Config file wasn\'t found!', 2);
+        throw new RuntimeException('Config file wasn\'t found!', 2);
     }
 
     /*
@@ -42,14 +42,13 @@ try {
     it uses functionality that were not implemented before.
      */
     if (version_compare(PHP_VERSION, '7.0.0') < 0) {
-        throw new Exception('Unsupported PHP version, minimum: 7.0.0, yours: ' . PHP_VERSION, 4);
+        throw new RuntimeException('Unsupported PHP version, minimum: 7.0.0, yours: ' . PHP_VERSION, 4);
     }
 
     // ENSURE HAVING VENDOR FILES
     if (!file_exists($vendor)) {
-        throw new Exception(
-            'VENDOR files were not found, run \'composer install\'' .
-            ' over main framework folder.',
+        throw new RuntimeException(
+            'VENDOR files were not found, run \'composer install\' over main framework folder.',
             3
         );
     }
