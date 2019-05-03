@@ -1,3 +1,5 @@
 vendor/
 .idea/
 node_modules/
+logs/
+public_html/css/

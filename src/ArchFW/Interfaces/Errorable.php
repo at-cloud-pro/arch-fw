@@ -26,7 +26,7 @@ interface Errorable
     /**
      * IError constructor.
      *
-     * @param int $code
+     * @param int    $code
      * @param string $message
      * @param string $method
      */

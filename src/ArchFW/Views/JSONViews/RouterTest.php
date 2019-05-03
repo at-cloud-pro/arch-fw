@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services.
  * ArchFW comes with pre-installed router and JSON API functionality.
@@ -29,11 +29,9 @@ class RouterTest extends JSONRenderer
 {
     public function __construct()
     {
-        echo parent::render(
-            [
-                'vars'   => $_GET,
-                'routes' => Router::getAllURI(),
-            ]
-        );
+        echo $this->render([
+            'vars'   => $_GET,
+            'routes' => Router::getAllURI(),
+        ]);
     }
 }

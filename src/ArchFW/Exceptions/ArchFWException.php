@@ -33,25 +33,25 @@ class ArchFWException extends Exception
     /**
      * ArchFWException constructor enforces giving an message, it also loads all data to dedicated log file.
      *
-     * @param string $message
-     * @param int $code
+     * @param string         $message
+     * @param int            $code
      * @param Throwable|null $previous
      */
     public function __construct(string $message, int $code = 0, Throwable $previous = null)
     {
-        parent::__construct($message, $code, $previous);
         $this->log();
+        parent::__construct($message, $code, $previous);
     }
 
     /**
      * Method logs data to dedicated log file, specified in config
      */
-    protected function log()
+    protected function log(): void
     {
-        $Log = new Logger(Config::get(Config::SECTION_APP, 'exceptionLogPath'));
-        $msg = "\n[{$Log->getDate()}]";
-        $msg .= "\n\t\t[{$this->code}] [{$this->message}]";
-        $msg .= "\n\t\tLine {$this->line} in file [{$this->file}]";
-        $Log->log($msg, $this->code);
+        $logger = new Logger(Config::get(Config::SECTION_APP, 'exceptionLogPath'));
+        $message = "\n[{$logger->getDate()}]";
+        $message .= "\n\t\t[{$this->code}] [{$this->message}]";
+        $message .= "\n\t\tLine {$this->line} in file [{$this->file}]";
+        $logger->log($message, $this->code);
     }
 }

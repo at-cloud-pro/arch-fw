@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services.
  * ArchFW comes with pre-installed router and JSON API functionality.
@@ -17,32 +17,32 @@
 
 namespace ArchFW\Views\HTMLViews;
 
-use ArchFW\Interfaces\Renderable;
+use ArchFW\Application;
+use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Views\Renderers\HTMLRenderer;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * Class InitialScreen
  *
  * @package ArchFW\Views\HTMLViews
  */
-class InitialScreen extends HTMLRenderer implements Renderable
+class InitialScreen extends HTMLRenderer
 {
+    /**
+     * Assigns data from arguments as class fields
+     *
+     * @throws NoFileFoundException
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function __construct()
     {
-        echo parent::render(
-            [
-                'version' => $this->getVersion(),
-            ]
-        );
-    }
-
-    /**
-     * Returns current framework version. Test function.
-     *
-     * @return string
-     */
-    private function getVersion(): string
-    {
-        return '2.7.0';
+        echo $this->render([
+            'version' => Application::VERSION,
+        ]);
     }
 }

@@ -35,8 +35,8 @@ interface Propertable
     /**
      * Sets value
      *
-     * @param string $key key where data can be found
-     * @param mixed $value value to store
+     * @param string $key   key where data can be found
+     * @param mixed  $value value to store
      */
     public static function set(string $key, $value): void;
 

@@ -22,10 +22,14 @@ use ArchFW\Controllers\Router;
 use ArchFW\Controllers\Utils\UriEncoder;
 use ArchFW\Exceptions\NoFileFoundException;
 use ArchFW\Interfaces\Renderable;
-use Twig_Environment as Environment;
-use Twig_Filter;
-use Twig_Loader_Filesystem as Loader;
-use Twig_TemplateWrapper;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+use Twig\Loader\FilesystemLoader;
+use Twig\TemplateWrapper;
+use Twig\TwigFilter;
+use function array_merge;
 use function is_array;
 
 /**
@@ -38,10 +42,10 @@ abstract class HTMLRenderer implements Renderable
     /**
      * @param array $variablesFromView
      * @return string
+     * @throws LoaderError
      * @throws NoFileFoundException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     final public function render($variablesFromView): string
     {
@@ -56,20 +60,20 @@ abstract class HTMLRenderer implements Renderable
     }
 
     /**
-     * @return Twig_TemplateWrapper
+     * @return TemplateWrapper
      * @throws NoFileFoundException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    private function loadTwig(): Twig_TemplateWrapper
+    private function loadTwig(): TemplateWrapper
     {
         // Set folders where Twig will look for files
-        $loader = new Loader(Config::get(Config::SECTION_APP, 'templatesPath'));
+        $loader = new FilesystemLoader(Config::get(Config::SECTION_APP, 'templatesPath'));
         // Create new Twig object
         $twigEnv = new Environment($loader);
         // Add extentions (URL-safe encode)
-        $filter = new Twig_Filter(
+        $filter = new TwigFilter(
             'safe_uri_encode',
             function ($string) {
                 return UriEncoder::encode($string);
@@ -106,16 +110,18 @@ abstract class HTMLRenderer implements Renderable
      */
     protected function prepareVars(array $variablesFromView): array
     {
+        $vars = [];
+
         // Add variables describing MetaTags and stylesheets
-        $vars = (Config::get(Config::SECTION_APP, 'metaConfig'));
+        $vars += Config::get(Config::SECTION_APP, 'metaConfig');
 
         // add stylesheets
-        $vars += ['stylesheets' => (Config::get(Config::SECTION_APP, 'stylesheets'))];
+        $vars += ['stylesheets' => Config::get(Config::SECTION_APP, 'stylesheets')];
 
         // check if wrapper file returns an array
         if (is_array($variablesFromView)) {
             // if it does add this array to general variables array
-            $vars += $variablesFromView;
+            $vars = array_merge($vars, $variablesFromView);
         }
 
         return $vars;

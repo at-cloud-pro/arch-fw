@@ -42,13 +42,15 @@ return [
 
     // Every page has
     'metaConfig'       => [
-        'pageTitle'       => 'ArchFW installed!',
-        'pageEncoding'    => 'UTF-8'/* NOT NULL*/,
-        'pageLanguage'    => 'pl'/* NOT NULL*/,
-        'pageDescription' => '',
-        'pageKeywords'    => '',
-        'pageAuthor'      => "Oskar 'archi_tektur' Barcz",
-        'metaComment'     => '',
+        'page' => [
+            'title'       => 'ArchFW installed!',
+            'encoding'    => 'UTF-8'/* NOT NULL*/,
+            'language'    => 'pl'/* NOT NULL*/,
+            'description' => '',
+            'keywords'    => '',
+            'author'      => "Oskar 'archi_tektur' Barcz",
+            'comment'     => '',
+        ],
     ],
 
     /*

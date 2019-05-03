@@ -20,6 +20,7 @@ namespace ArchFW\Models;
 use ArchFW\Controllers\Config;
 use ArchFW\Exceptions\NoFileFoundException;
 use function file_exists;
+use const DIRECTORY_SEPARATOR;
 
 /**
  * Class ConfigFactory loads file arrays to initial Config object
@@ -28,7 +29,6 @@ use function file_exists;
  */
 class ConfigFactory
 {
-
     /**
      * Consts for easier file path configuration
      */
@@ -40,23 +40,23 @@ class ConfigFactory
      * Fill the config object with datas from file
      *
      * @param string $path
-     * @throws NoFileFoundException when
+     * @throws NoFileFoundException
      */
     public static function fill(string $path): void
     {
 
         // generate paths
-        $masterCfgPath = $path . '/' . self::FILENAME_APP;
-        $databaseCfgPath = $path . '/' . self::FILENAME_DB;
-        $routesCfgPath = $path . '/' . self::FILENAME_ROUTER;
+        $masterCfgPath = $path . DIRECTORY_SEPARATOR . self::FILENAME_APP;
+        $databaseCfgPath = $path . DIRECTORY_SEPARATOR . self::FILENAME_DB;
+        $routesCfgPath = $path . DIRECTORY_SEPARATOR . self::FILENAME_ROUTER;
 
         // load files
-        if (file_exists($masterCfgPath) and file_exists($routesCfgPath) and file_exists($databaseCfgPath)) {
+        if (file_exists($masterCfgPath) && file_exists($routesCfgPath) && file_exists($databaseCfgPath)) {
             $applicationConfig = require $masterCfgPath;
             $databaseConfig = require $databaseCfgPath;
             $routesConfig = require $routesCfgPath;
         } else {
-            throw new NoFileFoundException('No master config file found.', 404);
+            throw new NoFileFoundException('No master config file found.');
         }
 
         // fill initial object

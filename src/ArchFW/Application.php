@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services.
  * ArchFW comes with pre-installed router and JSON API functionality.
@@ -37,6 +37,8 @@ use function session_status;
  */
 final class Application
 {
+    public const VERSION = '2.8.0';
+
     /**
      * Application constructor. Main method that is running selected classes, initiate session and router.
      *
@@ -133,13 +135,13 @@ final class Application
     {
         if ($isProd) {
             // IF IN DEVELOPER MODE SHOW ALL ERRORS
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
+            ini_set('display_errors', '1');
+            ini_set('display_startup_errors', '1');
             error_reporting(E_ALL);
         } else {
             // ELSE IF IN PRODUCTION MODE HIDE ALL ERRORS
             error_reporting(0);
-            ini_set('display_errors', 0);
+            ini_set('display_errors', '0');
         }
     }
 }
