@@ -73,7 +73,7 @@ Well, hard to say - a willing for making something on my own, a hate that exists
 
 ## Changelog
 Newest available version is __[2.8.0]__
-For changelog click [here](CHANGELOG.md).
+For changelog click [here](.github/CHANGELOG.md).
 
 ## Contact
 Created by [@archi_tektur](https://www.archi-tektur.pl/) with love - feel free to contact me anytime!

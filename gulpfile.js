@@ -1,48 +1,22 @@
-/*
- * ArchFramework (ArchFW in short) is universal template for server-side rendered applications and services.
- * ArchFW comes with pre-installed router and JSON API functionality.
- * Visit https://github.com/archi-tektur/ArchFW/ for more info.
- *
- * PHP version 7.2
- *
- * @category  Framework/Boilerplate
- * @package   ArchFW
- * @author    Oskar 'archi-tektur' Barcz <kontakt@archi-tektur.pl>
- * @copyright 2018 Oskar 'archi_tektur' Barcz
- * @license   MIT https://opensource.org/licenses/MIT
- * @version   2.8.0
- * @link      https://github.com/archi-tektur/ArchFW/
- */
+const { src, dest, watch } = require('gulp');
+const sass = require('gulp-sass');
+const minifyCss = require('gulp-minify-css');
+const rename = require('gulp-rename');
 
-let gulp = require('gulp');
+function sassTask (cb) {
+  // place code for your default task here
+  return src('./assets/sass/stylesheet.sass')
+    .pipe(sass())
+    .on('error', sass.logError)
+    .pipe(dest('./public_html/css'))
+    .pipe(minifyCss({
+      keepSpecialComments: 0,
+    }))
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(dest('./public_html/css'))
+    .on('end', cb);
+}
 
-let sass = require('gulp-sass');
-let concat = require('gulp-concat-css');
-let cleanCSS = require('gulp-clean-css');
-let autoprefixer = require('gulp-autoprefixer');
+watch('assets/sass/**/*.sass', sassTask);
 
-gulp.task('css', function() {
-  return gulp.src('public_html/scss/**/*.scss').
-      pipe(sass()).
-      pipe(concat('master.css')).
-      pipe(autoprefixer({
-        browsers: ['last 2 versions'],
-        cascade: false,
-      })).
-      pipe(cleanCSS({compatibility: 'ie8'})).
-      pipe(gulp.dest('public_html/css/'));
-});
-
-gulp.task('default', () => {
-  gulp.watch('public_html/scss/**/*.scss', function() {
-    return gulp.src('public_html/scss/**/*.scss').
-        pipe(sass()).
-        pipe(concat('master.css')).
-        pipe(autoprefixer({
-          browsers: ['last 2 versions'],
-          cascade: false,
-        })).
-        pipe(cleanCSS({compatibility: 'ie8'})).
-        pipe(gulp.dest('public_html/css/'));
-  });
-});
+exports.default = sassTask;
