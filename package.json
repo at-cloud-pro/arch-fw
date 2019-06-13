@@ -1,0 +1,36 @@
+{
+  "name": "arch-fw",
+  "version": "3.0.0",
+  "description": "ArchFW is micro-framework and boilerplate at once. It connects best parts of both: half-closed code, enforced architecture and unbelievable perfomance.",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "clean-css": ">=4.1.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archi-tektur/arch-fw.git"
+  },
+  "keywords": [
+    "framework",
+    "git",
+    "arch",
+    "archfw",
+    "arch-fw",
+    "archFW",
+    "fw"
+  ],
+  "author": "Oskar Barcz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/archi-tektur/arch-fw/issues"
+  },
+  "homepage": "https://github.com/archi-tektur/arch-fw#readme"
+}
