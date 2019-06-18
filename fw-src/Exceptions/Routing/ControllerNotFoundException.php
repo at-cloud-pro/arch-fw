@@ -4,6 +4,6 @@ namespace ArchFW\Exceptions\Routing;
 
 use BadMethodCallException;
 
-class MethodNotFound extends BadMethodCallException
+class ControllerNotFoundException extends BadMethodCallException
 {
 }

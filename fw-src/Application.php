@@ -5,9 +5,7 @@ namespace ArchFW;
 use App\Controllers\InitialScreenController;
 use ArchFW\Configuration\ConfigLoader;
 use ArchFW\Controllers\AbstractController;
-use ArchFW\Controllers\ControllerInterface;
-use ArchFW\Exceptions\Routing\ControllerNotExtendsBaseException;
-use ArchFW\Exceptions\Routing\MethodNotFound;
+use ArchFW\Routing\Router;
 use ArchFW\Storage\SessionStorage;
 
 class Application
@@ -18,6 +16,9 @@ class Application
     /** @var SessionStorage */
     private $session;
 
+    /** @var Router */
+    private $router;
+
     /**
      *  Initiates configuration and
      */
@@ -25,12 +26,17 @@ class Application
     {
         $this->configLoader = new ConfigLoader(__DIR__ . '/../config');
         $this->session = new SessionStorage();
+        $this->router = new Router($_SERVER['REQUEST_URI']);
+
     }
 
     public function handle(): string
     {
-        // fast fix
-        // that values will be returned by router
+
+        #$controllerName = $this->router->getControllerName;
+        #$methodName =  $this->router->getMethodName;
+
+
         $controllerName = InitialScreenController::class;
         $methodName = 'render';
 
@@ -38,17 +44,11 @@ class Application
         $controller = new $controllerName();
 
         // load config
-        if (!$controller instanceof ControllerInterface) {
-            throw new ControllerNotExtendsBaseException('Your controller has to extend AbstractController class.');
-        }
         $controller->setConfig($this->configLoader->load())
                    ->setSession($this->session);
 
-        // give responsibility now for user code
-        if (!method_exists($controller, $methodName)) {
-            $message = sprintf('Method %s not found in %s.', $methodName, $controllerName);
-            throw new MethodNotFound($message);
-        }
+        // give further responsibility for user code
         return $controller->$methodName();
     }
+
 }
