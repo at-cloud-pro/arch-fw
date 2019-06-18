@@ -85,7 +85,7 @@ return [
     ,
 
     /*
-    Path to catalogue with errorcodes, files inside should be named like an errors they are written for - e.g. '404
+    Path to catalogue with error codes, files inside should be named like an errors they are written for - e.g. '404
     .html'. PHP is not allowed in this files. Until you modify framework internal structure (not recommended!), no need
      to touch this.
     */
