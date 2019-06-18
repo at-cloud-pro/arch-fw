@@ -2,7 +2,7 @@
 
 namespace ArchFW\Storage;
 
-use ArchFW\Exceptions\SessionCannotStartException;
+use ArchFW\Exceptions\Session\SessionCannotStartException;
 
 /**
  * Stores data in session

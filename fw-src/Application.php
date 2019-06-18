@@ -2,6 +2,7 @@
 
 namespace ArchFW;
 
+use App\Controllers\InitialScreenController;
 use ArchFW\Configuration\ConfigLoader;
 use ArchFW\Controllers\AbstractController;
 use ArchFW\Controllers\ControllerInterface;
@@ -30,7 +31,7 @@ class Application
     {
         // fast fix
         // that values will be returned by router
-        $controllerName = AbstractController::class;
+        $controllerName = InitialScreenController::class;
         $methodName = 'render';
 
         /** @var AbstractController $controller */
