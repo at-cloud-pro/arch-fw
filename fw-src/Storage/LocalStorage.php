@@ -9,7 +9,7 @@ class LocalStorage implements StorageInterface
      *
      * @var array
      */
-    private $storage = [];
+    protected $storage = [];
 
     /**
      * Retrieve value from storage

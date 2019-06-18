@@ -6,4 +6,14 @@ use ArchFW\Storage\LocalStorage;
 
 class ConfigStorage extends LocalStorage
 {
+    /**
+     * Loads whole configuration in one method
+     *
+     * @param array $data
+     */
+    public function loadAll(array $data): void
+    {
+        $this->storage = $data;
+    }
+
 }
