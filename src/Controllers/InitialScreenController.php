@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
-class InitialScreenController
+use ArchFW\Controllers\AbstractController;
+
+class InitialScreenController extends AbstractController
 {
     public function index()
     {

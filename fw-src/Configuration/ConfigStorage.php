@@ -9,9 +9,9 @@ class ConfigStorage extends LocalStorage
     /**
      * Loads whole configuration in one method
      *
-     * @param array $data
+     * @param object $data
      */
-    public function loadAll(array $data): void
+    public function loadAll(object $data): void
     {
         $this->storage = $data;
     }

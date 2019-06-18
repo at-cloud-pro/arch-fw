@@ -13,17 +13,17 @@ use ArchFW\Storage\SessionStorage;
 class Application
 {
     /** @var ConfigLoader */
-    protected $configLoader;
+    private $configLoader;
 
     /** @var SessionStorage */
-    protected $session;
+    private $session;
 
     /**
      *  Initiates configuration and
      */
-    public function construct(): void
+    public function __construct()
     {
-        $this->configLoader = new ConfigLoader('/config');
+        $this->configLoader = new ConfigLoader(__DIR__ . '/../config');
         $this->session = new SessionStorage();
     }
 

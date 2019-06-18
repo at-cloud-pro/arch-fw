@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-use ArchFW\Application;
-
 require __DIR__ . '/../vendor/autoload.php';
+
+use ArchFW\Application;
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
