@@ -3,6 +3,7 @@
 namespace ArchFW\Configuration;
 
 use ArchFW\Exceptions\Config\ConfigFileNotFound;
+use ArchFW\Utilities\JsonToStorageTransformer as Transformer;
 
 class ConfigLoader
 {
@@ -19,20 +20,28 @@ class ConfigLoader
     }
 
     /**
-     * @param string $configFilesPath
      * @return Config
      */
-    public function load(string $configFilesPath): Config
+    public function load(): Config
     {
         $config = new Config();
+        $config->setPaths($this->loadAppConfig())
+               ->setRoutes($this->loadRoutes());
+
 
         return $config;
     }
 
-    private function loadPaths(): array
+    private function loadRoutes(): ConfigStorage
+    {
+        $json = file_get_contents($this->getPath('routes.json'));
+        return Transformer::transform($json);
+    }
+
+    private function loadAppConfig(): ConfigStorage
     {
         $json = file_get_contents($this->getPath('paths.json'));
-
+        return Transformer::transform($json);
     }
 
     /**
