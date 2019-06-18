@@ -6,6 +6,7 @@ use ArchFW\Controllers\ControllerInterface;
 use ArchFW\Exceptions\Routing\ControllerNotExtendsBaseException;
 use ArchFW\Exceptions\Routing\ControllerNotFoundException;
 use ArchFW\Exceptions\Routing\MethodNotFoundException;
+use ArchFW\Utilities\UriParser;
 
 class Router implements RouterInterface
 {
@@ -15,6 +16,9 @@ class Router implements RouterInterface
     /** @var string */
     private $methodName;
 
+    /** @var array */
+    private $requestGetVars;
+
     /**
      * Router
      *
@@ -22,7 +26,20 @@ class Router implements RouterInterface
      */
     public function __construct(string $uri)
     {
+        $exploded = explode('?', $uri);
 
+        // parse get variables
+        if (array_key_exists(1, $exploded)) {
+            $this->requestGetVars = UriParser::getVariables($exploded[1]);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestGetVars(): array
+    {
+        return $this->requestGetVars;
     }
 
     /**
