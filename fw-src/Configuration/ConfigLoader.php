@@ -20,28 +20,19 @@ class ConfigLoader
     }
 
     /**
+     * Loads config
+     *
      * @return Config
      */
     public function load(): Config
     {
+        $routesJson = file_get_contents($this->getPath('routes.json'));
+        $pathsJson = file_get_contents($this->getPath('paths.json'));
+
         $config = new Config();
-        $config->setPaths($this->loadAppConfig())
-               ->setRoutes($this->loadRoutes());
-
-
+        $config->setPaths(Transformer::transform($routesJson))
+               ->setRoutes(Transformer::transform($pathsJson));
         return $config;
-    }
-
-    private function loadRoutes(): ConfigStorage
-    {
-        $json = file_get_contents($this->getPath('routes.json'));
-        return Transformer::transform($json);
-    }
-
-    private function loadAppConfig(): ConfigStorage
-    {
-        $json = file_get_contents($this->getPath('paths.json'));
-        return Transformer::transform($json);
     }
 
     /**
