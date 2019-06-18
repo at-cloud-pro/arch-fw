@@ -6,8 +6,8 @@ use ArchFW\Controllers\AbstractController;
 
 class InitialScreenController extends AbstractController
 {
-    public function index()
+    public function render()
     {
-
+        return 'hello, world';
     }
 }

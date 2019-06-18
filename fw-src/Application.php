@@ -49,6 +49,6 @@ class Application
             $message = sprintf('Method %s not found in %s.', $methodName, $controllerName);
             throw new MethodNotFound($message);
         }
-        return $controller->$methodName;
+        return $controller->$methodName();
     }
 }

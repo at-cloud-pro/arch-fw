@@ -4,5 +4,4 @@ namespace ArchFW\Routing;
 
 class Router
 {
-
 }
