@@ -8,12 +8,12 @@ function sassTask (cb) {
   return src('./assets/sass/main.sass')
     .pipe(sass())
     .on('error', sass.logError)
-    .pipe(dest('./public_html/css'))
+    .pipe(dest('./public/css'))
     .pipe(minifyCss({
       keepSpecialComments: 0,
     }))
     .pipe(rename({ extname: '.min.css' }))
-    .pipe(dest('./public_html/css'))
+    .pipe(dest('./public/css'))
     .on('end', cb);
 }
 
