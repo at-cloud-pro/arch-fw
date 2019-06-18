@@ -32,7 +32,7 @@ class Application
 
     public function handle(): string
     {
-
+        $_GET = $this->router->getRequestGetVars();
         #$controllerName = $this->router->getControllerName;
         #$methodName =  $this->router->getMethodName;
 

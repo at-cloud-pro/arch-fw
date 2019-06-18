@@ -26,12 +26,12 @@ class Router implements RouterInterface
      */
     public function __construct(string $uri)
     {
-        $exploded = explode('?', $uri);
-
         // parse get variables
-        if (array_key_exists(1, $exploded)) {
-            $this->requestGetVars = UriParser::getVariables($exploded[1]);
-        }
+        $exploded = explode('?', $uri);
+        $this->requestGetVars = array_key_exists(1, $exploded) ? UriParser::getVariables($exploded[1]) : [];
+
+        // parse request URI
+        $search = $exploded[0];
     }
 
     /**
