@@ -1,0 +1,11 @@
+{
+  "default": "route-name",
+  "safeZone": "App\\Controllers\\",
+  "routes": {
+    "route-name": {
+      "path": "/",
+      "class": "InitialScreenController",
+      "method": "index"
+    }
+  }
+}

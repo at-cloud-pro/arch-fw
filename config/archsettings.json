@@ -1,0 +1,7 @@
+{
+  "production": true,
+  "security": {
+    "force-https": false,
+    "hsts": false
+  }
+}
