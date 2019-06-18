@@ -13,7 +13,7 @@ class JsonToStorageTransformer
      */
     public static function transform(string $json): ConfigStorage
     {
-        $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        $data = json_decode($json, false, 512, JSON_THROW_ON_ERROR);
         $storage = new ConfigStorage();
         $storage->loadAll($data);
         return $storage;
