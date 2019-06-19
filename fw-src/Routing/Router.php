@@ -57,7 +57,7 @@ class Router implements RouterInterface
         $route = array_values(array_filter($routes, static function ($route) use ($key) {
             /** @var Route $route */
             return $route->getPath() === $key;
-        }));
+        }))[0];
 
         // catch route not found
         if (!$route instanceof Route) {

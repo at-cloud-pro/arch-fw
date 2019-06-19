@@ -3,9 +3,9 @@
   "defineSafeZone": "App\\Controllers\\",
   "routes": {
     "route-name": {
-      "path": "/",
-      "class": "InitialScreenController",
-      "method": "index"
+      "path": "/kontakt",
+      "class": "\\App\\Controllers\\InitialScreenController",
+      "method": "render"
     }
   }
 }
