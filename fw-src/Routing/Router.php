@@ -28,7 +28,7 @@ class Router implements RouterInterface
         $search = $exploded[0];
 
         // load routes config
-        $routesCfg = RoutesLoader::load('/config/');
+        $routesCfg = RoutesLoader::load('../config/');
         $routes = RoutesParser::parse($routesCfg);
 
         // assign route

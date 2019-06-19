@@ -22,7 +22,7 @@ class RoutesParser
                 ->setClassName($route['class'])
                 ->setMethodName($route['method']);
 
-            $routes += $obj;
+            $routes[] = $obj;
         }
 
         return $routes;

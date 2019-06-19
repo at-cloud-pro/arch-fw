@@ -42,7 +42,7 @@ class RoutesLoader
     private static function decode(string $json): array
     {
         // if json is valid
-        if ($array = json_decode($json, true, 512, true)) {
+        if ($array = json_decode($json, true, 512, JSON_THROW_ON_ERROR)) {
             return $array;
         }
 
