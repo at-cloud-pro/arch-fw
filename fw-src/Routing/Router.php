@@ -8,14 +8,17 @@ use ArchFW\Utilities\UriParser;
 
 class Router implements RouterInterface
 {
-    /** @var Route */
-    private $route;
-
     /** @var array */
     private $requestGetVars;
 
     /** @var string */
     private $safeZone;
+
+    /** @var Route[] */
+    private $routes;
+
+    /** @var Route */
+    private $route;
 
     /**
      * Router
@@ -35,23 +38,22 @@ class Router implements RouterInterface
         }
         $this->safeZone = $routesCfg['safe-zone'];
 
-        $routes = RoutesParser::parse($routesCfg, $this->safeZone);
+        $this->routes = RoutesParser::parse($routesCfg, $this->safeZone);
 
         // assign route
-        $this->route = $this->matchRoute($routes, $search);
+        $this->route = $this->matchRoute($search);
     }
 
     /**
      * Matches route
      *
-     * @param array  $routes
      * @param string $key
      * @return mixed
      */
-    private function matchRoute(array $routes, string $key)
+    private function matchRoute(string $key)
     {
         // find the one valid route
-        $route = array_filter($routes, static function ($route) use ($key) {
+        $route = array_filter($this->routes, static function ($route) use ($key) {
             /** @var Route $route */
             return $route->getPath() === $key;
         });
@@ -77,7 +79,7 @@ class Router implements RouterInterface
         $exploded = explode('?', $uri);
         $this->requestGetVars = array_key_exists(1, $exploded) ? UriParser::getVariables($exploded[1]) : [];
 
-        // parse request URI
+        // return router-able uri
         return $exploded[0];
     }
 
@@ -100,5 +102,10 @@ class Router implements RouterInterface
     public function getSafeZone(): string
     {
         return $this->safeZone;
+    }
+
+    public function getAdressForRoute(string $routeName)
+    {
+        // TODO
     }
 }
