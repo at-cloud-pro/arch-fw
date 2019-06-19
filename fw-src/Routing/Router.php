@@ -62,6 +62,12 @@ class Router implements RouterInterface
             throw new RouteNotFoundException($message);
         }
 
+        // catch multiple definitions for same route
+        if (count($route) > 1) {
+            $message = sprintf('Multiple definitions for route \'%s\'', $key);
+            throw new RouteNotFoundException($message);
+        }
+
         return $route[0];
     }
 
