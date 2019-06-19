@@ -12,10 +12,11 @@ use ArchFW\Exceptions\Routing\GeneralRoutingException;
 class RoutesParser
 {
     /**
-     * @param array $routesConfig
+     * @param array  $routesConfig
+     * @param string $safeZone
      * @return Route[]
      */
-    public static function parse(array $routesConfig): array
+    public static function parse(array $routesConfig, string $safeZone): array
     {
         $routes = [];
         foreach ($routesConfig['routes'] as $name => $route) {
@@ -23,6 +24,9 @@ class RoutesParser
             $obj->setPath($route['path'])
                 ->setClassName($route['class'])
                 ->setMethodName($route['method']);
+
+            // this will throw e on integrity violation
+            self::checkIntegrity($obj, $safeZone, $name);
 
             $routes[] = $obj;
         }
@@ -32,16 +36,17 @@ class RoutesParser
 
     /**
      * @param Route  $route
+     * @param string $safeZone
      * @param string $name
      */
-    public function checkIntegrity(Route $route, string $name): void
+    public static function checkIntegrity(Route $route, string $safeZone, string $name): void
     {
-        if (!class_exists($route->getClassName())) {
+        if (!class_exists($safeZone . '\\' . $route->getClassName())) {
             $message = sprintf('Class declared in route \'%s\' not found.', $name);
             throw new GeneralRoutingException($message);
         }
 
-        if (!method_exists($route->getClassName(), $route->getMethodName())) {
+        if (!method_exists($safeZone . '\\' . $route->getClassName(), $route->getMethodName())) {
             $message = sprintf('Class declared in route \'%s\' has no \'%s\' method.', $name, $route->getMethodName());
             throw new GeneralRoutingException($message);
         }
