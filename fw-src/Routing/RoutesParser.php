@@ -27,4 +27,9 @@ class RoutesParser
 
         return $routes;
     }
+
+    public function checkIntegrity()
+    {
+
+    }
 }

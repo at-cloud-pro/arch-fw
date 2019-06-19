@@ -2,19 +2,13 @@
 
 namespace ArchFW\Routing;
 
-use ArchFW\Controllers\ControllerInterface;
-use ArchFW\Exceptions\Routing\ControllerNotExtendsBaseException;
-use ArchFW\Exceptions\Routing\ControllerNotFoundException;
-use ArchFW\Exceptions\Routing\MethodNotFoundException;
+use ArchFW\Exceptions\Routing\RouteNotFoundException;
 use ArchFW\Utilities\UriParser;
 
 class Router implements RouterInterface
 {
-    /** @var string */
-    private $controllerName;
-
-    /** @var string */
-    private $methodName;
+    /** @var Route */
+    private $route;
 
     /** @var array */
     private $requestGetVars;
@@ -32,6 +26,13 @@ class Router implements RouterInterface
 
         // parse request URI
         $search = $exploded[0];
+
+        // load routes config
+        $routesCfg = RoutesLoader::load('/config/');
+        $routes = RoutesParser::parse($routesCfg);
+
+        // assign route
+        $this->route = $this->matchRoute($routes, $search);
     }
 
     /**
@@ -43,57 +44,27 @@ class Router implements RouterInterface
     }
 
     /**
-     * @return string
+     * @return Route
      */
-    public function getControllerName(): string
+    public function getRoute(): Route
     {
-        return $this->controllerName;
+        return $this->route;
     }
 
-    /**
-     * @param string $controllerName
-     * @return Router
-     * @throws ControllerNotFoundException
-     * @throws ControllerNotExtendsBaseException
-     */
-    public function setControllerName(string $controllerName): Router
+    private function matchRoute($routes, $key)
     {
-        if (!class_exists($controllerName)) {
-            $message = sprintf("Controller '%s' wasn\'t found.", $controllerName);
-            throw new ControllerNotFoundException($message);
+        // find the one valid route
+        $route = array_values(array_filter($routes, static function ($route) use ($key) {
+            /** @var Route $route */
+            return $route->getPath() === $key;
+        }));
+
+        // catch route not found
+        if (!$route instanceof Route) {
+            $message = sprintf('Route not found for \'%s\'', $key);
+            throw new RouteNotFoundException($message);
         }
 
-        if (!$controllerName instanceof ControllerInterface) {
-            $message = 'Your controller has to extend AbstractController class.';
-            throw new ControllerNotExtendsBaseException($message);
-        }
-
-        $this->controllerName = $controllerName;
-        return $this;
-
-    }
-
-    /**
-     * @return string
-     */
-    public function getMethodName(): string
-    {
-        return $this->methodName;
-    }
-
-    /**
-     * @param string $methodName
-     * @return Router
-     * @throws MethodNotFoundException
-     */
-    public function setMethodName(string $methodName): Router
-    {
-        if (!method_exists($this->controllerName, $methodName)) {
-            $message = sprintf("Method '%s' in class '%s' wasn\'t found.", $this->controllerName, $methodName);
-            throw new MethodNotFoundException($message);
-        }
-
-        $this->methodName = $methodName;
-        return $this;
+        return $route;
     }
 }

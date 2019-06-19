@@ -4,11 +4,7 @@ namespace ArchFW\Routing;
 
 interface RouterInterface
 {
-    public function getControllerName(): string;
+    public function getRoute(): Route;
 
-    public function setControllerName(string $controllerName): Router;
-
-    public function getMethodName(): string;
-
-    public function setMethodName(string $methodName): Router;
+    public function getRequestGetVars(): array;
 }
