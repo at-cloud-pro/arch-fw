@@ -1,10 +1,10 @@
 {
   "default": "route-name",
-  "defineSafeZone": "App\\Controllers\\",
+  "safe-zone": "App\\Controllers",
   "routes": {
     "route-name": {
       "path": "/kontakt",
-      "class": "\\App\\Controllers\\InitialScreenController",
+      "class": "InitialScreenController",
       "method": "render"
     }
   }

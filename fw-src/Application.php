@@ -2,7 +2,6 @@
 
 namespace ArchFW;
 
-use App\Controllers\InitialScreenController;
 use ArchFW\Configuration\ConfigLoader;
 use ArchFW\Controllers\AbstractController;
 use ArchFW\Routing\Router;
@@ -33,12 +32,9 @@ class Application
     public function handle(): string
     {
         $_GET = $this->router->getRequestGetVars();
-//        $controllerName = $this->router->getControllerName();
-//        $methodName = $this->router->getMethodName();
+        $controllerName = $this->router->getSafeZone() . '\\' . $this->router->getRoute()->getClassName();
+        $methodName = $this->router->getRoute()->getMethodName();
 
-
-        $controllerName = InitialScreenController::class;
-        $methodName = 'render';
 
         /** @var AbstractController $controller */
         $controller = new $controllerName();

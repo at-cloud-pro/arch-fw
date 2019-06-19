@@ -2,6 +2,7 @@
 
 namespace ArchFW\Routing;
 
+use ArchFW\Exceptions\Routing\GeneralRoutingException;
 use ArchFW\Exceptions\Routing\RouteNotFoundException;
 use ArchFW\Utilities\UriParser;
 
@@ -12,6 +13,9 @@ class Router implements RouterInterface
 
     /** @var array */
     private $requestGetVars;
+
+    /** @var string */
+    private $safeZone;
 
     /**
      * Router
@@ -31,8 +35,38 @@ class Router implements RouterInterface
         $routesCfg = RoutesLoader::load('../config/');
         $routes = RoutesParser::parse($routesCfg);
 
+        // assign safe zone
+        if (!array_key_exists('safe-zone', $routesCfg)) {
+            throw new GeneralRoutingException('Config has no safe zone settings.');
+        }
+        $this->safeZone = $routesCfg['safe-zone'];
+
         // assign route
         $this->route = $this->matchRoute($routes, $search);
+    }
+
+    /**
+     * Matches route
+     *
+     * @param array  $routes
+     * @param string $key
+     * @return mixed
+     */
+    private function matchRoute(array $routes, string $key)
+    {
+        // find the one valid route
+        $route = array_values(array_filter($routes, static function ($route) use ($key) {
+            /** @var Route $route */
+            return $route->getPath() === $key;
+        }))[0];
+
+        // catch route not found
+        if (!$route instanceof Route) {
+            $message = sprintf('Route not found for \'%s\'', $key);
+            throw new RouteNotFoundException($message);
+        }
+
+        return $route;
     }
 
     /**
@@ -51,20 +85,8 @@ class Router implements RouterInterface
         return $this->route;
     }
 
-    private function matchRoute($routes, $key)
+    public function getSafeZone(): string
     {
-        // find the one valid route
-        $route = array_values(array_filter($routes, static function ($route) use ($key) {
-            /** @var Route $route */
-            return $route->getPath() === $key;
-        }))[0];
-
-        // catch route not found
-        if (!$route instanceof Route) {
-            $message = sprintf('Route not found for \'%s\'', $key);
-            throw new RouteNotFoundException($message);
-        }
-
-        return $route;
+        return $this->safeZone;
     }
 }
