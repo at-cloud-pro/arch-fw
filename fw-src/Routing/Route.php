@@ -4,14 +4,56 @@ namespace ArchFW\Routing;
 
 class Route
 {
+    /** @var int */
+    private $id;
+
+    /** @var string */
+    private $name;
+
     /** @var string */
     private $path;
 
     /** @var string */
-    private $className;
+    private $class;
 
     /** @var string */
-    private $methodName;
+    private $method;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Route
+     */
+    public function setId(int $id): Route
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return Route
+     */
+    public function setName(string $name): Route
+    {
+        $this->name = $name;
+        return $this;
+    }
 
     /**
      * @return string
@@ -34,36 +76,36 @@ class Route
     /**
      * @return string
      */
-    public function getClassName(): string
+    public function getClass(): string
     {
-        return $this->className;
+        return $this->class;
     }
 
     /**
-     * @param string $className
+     * @param string $class
      * @return Route
      */
-    public function setClassName(string $className): Route
+    public function setClass(string $class): Route
     {
-        $this->className = $className;
+        $this->class = $class;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getMethodName(): string
+    public function getMethod(): string
     {
-        return $this->methodName;
+        return $this->method;
     }
 
     /**
-     * @param string $methodName
+     * @param string $method
      * @return Route
      */
-    public function setMethodName(string $methodName): Route
+    public function setMethod(string $method): Route
     {
-        $this->methodName = $methodName;
+        $this->method = $method;
         return $this;
     }
 }

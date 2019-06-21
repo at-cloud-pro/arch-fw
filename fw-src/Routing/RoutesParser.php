@@ -19,35 +19,46 @@ class RoutesParser
     public static function parse(array $routesConfig, string $safeZone): array
     {
         $routes = [];
+        $iterator = 0;
+
         foreach ($routesConfig['routes'] as $name => $route) {
             $obj = new Route();
-            $obj->setPath($route['path'])
-                ->setClassName($route['class'])
-                ->setMethodName($route['method']);
+            $obj->setId($iterator)
+                ->setName($name)
+                ->setPath($route['path'])
+                ->setClass($routesConfig['safe-zone'] . '\\' . $route['class'])
+                ->setMethod($route['method']);
 
             // this will throw e on integrity violation
-            self::checkIntegrity($obj, $safeZone, $name);
+            self::checkIntegrity($obj, $safeZone);
 
             $routes[] = $obj;
+            $iterator++;
         }
 
+//        dump($routes);
         return $routes;
     }
 
     /**
      * @param Route  $route
      * @param string $safeZone
-     * @param string $name
      */
-    public static function checkIntegrity(Route $route, string $safeZone, string $name): void
+    public static function checkIntegrity(Route $route, string $safeZone): void
     {
-        if (!class_exists($safeZone . '\\' . $route->getClassName())) {
-            $message = sprintf('Class declared in route \'%s\' not found.', $name);
+        // check class exist
+        if (!class_exists($route->getClass())) {
+            $message = sprintf('Class declared in route \'%s\' not found.', $route->getName());
             throw new GeneralRoutingException($message);
         }
 
-        if (!method_exists($safeZone . '\\' . $route->getClassName(), $route->getMethodName())) {
-            $message = sprintf('Class declared in route \'%s\' has no \'%s\' method.', $name, $route->getMethodName());
+        // check method exist
+        if (!method_exists($route->getClass(), $route->getMethod())) {
+            $message = sprintf(
+                'Class declared in route \'%s\' has no \'%s\' method.',
+                $route->getName(),
+                $route->getMethod()
+            );
             throw new GeneralRoutingException($message);
         }
     }

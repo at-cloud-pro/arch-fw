@@ -28,10 +28,11 @@
     "php": "7.3.*",
     "ext-json": "*",
     "ext-pdo": "*",
-    "twig/twig": "2.9.*",
-    "catfan/medoo": "v1.6.1"
+    "twig/twig": "2.*",
+    "catfan/medoo": "v1.*"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "symfony/var-dumper": "^4.3"
   }
 }

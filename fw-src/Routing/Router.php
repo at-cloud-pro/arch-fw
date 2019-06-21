@@ -14,11 +14,11 @@ class Router implements RouterInterface
     /** @var string */
     private $safeZone;
 
+    /** @var string */
+    private $uri;
+
     /** @var Route[] */
     private $routes;
-
-    /** @var Route */
-    private $route;
 
     /**
      * Router
@@ -27,7 +27,7 @@ class Router implements RouterInterface
      */
     public function __construct(string $uri)
     {
-        $search = $this->handleGets($uri);
+        $this->uri = $this->handleGets($uri);
 
         // load routes config
         $routesCfg = RoutesLoader::load('../config/');
@@ -41,32 +41,33 @@ class Router implements RouterInterface
         $this->routes = RoutesParser::parse($routesCfg, $this->safeZone);
 
         // assign route
-        $this->route = $this->matchRoute($search);
     }
 
     /**
      * Matches route
      *
-     * @param string $key
-     * @return mixed
+     * @return Route
      */
-    private function matchRoute(string $key)
+    public function matchRoute(): Route
     {
+        $key = $this->uri;
+
         // find the one valid route
-        $route = array_filter($this->routes, static function ($route) use ($key) {
+        /** @var Route[] $route */
+        $route = array_values(array_filter($this->routes, static function ($route) use ($key) {
             /** @var Route $route */
             return $route->getPath() === $key;
-        });
+        }));
 
         // catch route not found
         if (!array_key_exists(0, $route) || !$route[0] instanceof Route) {
-            $message = sprintf('Route not found for \'%s\'', $key);
+            $message = sprintf('Route not found for \'%s\'', $this->uri);
             throw new RouteNotFoundException($message);
         }
 
         // catch multiple definitions for same route
         if (count($route) > 1) {
-            $message = sprintf('Multiple definitions for route \'%s\'', $key);
+            $message = sprintf('Multiple definitions for route \'%s\'', $this->uri);
             throw new RouteNotFoundException($message);
         }
 
@@ -89,14 +90,6 @@ class Router implements RouterInterface
     public function getRequestGetVars(): array
     {
         return $this->requestGetVars;
-    }
-
-    /**
-     * @return Route
-     */
-    public function getRoute(): Route
-    {
-        return $this->route;
     }
 
     public function getSafeZone(): string

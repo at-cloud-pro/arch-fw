@@ -31,20 +31,23 @@ class Application
 
     public function handle(): string
     {
+        $route = $this->router->matchRoute();
+        $class = $route->getClass();
+        $method = $route->getMethod();
+
+        // handle gets
         $_GET = $this->router->getRequestGetVars();
-        $controllerName = $this->router->getSafeZone() . '\\' . $this->router->getRoute()->getClassName();
-        $methodName = $this->router->getRoute()->getMethodName();
 
 
         /** @var AbstractController $controller */
-        $controller = new $controllerName();
+        $controller = new $class();
 
         // load config
         $controller->setConfig($this->configLoader->load())
                    ->setSession($this->session);
 
         // give further responsibility for user code
-        return $controller->$methodName();
+        return $controller->$method();
     }
 
 }

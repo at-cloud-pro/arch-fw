@@ -3,7 +3,12 @@
   "safe-zone": "App\\Controllers",
   "routes": {
     "route-name": {
-      "path": "/kontakt",
+      "path": "/",
+      "class": "InitialScreenController",
+      "method": "render"
+    },
+    "initial-screen": {
+      "path": "/kk",
       "class": "InitialScreenController",
       "method": "render"
     }
