@@ -3,9 +3,9 @@
 namespace ArchFW;
 
 use ArchFW\Configuration\ConfigLoader;
-use ArchFW\Controllers\AbstractController;
+use ArchFW\Controllers\ControllerInterface;
 use ArchFW\Routing\Router;
-use ArchFW\Storage\SessionStorage;
+use ArchFW\Utilities\ControllerBuilder;
 
 class Application
 {
@@ -34,19 +34,13 @@ class Application
     {
         // prepare data
         $route = $this->router->matchRoute();
-        $class = $route->getClass();
         $method = $route->getMethod();
 
         // handle gets
         $_GET = $this->router->getRequestGetVars();
 
-
-        /** @var AbstractController $controller */
-        $controller = new $class();
-
-        // load controller's data
-        $controller->setConfig($this->configLoader->load())
-                   ->setSession(new SessionStorage());
+        /** @var ControllerInterface $controller */
+        $controller = ControllerBuilder::build($route, $this->configLoader->load());
 
         // give further responsibility for user code
         return $controller->$method();

@@ -2,6 +2,11 @@
 
 namespace ArchFW\Utilities;
 
+/**
+ * URI parsing toolset
+ *
+ * @package ArchFW\Utilities
+ */
 class UriParser
 {
     /**

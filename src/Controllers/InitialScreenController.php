@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use ArchFW\Controllers\AbstractController;
+use ArchFW\Controllers\AbstractRenderController;
 
-class InitialScreenController extends AbstractController
+class InitialScreenController extends AbstractRenderController
 {
-    public function render()
+    public function index(): string
     {
         return 'hello, world';
     }

@@ -13,7 +13,7 @@ use Twig\Loader\FilesystemLoader;
  *
  * @package ArchFW\Renderers
  */
-class TwigRenderer
+class TwigRenderer implements RenderableInterface
 {
     /** @var Environment */
     private $twig;

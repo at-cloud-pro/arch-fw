@@ -5,12 +5,12 @@
     "route-name": {
       "path": "/",
       "class": "InitialScreenController",
-      "method": "render"
+      "method": "index"
     },
     "initial-screen": {
       "path": "/kk",
       "class": "InitialScreenController",
-      "method": "render"
+      "method": "index"
     }
   }
 }

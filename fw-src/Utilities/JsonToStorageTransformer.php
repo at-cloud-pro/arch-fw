@@ -1,10 +1,14 @@
 <?php declare(strict_types=1);
 
-
 namespace ArchFW\Utilities;
 
 use ArchFW\Configuration\ConfigStorage;
 
+/**
+ * Transforms JSON to ConfigStorage
+ *
+ * @package ArchFW\Utilities
+ */
 class JsonToStorageTransformer
 {
     /**

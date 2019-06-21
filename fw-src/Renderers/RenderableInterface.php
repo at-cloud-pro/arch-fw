@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace ArchFW\Controllers;
+namespace ArchFW\Renderers;
 
 /**
  * Represents base method every render has to have
  *
- * @package ArchFW\Controllers
+ * @package ArchFW\Renderers
  */
 interface RenderableInterface
 {
