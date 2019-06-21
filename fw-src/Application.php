@@ -12,25 +12,27 @@ class Application
     /** @var ConfigLoader */
     private $configLoader;
 
-    /** @var SessionStorage */
-    private $session;
-
     /** @var Router */
     private $router;
 
     /**
-     *  Initiates configuration and
+     *  Initiates application for request
      */
     public function __construct()
     {
         $this->configLoader = new ConfigLoader(__DIR__ . '/../config');
-        $this->session = new SessionStorage();
         $this->router = new Router($_SERVER['REQUEST_URI']);
 
     }
 
+    /**
+     * Handles request.
+     *
+     * @return string
+     */
     public function handle(): string
     {
+        // prepare data
         $route = $this->router->matchRoute();
         $class = $route->getClass();
         $method = $route->getMethod();
@@ -42,9 +44,9 @@ class Application
         /** @var AbstractController $controller */
         $controller = new $class();
 
-        // load config
+        // load controller's data
         $controller->setConfig($this->configLoader->load())
-                   ->setSession($this->session);
+                   ->setSession(new SessionStorage());
 
         // give further responsibility for user code
         return $controller->$method();
