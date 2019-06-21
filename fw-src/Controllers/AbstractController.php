@@ -6,7 +6,7 @@ namespace ArchFW\Controllers;
 use ArchFW\Configuration\Config;
 use ArchFW\Storage\SessionStorage;
 
-abstract class AbstractController extends RenderableController implements ControllerInterface
+abstract class AbstractController extends RenderableController implements ControllerInterface, RenderableInterface
 {
     /** @var Config */
     private $config;
