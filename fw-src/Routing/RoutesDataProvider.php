@@ -6,11 +6,11 @@ use ArchFW\Exceptions\Routing\RoutesFileNotFoundException;
 use ArchFW\Exceptions\Routing\RoutesFileStructureViolationException;
 
 /**
- * RoutesLoader
+ * RoutesDataProvider
  *
  * @package ArchFW\Routing
  */
-class RoutesLoader
+class RoutesDataProvider
 {
     /**
      * @param string $path

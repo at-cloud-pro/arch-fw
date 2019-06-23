@@ -30,17 +30,14 @@ class Router implements RouterInterface
         $this->uri = $this->handleGets($uri);
 
         // load routes config
-        $routesCfg = RoutesLoader::load('../config/');
+        $routesCfg = RoutesDataProvider::load('../config/');
 
         // assign safe zone
         if (!array_key_exists('safe-zone', $routesCfg)) {
             throw new GeneralRoutingException('Config has no safe zone settings.');
         }
-        $this->safeZone = $routesCfg['safe-zone'];
 
-        $this->routes = RoutesParser::parse($routesCfg, $this->safeZone);
-
-        // assign route
+        $this->routes = RoutesParser::parseAll($routesCfg);
     }
 
     /**
