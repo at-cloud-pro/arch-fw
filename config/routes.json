@@ -10,7 +10,8 @@
     "initial-screen": {
       "path": "/kk",
       "class": "InitialScreenController",
-      "method": "index"
+      "method": "index",
+      "renderer": "ArchFW\\Renderers\\TwigRenderer"
     }
   }
 }

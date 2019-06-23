@@ -39,7 +39,7 @@ class Application
         // handle gets
         $_GET = $this->router->getRequestGetVars();
 
-        /** @var ControllerInterface $controller */
+        // build controller
         $controller = ControllerBuilder::build($route, $this->configLoader->load());
 
         // give further responsibility for user code

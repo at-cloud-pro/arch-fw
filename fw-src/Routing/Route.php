@@ -2,6 +2,8 @@
 
 namespace ArchFW\Routing;
 
+use ArchFW\Renderers\RenderableInterface;
+
 class Route
 {
     /** @var int */
@@ -18,6 +20,9 @@ class Route
 
     /** @var string */
     private $method;
+
+    /** @var RenderableInterface */
+    private $renderer;
 
     /**
      * @return int
@@ -106,6 +111,24 @@ class Route
     public function setMethod(string $method): Route
     {
         $this->method = $method;
+        return $this;
+    }
+
+    /**
+     * @return RenderableInterface
+     */
+    public function getRenderer(): RenderableInterface
+    {
+        return $this->renderer;
+    }
+
+    /**
+     * @param RenderableInterface $renderer
+     * @return Route
+     */
+    public function setRenderer(RenderableInterface $renderer): Route
+    {
+        $this->renderer = $renderer;
         return $this;
     }
 }

@@ -2,21 +2,20 @@
 
 namespace ArchFW\Routing;
 
+use;
+use ArchFW\Exceptions\Routing\CustomRendererClassNotFoundException;
 use ArchFW\Exceptions\Routing\GeneralRoutingException;
+use ArchFw\Exceptions\Routing\RendererNotInterfacedException;
+use ArchFW\Renderers\RenderableInterface;
+use ArchFW\Renderers\TwigRenderer;
 
-/**
- * RoutesParser
- *
- * @package ArchFW\Routing
- */
 class RoutesParser
 {
     /**
-     * @param array  $routesConfig
-     * @param string $safeZone
+     * @param array $routesConfig
      * @return Route[]
      */
-    public static function parse(array $routesConfig, string $safeZone): array
+    public static function parse(array $routesConfig): array
     {
         $routes = [];
         $iterator = 0;
@@ -30,21 +29,23 @@ class RoutesParser
                 ->setMethod($route['method']);
 
             // this will throw e on integrity violation
-            self::checkIntegrity($obj, $safeZone);
+            self::checkIntegrity($obj);
+
+            // make it render-able
+            self::assignRenderer($route, $obj);
+
 
             $routes[] = $obj;
             $iterator++;
         }
 
-//        dump($routes);
         return $routes;
     }
 
     /**
-     * @param Route  $route
-     * @param string $safeZone
+     * @param Route $route
      */
-    public static function checkIntegrity(Route $route, string $safeZone): void
+    public static function checkIntegrity(Route $route): void
     {
         // check class exist
         if (!class_exists($route->getClass())) {
@@ -61,5 +62,33 @@ class RoutesParser
             );
             throw new GeneralRoutingException($message);
         }
+    }
+
+    /**
+     * @param array $route
+     * @param Route $obj
+     * @return Route
+     */
+    private static function assignRenderer(array $route, Route $obj): Route
+    {
+        $renderer = array_key_exists('renderer', $route) ? $route['renderer'] : TwigRenderer::class;
+
+        // skip further testing in case same class as default
+        if ($renderer instanceof TwigRenderer) {
+            return $obj->setRenderer(new TwigRenderer());
+        }
+
+        // check if class extends correct interface
+        if (!$renderer instanceof RenderableInterface) {
+            throw new RendererNotInterfacedException('Custom renderer has to extends RenderableInterface.');
+        }
+
+        if (!class_exists($renderer)) {
+            throw new CustomRendererClassNotFoundException('Custom renderer class not found.');
+        }
+
+        // assign renderer
+        /** @var RenderableInterface $renderer */
+        return $obj->setRenderer(new $renderer());
     }
 }
