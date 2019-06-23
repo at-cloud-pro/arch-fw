@@ -1,17 +1,18 @@
 {
-  "default": "route-name",
+  "homepath": "route-name",
+  "default-renderer": "ArchFW\\Renderers\\TwigRenderer",
   "safe-zone": "App\\Controllers",
   "routes": {
     "route-name": {
       "path": "/",
       "class": "InitialScreenController",
-      "method": "index"
+      "method": "index",
+      "renderer": "App\\NewFakeRenderer"
     },
     "initial-screen": {
       "path": "/kk",
       "class": "InitialScreenController",
-      "method": "index",
-      "renderer": "ArchFW\\Renderers\\TwigRenderer"
+      "method": "index"
     }
   }
 }

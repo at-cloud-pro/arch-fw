@@ -33,7 +33,6 @@ class RoutesParser
             // make it render-able
             self::assignRenderer($route, $obj);
 
-
             $routes[] = $obj;
             $iterator++;
         }
@@ -78,7 +77,7 @@ class RoutesParser
         }
 
         // check if class extends correct interface
-        if (!$renderer instanceof RenderableInterface) {
+        if (!is_a($renderer, RenderableInterface::class, true)) {
             throw new RendererNotInterfacedException('Custom renderer has to extends RenderableInterface.');
         }
 
