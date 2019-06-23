@@ -20,7 +20,7 @@ class TwigRenderer implements RenderableInterface
 
     public function __construct()
     {
-        $loader = new FilesystemLoader('/templates');
+        $loader = new FilesystemLoader('../templates');
         $this->twig = new Environment($loader, [
 //            'cache' => '/path/to/compilation_cache',
         ]);

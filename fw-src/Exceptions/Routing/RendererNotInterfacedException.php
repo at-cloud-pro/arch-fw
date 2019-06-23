@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ArchFw\Exceptions\Routing;
+namespace ArchFW\Exceptions\Routing;
 
 class RendererNotInterfacedException extends GeneralRoutingException
 {

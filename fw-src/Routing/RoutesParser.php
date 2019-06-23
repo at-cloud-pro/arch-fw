@@ -2,10 +2,9 @@
 
 namespace ArchFW\Routing;
 
-use;
 use ArchFW\Exceptions\Routing\CustomRendererClassNotFoundException;
 use ArchFW\Exceptions\Routing\GeneralRoutingException;
-use ArchFw\Exceptions\Routing\RendererNotInterfacedException;
+use ArchFW\Exceptions\Routing\RendererNotInterfacedException;
 use ArchFW\Renderers\RenderableInterface;
 use ArchFW\Renderers\TwigRenderer;
 
@@ -74,7 +73,7 @@ class RoutesParser
         $renderer = array_key_exists('renderer', $route) ? $route['renderer'] : TwigRenderer::class;
 
         // skip further testing in case same class as default
-        if ($renderer instanceof TwigRenderer) {
+        if ($renderer === TwigRenderer::class) {
             return $obj->setRenderer(new TwigRenderer());
         }
 

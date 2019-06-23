@@ -20,11 +20,11 @@ class RoutesLoader
      */
     public static function load(string $path): array
     {
-        $file = $path . 'routes.json';
+        $file = $path . 'routing.json';
 
         // catch file absence
         if (!file_exists($file)) {
-            $message = sprintf('Routes file \'routes.json\' wasn\'t found in \'%s\'.', $path);
+            $message = sprintf('Routes file \'routing.json\' wasn\'t found in \'%s\'.', $path);
             throw new RoutesFileNotFoundException($message);
         }
 
