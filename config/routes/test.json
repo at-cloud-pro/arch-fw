@@ -1,0 +1,22 @@
+{
+  "routes": {
+    "route-name-second": {
+      "path": "/test",
+      "class": "InitialScreenController",
+      "method": "index",
+      "renderer": "App\\NewFakeRenderer"
+    },
+    "gui_test": {
+      "path": "/gui/test",
+      "class": "InitialScreenController",
+      "method": "index",
+      "renderer": "App\\NewFakeRenderer"
+    },
+    "api_test": {
+      "path": "/api/test",
+      "class": "InitialScreenController",
+      "method": "index",
+      "renderer": "App\\NewFakeRenderer"
+    }
+  }
+}

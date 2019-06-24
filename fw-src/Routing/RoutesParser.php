@@ -6,64 +6,90 @@ use ArchFW\Exceptions\Routing\CustomRendererClassNotFoundException;
 use ArchFW\Exceptions\Routing\DefaultRendererClassNotFound;
 use ArchFW\Exceptions\Routing\GeneralRoutingException;
 use ArchFW\Exceptions\Routing\RendererNotInterfacedException;
+use ArchFW\Exceptions\Routing\RoutesFileStructureViolationException;
 use ArchFW\Renderers\RenderableInterface;
 use ArchFW\Renderers\TwigRenderer;
 
 /**
- * Class with static route parsing utilities
+ * Class with route parsing utilities
  *
  * @package ArchFW\Routing
  */
 class RoutesParser
 {
+    /** @var array holds routes config */
+    private $generalConfig;
+
+    /** @var array[] */
+    private $routesToParse = [];
+
+    /**
+     * RoutesParse
+     *
+     * @param array $generalConfig
+     */
+    public function __construct(array $generalConfig)
+    {
+        $this->generalConfig = $generalConfig;
+    }
+
     /**
      * Parses data loaded from routing files to Route collection
      *
-     * @param array $generalConfig
      * @return Route[]
      */
-    public static function parseAll(array $generalConfig): array
+    public function parseAll(): array
     {
-        $routes = [];
-        $iterator = 0;
+        //collect all route config files into one big array
+        $this->routesToParse = $this->generalConfig['routes'];
 
-        foreach ($generalConfig['routes'] as $name => $route) {
-            $obj = self::parseOne($iterator, $name, $route, $generalConfig);
-            $routes[] = $obj;
-            $iterator++;
+        // if include paths are selected, load it
+        if (array_key_exists('include-paths', $this->generalConfig)) {
+            $this->loadIncludedFiles($this->generalConfig['include-paths']);
         }
 
-        return $routes;
+        // set array collectors
+        $parsedRoutes = [];
+        $id = 0;
+
+        // load from main file
+        foreach ($this->routesToParse as $name => $route) {
+            $obj = $this->dataToRoute($id, $name, $route);
+            $parsedRoutes[] = $obj;
+            $id++;
+        }
+        return $parsedRoutes;
+
     }
 
     /**
      * Parses simple route from config to Route object
      *
-     * @param int    $iterator      route ID
-     * @param string $name          route individual name
-     * @param array  $route         one route config
-     * @param array  $generalConfig general config
+     * @param int    $id        route ID
+     * @param string $routeName route individual name
+     * @param array  $routeData one route config
      * @return Route
      */
-    public static function parseOne(int $iterator, string $name, array $route, array $generalConfig): Route
+    private function dataToRoute(int $id, string $routeName, array $routeData): Route
     {
+        dump($routeData);
         $obj = new Route();
-        $obj->setId($iterator)
-            ->setName($name)
-            ->setPath($route['path'])
-            ->setClass($generalConfig['safe-zone'] . '\\' . $route['class'])
-            ->setMethod($route['method']);
+        $obj->setId($id)
+            ->setName($routeName)
+            ->setPath($routeData['path'])
+            ->setClass($this->generalConfig['safe-zone'] . '\\' . $routeData['class'])
+            ->setMethod($routeData['method']);
 
         // this will throw e on integrity violation
-        self::checkIntegrity($obj);
+        $this->checkIntegrity($obj);
 
         // select default renderer
-        $defaultRenderer = array_key_exists('default-renderer', $generalConfig)
-            ? $generalConfig['default-renderer']
+        $defaultRenderer = array_key_exists('default-renderer', $this->generalConfig)
+            ? $this->generalConfig['default-renderer']
             : TwigRenderer::class;
 
         // make it render-able
-        self::assignRenderer($route, $obj, $defaultRenderer);
+        self::assignRenderer($routeData, $obj, $defaultRenderer);
 
         return $obj;
     }
@@ -73,7 +99,7 @@ class RoutesParser
      *
      * @param Route $route
      */
-    public static function checkIntegrity(Route $route): void
+    private function checkIntegrity(Route $route): void
     {
         // check class exist
         if (!class_exists($route->getClass())) {
@@ -89,6 +115,25 @@ class RoutesParser
                 $route->getMethod()
             );
             throw new GeneralRoutingException($message);
+        }
+    }
+
+    /**
+     * @param array $filenames
+     */
+    private function loadIncludedFiles(array $filenames): void
+    {
+        // load include-paths files
+        foreach ($this->generalConfig['include-paths'] as $filepath) {
+            $loadedData = RoutesLoader::loadOne('../config/' . $filepath);
+            // catch
+            if (!array_key_exists('routes', $loadedData)) {
+                throw new RoutesFileStructureViolationException(
+                    '\'routes\' key missing in file \'' . $filepath . '\'.'
+                );
+            }
+            // add tp one array
+            $this->routesToParse += $loadedData['routes'];
         }
     }
 
@@ -127,7 +172,7 @@ class RoutesParser
             return $obj->setRenderer(new TwigRenderer());
         }
 
-        // check if render class exists
+        // check if custom render class exists
         if (!class_exists($renderer)) {
             throw new CustomRendererClassNotFoundException('Custom renderer class not found.');
         }

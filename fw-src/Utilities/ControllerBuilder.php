@@ -30,8 +30,8 @@ class ControllerBuilder
         /** @var ControllerInterface $controller */
         $controller = new $class();
 
-        $controller->setSession(new SessionStorage())
-                   ->setConfig($config);
+        $controller->setSession(new SessionStorage());
+        $controller->setConfig($config);
 
         if ($controller instanceof AbstractTwigRenderController) {
             $renderer = new TwigRenderer();
