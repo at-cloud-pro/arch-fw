@@ -4,7 +4,7 @@ namespace ArchFW;
 
 use ArchFW\Configuration\ConfigLoader;
 use ArchFW\Controllers\ControllerInterface;
-use ArchFW\Routing\Router;
+use ArchFW\Routing\Utilities\Router;
 use ArchFW\Utilities\ControllerBuilder;
 
 class Application
@@ -22,7 +22,6 @@ class Application
     {
         $this->configLoader = new ConfigLoader(__DIR__ . '/../config');
         $this->router = new Router($_SERVER['REQUEST_URI']);
-
     }
 
     /**

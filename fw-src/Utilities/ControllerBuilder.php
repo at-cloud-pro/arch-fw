@@ -6,7 +6,7 @@ use ArchFW\Configuration\Config;
 use ArchFW\Controllers\AbstractTwigRenderController;
 use ArchFW\Controllers\Interfaces\ControllerInterface;
 use ArchFW\Renderers\TwigRenderer;
-use ArchFW\Routing\Route;
+use ArchFW\Routing\ValueObjects\Route;
 use ArchFW\Storage\SessionStorage;
 
 /**

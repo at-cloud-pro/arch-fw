@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace ArchFW\Routing;
+namespace ArchFW\Routing\Utilities;
 
 use ArchFW\Exceptions\Routing\CustomRendererClassNotFoundException;
 use ArchFW\Exceptions\Routing\DefaultRendererClassNotFound;
 use ArchFW\Exceptions\Routing\GeneralRoutingException;
 use ArchFW\Exceptions\Routing\RendererNotInterfacedException;
-use ArchFW\Exceptions\Routing\RoutesFileStructureViolationException;
 use ArchFW\Renderers\RenderableInterface;
 use ArchFW\Renderers\TwigRenderer;
+use ArchFW\Routing\ValueObjects\Route;
 
 /**
  * Class with route parsing utilities
@@ -45,14 +45,17 @@ class RoutesParser
 
         // if include paths are selected, load it
         if (array_key_exists('include-paths', $this->generalConfig)) {
-            $this->loadIncludedFiles($this->generalConfig['include-paths']);
+            $includes = RoutesLoader::loadMany($this->generalConfig['include-paths']);
+            foreach ($includes as $name => $route) {
+                $this->routesToParse[$name] = $route;
+            }
         }
 
         // set array collectors
         $parsedRoutes = [];
         $id = 0;
 
-        // load from main file
+        // parse all
         foreach ($this->routesToParse as $name => $route) {
             $obj = $this->dataToRoute($id, $name, $route);
             $parsedRoutes[] = $obj;
@@ -72,7 +75,6 @@ class RoutesParser
      */
     private function dataToRoute(int $id, string $routeName, array $routeData): Route
     {
-        dump($routeData);
         $obj = new Route();
         $obj->setId($id)
             ->setName($routeName)
@@ -115,25 +117,6 @@ class RoutesParser
                 $route->getMethod()
             );
             throw new GeneralRoutingException($message);
-        }
-    }
-
-    /**
-     * @param array $filenames
-     */
-    private function loadIncludedFiles(array $filenames): void
-    {
-        // load include-paths files
-        foreach ($this->generalConfig['include-paths'] as $filepath) {
-            $loadedData = RoutesLoader::loadOne('../config/' . $filepath);
-            // catch
-            if (!array_key_exists('routes', $loadedData)) {
-                throw new RoutesFileStructureViolationException(
-                    '\'routes\' key missing in file \'' . $filepath . '\'.'
-                );
-            }
-            // add tp one array
-            $this->routesToParse += $loadedData['routes'];
         }
     }
 

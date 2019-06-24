@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ArchFW\Routing;
+namespace ArchFW\Routing\Abstracts;
 
 interface RouterInterface
 {

@@ -1,18 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace ArchFW\Routing;
+namespace ArchFW\Routing\Utilities;
 
 use ArchFW\Exceptions\Routing\GeneralRoutingException;
 use ArchFW\Exceptions\Routing\RouteNotFoundException;
+use ArchFW\Routing\Abstracts\RouterInterface;
+use ArchFW\Routing\ValueObjects\Route;
 use ArchFW\Utilities\UriParser;
 
 class Router implements RouterInterface
 {
     /** @var array */
     private $requestGetVars;
-
-    /** @var string */
-    private $safeZone;
 
     /** @var string */
     private $uri;
@@ -38,8 +37,9 @@ class Router implements RouterInterface
         }
 
         // parse all routes
-        $routeParser = new RoutesParser($routesCfg);
-        $this->routes = $routeParser->parseAll();
+        $routesParser = new RoutesParser($routesCfg);
+        $this->routes = $routesParser->parseAll();
+        dump($this->routes);
     }
 
     /**
@@ -89,11 +89,6 @@ class Router implements RouterInterface
     public function getRequestGetVars(): array
     {
         return $this->requestGetVars;
-    }
-
-    public function getSafeZone(): string
-    {
-        return $this->safeZone;
     }
 
     public function getAdressForRoute(string $routeName)

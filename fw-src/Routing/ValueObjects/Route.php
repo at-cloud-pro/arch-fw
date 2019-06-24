@@ -1,9 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace ArchFW\Routing;
+namespace ArchFW\Routing\ValueObjects;
 
 use ArchFW\Renderers\RenderableInterface;
 
+/**
+ * Representation of one route
+ *
+ * @package ArchFW\Routing
+ */
 class Route
 {
     /** @var int */
